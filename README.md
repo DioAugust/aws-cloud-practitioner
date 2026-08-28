@@ -61,7 +61,9 @@ O agendamento sai pela sua **AWS Certification Account**: **https://aws.amazon.c
 
 ---
 
-## A trilha de estudo
+## A trilha de estudo — 100% gratuita
+
+Tudo nesta trilha custa **zero**: o conteúdo base é open source, o curso e o question set oficiais são gratuitos no Skill Builder, o simulado é deste repo — e, se você veio do AIF-C01 pela promoção, até a prova sai de graça com o voucher. Não precisa comprar curso nem simulado pago para passar nesta certificação.
 
 ### 1. Conteúdo base em português — repositório aws-certified-cloud-practitioner-brasil (grátis)
 
