@@ -87,14 +87,6 @@ O [`edital.md`](edital.md) deste repositório é o exam guide oficial mastigado.
 
 Flashcards de manhã (5–10 min, só o que está vencido) e questões à noite. O [caderno de erros](https://dioaugust.github.io/aws-cloud-foundations/) do simulado acumula tudo que você errou entre sessões e só solta a questão quando você acerta de novo.
 
-### 4. Material complementar em português
-
-**https://github.com/Thiago-code-lab/aws-certified-cloud-practitioner-brasil**
-
-Repositório open source em PT-BR que serviu de inspiração para os formatos deste aqui (flashcards, checklist de véspera, lista de erros frequentes, labs). Vale a visita pelos **flashcards** e pelo **quick-review**, que são as partes mais consistentes.
-
-> **Ressalva honesta:** a maior parte dos 128 arquivos de teoria dos módulos 01–15 é bem resumida — muitos têm poucas linhas de conteúdo real. Use como material de apoio e revisão, **não como sua fonte principal de teoria**. Para isso, o curso oficial gratuito do Skill Builder (passo 1) é mais completo e mais atualizado.
-
 > **Sobre o idioma:** a prova pode ser feita em português, mas os **nomes dos serviços e a documentação vivem em inglês**. Vale se acostumar com os termos originais (`shared responsibility model`, `least privilege`, `read replica`, `lifecycle policy`) mesmo estudando em PT-BR — é assim que a prova traduzida se comporta, e é assim que o material deste repo foi escrito.
 
 ---
