@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulado AWS Certified Cloud Practitioner (CLF-C02) · @dioaugusto.dev</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23201C18'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-family='Segoe UI,Helvetica,sans-serif' font-size='19' font-weight='700' fill='%23F2EEE6'%3Ed%3C/text%3E%3Crect x='19' y='20' width='7' height='2.4' fill='%23F2A33C'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --grafite:#201C18; --papel:#F5F1E8; --papel2:#EFEBE2; --ink:#181510;
+  --giz:#F2EEE6; --ambar:#F2A33C; --aco:#8A8578;
+  --linha:#DCD6C8; --ok:#3F7D53; --erro:#B4483C;
+  --sora:'Sora',-apple-system,BlinkMacSystemFont,sans-serif;
+  --inter:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  --mono:ui-monospace,'JetBrains Mono',Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--papel2);color:var(--ink);font-family:var(--inter);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--sora);font-weight:600;line-height:1.2}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px}
+.mono{font-family:var(--mono)}
+
+/* ---------- topo ---------- */
+header{background:var(--grafite);color:var(--giz);padding:18px 0}
+header .wrap{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.wordmark{font-family:var(--sora);font-weight:600;font-size:20px;letter-spacing:-.02em;color:var(--giz);white-space:nowrap}
+.wordmark .at{color:var(--aco)}
+.wordmark .dev{color:var(--ambar)}
+.htitle{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--aco)}
+.spacer{flex:1}
+
+/* ---------- blocos ---------- */
+main{padding:34px 0 80px}
+.card{background:var(--papel);border:1px solid var(--linha);border-radius:12px;padding:22px}
+.card+.card{margin-top:16px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;border:1.5px solid var(--linha);border-radius:999px;padding:4px 10px;color:var(--aco)}
+.chip.on{border-color:var(--ambar);color:var(--ink)}
+.lead{color:var(--aco);font-size:15px}
+.hl{box-shadow:inset 0 -.42em 0 rgba(242,163,60,.42)}
+
+.btn{font-family:var(--sora);font-weight:600;font-size:15px;border:none;border-radius:12px;padding:13px 22px;cursor:pointer;background:var(--grafite);color:var(--giz);transition:.15s}
+.btn:hover{background:#2C2721}
+.btn.amber{background:var(--ambar);color:var(--ink)}
+.btn.amber:hover{background:#E5952F}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--linha)}
+.btn.ghost:hover{border-color:var(--aco)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.sm{font-size:13px;padding:9px 15px;border-radius:10px}
+
+/* ---------- home ---------- */
+.hero{background:var(--grafite);color:var(--giz);border-radius:12px;padding:30px 26px;margin-bottom:18px}
+.hero h1{font-size:30px;letter-spacing:-.02em}
+.hero p{color:var(--aco);margin-top:8px;max-width:60ch}
+.facts{display:flex;gap:26px;flex-wrap:wrap;margin-top:20px;padding-top:18px;border-top:1px solid #3A342C}
+.fact b{display:block;font-family:var(--sora);font-size:21px;color:var(--giz)}
+.fact span{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--aco)}
+
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.mode{background:var(--papel);border:1.5px solid var(--linha);border-radius:12px;padding:20px;cursor:pointer;text-align:left;font-family:var(--inter);transition:.15s}
+.mode:hover{border-color:var(--ambar)}
+.mode .n{font-family:var(--sora);font-weight:800;font-size:30px;color:var(--ambar);line-height:1}
+.mode h3{font-size:17px;margin:8px 0 5px}
+.mode p{font-size:13.5px;color:var(--aco)}
+
+.secttl{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--aco);margin:26px 0 12px}
+.domlist{display:grid;gap:8px}
+.domrow{display:flex;align-items:center;gap:14px;background:var(--papel);border:1px solid var(--linha);border-radius:12px;padding:13px 16px;cursor:pointer;text-align:left;font-family:var(--inter);width:100%;transition:.15s}
+.domrow:hover{border-color:var(--ambar)}
+.domrow .dn{font-family:var(--mono);font-size:12px;color:var(--ambar);font-weight:700;min-width:22px}
+.domrow .dt{flex:1}
+.domrow .dt b{display:block;font-family:var(--sora);font-size:15px;font-weight:600}
+.domrow .dt small{color:var(--aco);font-size:12.5px}
+.domrow .dw{font-family:var(--mono);font-size:13px;color:var(--aco)}
+
+.opts{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.toggle{display:flex;align-items:center;gap:9px;font-size:13.5px;cursor:pointer;border:1.5px solid var(--linha);border-radius:999px;padding:7px 14px;background:var(--papel)}
+.toggle input{accent-color:var(--ambar);width:15px;height:15px}
+
+/* ---------- quiz ---------- */
+.qbar{position:sticky;top:0;z-index:20;background:var(--papel2);border-bottom:1px solid var(--linha);padding:11px 0}
+.qbar .wrap{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.prog{flex:1;min-width:120px;height:5px;background:var(--linha);border-radius:99px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--ambar);width:0;transition:.25s}
+.timer{font-family:var(--mono);font-size:14px;font-weight:700}
+.timer.warn{color:var(--erro)}
+.counter{font-family:var(--mono);font-size:12.5px;color:var(--aco)}
+
+.qhead{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.stem{font-size:17.5px;line-height:1.5;font-family:var(--inter);font-weight:500}
+.alts{margin-top:18px;display:grid;gap:9px}
+.alt{display:flex;gap:13px;align-items:flex-start;width:100%;text-align:left;color:inherit;font-family:var(--inter);border:1.5px solid var(--linha);border-radius:12px;padding:13px 15px;cursor:pointer;background:var(--papel);transition:.12s;font-size:15px;line-height:1.45}
+.alt:hover{border-color:var(--aco)}
+.alt:focus-visible{outline:2px solid var(--ambar);outline-offset:2px}
+.alt.sel{border-color:var(--ambar);background:#FBF3E5}
+.alt .k{font-family:var(--mono);font-size:12.5px;font-weight:700;color:var(--aco);min-width:15px;padding-top:2px}
+.alt.sel .k{color:var(--ambar)}
+.alt.good{border-color:var(--ok);background:#EDF3EE}
+.alt.bad{border-color:var(--erro);background:#F7EBE9}
+.alt.travada{cursor:default}
+.alt.travada:hover{border-color:var(--linha)}
+.alt.travada.good:hover{border-color:var(--ok)}
+.alt.travada.bad:hover{border-color:var(--erro)}
+
+.qnav{display:flex;gap:10px;align-items:center;margin-top:20px;flex-wrap:wrap}
+.grid{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.gq{width:31px;height:31px;border-radius:8px;border:1.5px solid var(--linha);background:var(--papel);font-family:var(--mono);font-size:11.5px;cursor:pointer;color:var(--aco)}
+.gq.done{background:var(--grafite);color:var(--giz);border-color:var(--grafite)}
+.gq.flag{border-color:var(--ambar);color:var(--ink)}
+.gq.cur{outline:2px solid var(--ambar);outline-offset:1px}
+
+.fb{margin-top:16px;border-left:3px solid var(--ambar);background:var(--papel2);border-radius:0 10px 10px 0;padding:13px 16px;font-size:14.5px}
+.fb b{font-family:var(--sora)}
+
+/* ---------- resultado ---------- */
+.score{display:flex;gap:30px;align-items:center;flex-wrap:wrap}
+.ring{width:132px;height:132px;flex:0 0 auto}
+.verdict{font-family:var(--sora);font-weight:700;font-size:25px}
+.verdict.pass{color:#8FD9A8}
+.verdict.fail{color:var(--ambar)}
+
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--aco);font-weight:500;padding:0 8px 9px;border-bottom:1px solid var(--linha)}
+td{padding:11px 8px;border-bottom:1px solid var(--linha);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+.bar{height:9px;background:var(--linha);border-radius:99px;overflow:hidden;min-width:80px}
+.bar i{display:block;height:100%;border-radius:99px}
+.num{font-family:var(--mono);font-size:13px;white-space:nowrap}
+.pill{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1.5px solid}
+.pill.p1{border-color:var(--erro);color:var(--erro)}
+.pill.p2{border-color:var(--ambar);color:#B77A22}
+.pill.p3{border-color:var(--ok);color:var(--ok)}
+
+.revq{border:1px solid var(--linha);border-radius:12px;padding:15px 17px;margin-bottom:9px;background:var(--papel)}
+.revq.wrong{border-left:3px solid var(--erro)}
+.revq.right{border-left:3px solid var(--ok)}
+.revq summary{cursor:pointer;font-weight:500;list-style:none;display:flex;gap:11px;align-items:flex-start}
+.revq summary::-webkit-details-marker{display:none}
+.mark{font-family:var(--mono);font-weight:700;font-size:14px}
+.mark.ok{color:var(--ok)} .mark.no{color:var(--erro)}
+.revbody{margin-top:13px;font-size:14.5px}
+.revbody .l{display:block;margin:5px 0;padding:8px 11px;border-radius:9px;background:var(--papel2)}
+.revbody .l.good{background:#EDF3EE;border-left:3px solid var(--ok)}
+.revbody .l.bad{background:#F7EBE9;border-left:3px solid var(--erro)}
+
+footer{border-top:1px solid var(--linha);padding:22px 0 40px;color:var(--aco);font-size:12.5px}
+footer .sig{font-family:var(--sora);font-weight:600;color:var(--ink)}
+.hidden{display:none!important}
+@media(max-width:620px){.hero h1{font-size:24px}.wrap{padding:0 14px}.ring{width:104px;height:104px}}
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <div class="wordmark"><span class="at">@</span>dioaugusto<span class="dev">.dev</span></div>
+  <div class="htitle">Simulado CLF-C02</div>
+  <div class="spacer"></div>
+  <button class="btn ghost sm hidden" id="btnAbort">Sair do simulado</button>
+</div></header>
+
+<!-- ============ HOME ============ -->
+<main id="viewHome"><div class="wrap">
+  <div class="hero">
+    <h1>AWS Certified <span class="hl">Cloud Practitioner</span></h1>
+    <p>Banco de 100 questões inéditas construídas a partir do exam guide oficial do CLF-C02, distribuídas na proporção real dos domínios. Responda, veja o que errou e descubra onde o estudo rende mais nota.</p>
+    <div class="facts">
+      <div class="fact"><b>65</b><span>questões na prova</span></div>
+      <div class="fact"><b>90 min</b><span>duração</span></div>
+      <div class="fact"><b>700</b><span>nota de corte / 1000</span></div>
+      <div class="fact"><b>100</b><span>questões no banco</span></div>
+    </div>
+  </div>
+
+  <div class="secttl">Escolha o modo</div>
+  <div class="modes">
+    <button class="mode" data-mode="full"><div class="n">65</div><h3>Simulado completo</h3><p>Formato oficial: 65 questões na proporção 24 / 30 / 34 / 12 e cronômetro de 90 minutos.</p></button>
+    <button class="mode" data-mode="quick"><div class="n">30</div><h3>Prova rápida</h3><p>Mesma proporção de domínios, 30 questões em 45 minutos. Bom para diagnóstico do dia.</p></button>
+    <button class="mode" data-mode="all"><div class="n">100</div><h3>Banco inteiro</h3><p>Todas as 100 questões, sem cronômetro. Maratona de revisão antes da prova.</p></button>
+  </div>
+
+  <div class="secttl">Ou treine um domínio isolado</div>
+  <div class="domlist" id="domList"></div>
+
+  <div class="secttl">Ajustes</div>
+  <div class="opts">
+    <label class="toggle"><input type="checkbox" id="optStudy"> Modo estudo (mostra o gabarito na hora)</label>
+    <label class="toggle"><input type="checkbox" id="optShuffleQ" checked> Embaralhar questões</label>
+    <label class="toggle"><input type="checkbox" id="optShuffleA" checked> Embaralhar alternativas</label>
+    <label class="toggle"><input type="checkbox" id="optTimer" checked> Cronômetro</label>
+  </div>
+
+  <div id="histBox" class="hidden">
+    <div class="secttl">Suas tentativas nesta sessão</div>
+    <div class="card"><table><thead><tr><th>#</th><th>Modo</th><th>Acertos</th><th>Nota estimada</th><th>Domínio mais fraco</th></tr></thead><tbody id="histBody"></tbody></table></div>
+  </div>
+</div></main>
+
+<!-- ============ QUIZ ============ -->
+<div id="viewQuiz" class="hidden">
+  <div class="qbar"><div class="wrap">
+    <span class="counter" id="qCounter">1 / 65</span>
+    <div class="prog"><i id="qProg"></i></div>
+    <span class="timer" id="qTimer"></span>
+  </div></div>
+  <main><div class="wrap">
+    <div class="card">
+      <div class="qhead" id="qHead"></div>
+      <div class="stem" id="qStem"></div>
+      <div class="alts" id="qAlts"></div>
+      <div id="qFb"></div>
+      <div class="qnav">
+        <button class="btn ghost sm" id="btnPrev">← Anterior</button>
+        <button class="btn sm" id="btnNext">Próxima →</button>
+        <button class="btn ghost sm" id="btnFlag">Marcar para revisar</button>
+        <div class="spacer"></div>
+        <button class="btn amber sm" id="btnFinish">Finalizar e ver resultado</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="chip">Mapa de questões</div>
+      <div class="grid" id="qGrid"></div>
+    </div>
+  </div></main>
+</div>
+
+<!-- ============ RESULTADO ============ -->
+<div id="viewResult" class="hidden"><main><div class="wrap" id="resWrap"></div></main></div>
+
+<footer><div class="wrap">
+  Simulado de estudo não oficial, escrito a partir do exam guide público do CLF-C02. Não reproduz questões reais do exame.
+  <div class="sig" style="margin-top:6px">@dioaugusto.dev</div>
+</div></footer>
+
+<script>
+const BANK = [{"id":"D1-01","dominio":1,"tarefa":"1.1","tema":"Proposta de valor da nuvem AWS","dificuldade":"facil","tipo":"unica","enunciado":"Uma empresa de varejo mantém um datacenter próprio e precisa comprar servidores meses antes das datas de pico, com base em estimativas de demanda. Ao migrar para a AWS, qual benefício resolve diretamente esse problema?","opcoes":["Deixar de estimar capacidade: provisionar e liberar recursos conforme a demanda real (elasticidade).","Transferir toda a responsabilidade de segurança da aplicação para a AWS.","Eliminar completamente os custos de computação, já que a nuvem é gratuita para picos sazonais.","Garantir que a aplicação nunca mais sofra indisponibilidade de qualquer tipo."],"corretas":[0],"explicacao":"Um dos benefícios centrais da nuvem é parar de adivinhar capacidade (stop guessing capacity): você escala para cima e para baixo conforme a demanda real e paga pelo que usa. A segurança da aplicação continua sendo responsabilidade do cliente, a nuvem não é gratuita e nenhum provedor garante indisponibilidade zero."},{"id":"D1-02","dominio":1,"tarefa":"1.1","tema":"CapEx vs. OpEx","dificuldade":"facil","tipo":"unica","enunciado":"Um diretor financeiro quer entender o impacto econômico de migrar para a AWS. Qual mudança no modelo de custos descreve corretamente essa migração?","opcoes":["Troca de despesas variáveis por grandes investimentos antecipados em hardware.","Troca de investimento de capital antecipado (CapEx) por despesa variável conforme o uso (OpEx).","Aumento do custo fixo mensal, independente do consumo de recursos.","Necessidade de contratos de longo prazo obrigatórios para qualquer serviço."],"corretas":[1],"explicacao":"Na nuvem, o investimento antecipado em datacenters e servidores (capital expense) é substituído por despesa variável: paga-se apenas pelo que se consome, quando se consome. Contratos de longo prazo (como Reserved Instances) são opcionais, nunca obrigatórios."},{"id":"D1-03","dominio":1,"tarefa":"1.1","tema":"Economias de escala","dificuldade":"facil","tipo":"unica","enunciado":"Por que o preço de muitos serviços AWS tende a cair ao longo do tempo?","opcoes":["Porque a AWS repassa aos clientes as economias de escala obtidas com a agregação de demanda de centenas de milhares de clientes.","Porque a legislação internacional obriga provedores de nuvem a reduzir preços anualmente.","Porque os clientes negociam individualmente cada redução de preço.","Porque o hardware usado pela AWS perde valor contábil e isso é repassado automaticamente."],"corretas":[0],"explicacao":"Com um volume gigantesco de clientes, a AWS compra infraestrutura a custos menores e repassa parte dessas economias de escala em reduções de preço. É um dos benefícios clássicos listados no material oficial: 'benefit from massive economies of scale'."},{"id":"D1-04","dominio":1,"tarefa":"1.1","tema":"Agilidade e velocidade","dificuldade":"media","tipo":"unica","enunciado":"Uma startup quer testar três ideias de produto ao mesmo tempo, criando e destruindo ambientes de teste rapidamente e sem compromisso de longo prazo. Qual característica da nuvem AWS atende diretamente a essa necessidade?","opcoes":["Alta disponibilidade garantida por SLAs de 100% de uptime.","Agilidade: provisionar recursos em minutos, experimentar com baixo custo e descartar o que não funcionar.","Obrigatoriedade de reservar instâncias por 1 ou 3 anos para qualquer workload.","Acesso físico dos clientes aos datacenters para instalar os próprios servidores."],"corretas":[1],"explicacao":"Agilidade é a capacidade de provisionar recursos em minutos e experimentar barato: se a ideia falhar, os recursos são desligados e o custo para. SLAs de 100% não existem, reservas são opcionais e clientes não têm acesso físico aos datacenters da AWS."},{"id":"D1-05","dominio":1,"tarefa":"1.1","tema":"Alcance global em minutos","dificuldade":"facil","tipo":"unica","enunciado":"Uma empresa brasileira de jogos quer lançar seu produto na Europa e na Ásia com baixa latência para os usuários locais, sem construir datacenters. Como a AWS viabiliza isso?","opcoes":["Permitindo implantar a aplicação em múltiplas Regions ao redor do mundo em minutos.","Enviando servidores físicos da AWS para o escritório do cliente em cada país.","Exigindo um contrato separado com cada governo local antes de qualquer implantação.","Limitando cada conta AWS a operar em uma única Region."],"corretas":[0],"explicacao":"O benefício 'go global in minutes' vem da infraestrutura global da AWS: basta implantar a aplicação em Regions próximas aos usuários. Uma conta pode usar várias Regions; não há envio de servidores ao cliente (exceto casos específicos como Snow Family e Outposts, que são outra proposta)."},{"id":"D1-06","dominio":1,"tarefa":"1.1","tema":"Elasticidade vs. escalabilidade vs. alta disponibilidade","dificuldade":"media","tipo":"unica","enunciado":"Durante a Black Friday, um site de e-commerce na AWS aumenta automaticamente o número de instâncias EC2 de 4 para 40 e, após o evento, retorna a 4. Qual conceito esse comportamento demonstra?","opcoes":["Tolerância a falhas, porque o sistema continua operando mesmo com componentes com defeito.","Elasticidade, porque a capacidade acompanha a demanda para cima e para baixo automaticamente.","Alta disponibilidade, porque o site está distribuído em múltiplas Availability Zones.","Agilidade, porque novos ambientes de desenvolvimento são criados rapidamente."],"corretas":[1],"explicacao":"Elasticidade é ajustar a capacidade automaticamente conforme a demanda, nos dois sentidos. Alta disponibilidade e tolerância a falhas tratam de continuar operando diante de falhas, e agilidade trata de velocidade de experimentação — nenhum descreve o ajuste automático de capacidade."},{"id":"D1-07","dominio":1,"tarefa":"1.1","tema":"Benefícios da nuvem AWS","dificuldade":"media","tipo":"multipla","enunciado":"Quais das opções a seguir são benefícios reconhecidos da computação em nuvem na AWS? (Escolha DUAS.)","opcoes":["Deixar de gastar dinheiro operando e mantendo datacenters próprios.","Aumentar a velocidade e a agilidade para experimentar e inovar.","Garantia contratual de que nenhum recurso jamais ficará indisponível.","Transferência integral da responsabilidade por compliance para a AWS.","Eliminação da necessidade de qualquer planejamento de arquitetura."],"corretas":[0,1],"explicacao":"Entre os benefícios clássicos estão parar de gastar com operação de datacenters (a AWS faz o 'undifferentiated heavy lifting') e ganhar velocidade e agilidade. Disponibilidade absoluta não existe, compliance é responsabilidade compartilhada e boa arquitetura continua sendo necessária — o Well-Architected Framework existe exatamente para isso."},{"id":"D1-08","dominio":1,"tarefa":"1.2","tema":"Pilares do Well-Architected Framework","dificuldade":"facil","tipo":"unica","enunciado":"Qual conjunto lista corretamente pilares do AWS Well-Architected Framework?","opcoes":["Excelência operacional, segurança, confiabilidade, eficiência de performance, otimização de custos e sustentabilidade.","Velocidade, escalabilidade, redundância, backup, monitoramento e automação.","Business, People, Governance, Platform, Security e Operations.","Rehost, Replatform, Refactor, Repurchase, Retire e Retain."],"corretas":[0],"explicacao":"Os seis pilares do Well-Architected Framework são: operational excellence, security, reliability, performance efficiency, cost optimization e sustainability. A terceira opção lista as perspectivas do Cloud Adoption Framework (CAF) e a quarta lista estratégias de migração (Rs) — pegadinhas clássicas da prova."},{"id":"D1-09","dominio":1,"tarefa":"1.2","tema":"Pilar de confiabilidade","dificuldade":"media","tipo":"unica","enunciado":"Uma equipe redesenhou sua aplicação para se recuperar automaticamente de falhas de instância e testar procedimentos de recuperação regularmente. A qual pilar do Well-Architected Framework essas práticas pertencem?","opcoes":["Otimização de custos (cost optimization).","Confiabilidade (reliability).","Eficiência de performance (performance efficiency).","Sustentabilidade (sustainability)."],"corretas":[1],"explicacao":"O pilar reliability trata da capacidade do workload de se recuperar de falhas e continuar funcionando: recuperação automática, testes de procedimentos de recuperação, escalar horizontalmente para aumentar a disponibilidade agregada e parar de adivinhar capacidade."},{"id":"D1-10","dominio":1,"tarefa":"1.2","tema":"Design para falha","dificuldade":"media","tipo":"unica","enunciado":"O princípio de arquitetura 'design for failure' na AWS recomenda que as equipes:","opcoes":["Evitem qualquer automação, já que scripts podem falhar em produção.","Assumam que componentes podem falhar e projetem o sistema para continuar operando quando isso acontecer.","Concentrem todos os recursos em uma única Availability Zone para simplificar a operação.","Comprem hardware redundante e o instalem nos datacenters da AWS."],"corretas":[1],"explicacao":"'Everything fails, all the time' — a recomendação é assumir a falha como normal e arquitetar para resiliência: múltiplas AZs, desacoplamento, recuperação automática. Concentrar tudo em uma AZ cria ponto único de falha, e clientes não instalam hardware nos datacenters da AWS."},{"id":"D1-11","dominio":1,"tarefa":"1.2","tema":"Acoplamento fraco e escala horizontal","dificuldade":"dificil","tipo":"unica","enunciado":"Uma aplicação monolítica trava por completo quando o módulo de geração de relatórios sobrecarrega. O arquiteto propõe separar esse módulo e conectá-lo ao restante por uma fila do Amazon SQS. Qual princípio de design essa mudança aplica?","opcoes":["Acoplamento fraco (loose coupling): a falha ou lentidão de um componente deixa de derrubar os demais.","Escala vertical: aumentar o tamanho da instância para absorver a carga.","Consolidação: reunir todos os módulos em um único servidor mais potente.","Replicação síncrona entre Regions para disaster recovery."],"corretas":[0],"explicacao":"Colocar uma fila entre componentes é o exemplo clássico de loose coupling: o produtor e o consumidor passam a evoluir e falhar de forma independente, e a fila absorve picos. As demais opções descrevem escala vertical, consolidação (o oposto do proposto) e DR — nenhuma é o princípio aplicado."},{"id":"D1-12","dominio":1,"tarefa":"1.2","tema":"Pilar de sustentabilidade","dificuldade":"media","tipo":"unica","enunciado":"Uma empresa quer reduzir o impacto ambiental de seus workloads na nuvem, maximizando a utilização dos recursos provisionados e adotando hardware mais eficiente. Qual pilar do Well-Architected Framework orienta essas decisões?","opcoes":["Segurança.","Excelência operacional.","Sustentabilidade.","Confiabilidade."],"corretas":[2],"explicacao":"O pilar sustainability, adicionado em 2021, trata de reduzir o impacto ambiental: maximizar utilização, escolher instâncias e Regions mais eficientes, e eliminar recursos ociosos. É o pilar mais recente e aparece na prova exatamente nesse tipo de cenário."},{"id":"D1-13","dominio":1,"tarefa":"1.2","tema":"Well-Architected Tool","dificuldade":"media","tipo":"unica","enunciado":"Uma equipe quer avaliar sua arquitetura atual contra as boas práticas dos pilares do Well-Architected Framework e receber um relatório de riscos e melhorias, sem custo adicional. Qual recurso deve usar?","opcoes":["AWS Well-Architected Tool, disponível no console da AWS.","AWS Pricing Calculator.","Amazon Inspector.","AWS Config."],"corretas":[0],"explicacao":"O AWS Well-Architected Tool é o serviço gratuito no console que guia a revisão do workload pelos pilares e aponta riscos (high/medium risk issues) com recomendações. Pricing Calculator estima custos, Inspector avalia vulnerabilidades e Config avalia conformidade de configuração de recursos."},{"id":"D1-14","dominio":1,"tarefa":"1.3","tema":"Estratégias de migração (7 Rs)","dificuldade":"media","tipo":"unica","enunciado":"Uma empresa precisa sair do datacenter em 6 meses e decide mover suas máquinas virtuais para o EC2 sem alterar arquitetura nem código, deixando otimizações para depois. Qual estratégia de migração descreve essa abordagem?","opcoes":["Refactor (re-arquitetar a aplicação para ser cloud-native).","Rehost (lift and shift).","Repurchase (trocar por um SaaS).","Retire (desativar a aplicação)."],"corretas":[1],"explicacao":"Rehost, o clássico lift and shift, move a aplicação como está para a nuvem — a opção mais rápida quando há prazo apertado. Refactor reescreve para cloud-native, repurchase troca por um produto SaaS e retire desativa aplicações que não são mais necessárias."},{"id":"D1-15","dominio":1,"tarefa":"1.3","tema":"Estratégias de migração (7 Rs)","dificuldade":"dificil","tipo":"unica","enunciado":"Durante o planejamento de migração, uma empresa decide substituir seu CRM auto-hospedado por uma assinatura do Salesforce e mover um banco Oracle para o Amazon RDS mudando apenas a plataforma de gerenciamento, sem alterar o código da aplicação. Quais estratégias de migração foram aplicadas, respectivamente?","opcoes":["Repurchase e replatform.","Rehost e refactor.","Retain e rehost.","Repurchase e refactor."],"corretas":[0],"explicacao":"Trocar software próprio por SaaS é repurchase (drop and shop). Mover um banco para o RDS aproveitando o serviço gerenciado, sem mudar o código da aplicação, é replatform (lift, tinker and shift). Refactor exigiria re-arquitetar a aplicação, o que não aconteceu."},{"id":"D1-16","dominio":1,"tarefa":"1.3","tema":"Cloud Adoption Framework (CAF)","dificuldade":"media","tipo":"unica","enunciado":"Qual é o propósito do AWS Cloud Adoption Framework (AWS CAF)?","opcoes":["Definir as seis perspectivas (Business, People, Governance, Platform, Security, Operations) que ajudam organizações a planejar e acelerar a adoção da nuvem.","Listar os preços de todos os serviços AWS para estimativa de orçamento.","Substituir o Well-Architected Framework na revisão técnica de workloads.","Automatizar a migração de máquinas virtuais para o EC2."],"corretas":[0],"explicacao":"O CAF organiza a jornada de adoção da nuvem em seis perspectivas — três de negócio (Business, People, Governance) e três técnicas (Platform, Security, Operations) — identificando lacunas de capacidade organizacional. Ele complementa, não substitui, o Well-Architected Framework, que revisa workloads específicos."},{"id":"D1-17","dominio":1,"tarefa":"1.3","tema":"Perspectivas do CAF","dificuldade":"dificil","tipo":"unica","enunciado":"No planejamento de adoção da nuvem, o RH de uma empresa mapeia novas funções, treinamentos e mudanças de cultura necessárias para as equipes trabalharem com AWS. A qual perspectiva do AWS CAF esse trabalho pertence?","opcoes":["Platform.","Governance.","People.","Operations."],"corretas":[2],"explicacao":"A perspectiva People do CAF cuida de cultura, estrutura organizacional, liderança, treinamento e desenvolvimento da força de trabalho para a nuvem. Governance trata de orquestrar iniciativas e medir benefícios; Platform e Operations são perspectivas técnicas de arquitetura e operação."},{"id":"D1-18","dominio":1,"tarefa":"1.3","tema":"Migração de dados em massa","dificuldade":"media","tipo":"unica","enunciado":"Uma empresa precisa transferir 500 TB de arquivos para a AWS, mas seu link de internet levaria meses para concluir o envio. Qual serviço foi projetado para esse cenário?","opcoes":["AWS Snowball, um dispositivo físico enviado ao cliente para transferência offline de grandes volumes.","Amazon CloudFront, para acelerar o upload via edge locations.","AWS Direct Connect, contratado por um mês apenas para essa transferência.","Amazon EFS, montado diretamente no datacenter do cliente."],"corretas":[0],"explicacao":"A Snow Family (incluindo o Snowball Edge) existe para mover grandes volumes de dados quando a rede é inviável: a AWS envia o dispositivo, o cliente copia os dados e o devolve para importação no S3. CloudFront distribui conteúdo (não resolve upload em massa), Direct Connect exige provisionamento demorado de circuito e EFS não é um serviço de migração."},{"id":"D1-19","dominio":1,"tarefa":"1.3","tema":"Serviços de suporte à migração","dificuldade":"media","tipo":"multipla","enunciado":"Quais serviços da AWS apoiam diretamente projetos de migração de bancos de dados e acompanhamento centralizado de migrações? (Escolha DOIS.)","opcoes":["AWS Database Migration Service (DMS).","AWS Migration Hub.","Amazon QuickSight.","AWS CloudTrail.","Amazon Polly."],"corretas":[0,1],"explicacao":"O DMS migra bancos de dados com o banco de origem em operação (inclusive migrações heterogêneas, com o Schema Conversion Tool). O Migration Hub centraliza o acompanhamento das migrações de várias ferramentas em um só lugar. QuickSight é BI, CloudTrail é auditoria de chamadas de API e Polly converte texto em fala."},{"id":"D1-20","dominio":1,"tarefa":"1.4","tema":"Custo total de propriedade (TCO)","dificuldade":"media","tipo":"unica","enunciado":"Ao comparar o custo do datacenter próprio com a AWS, quais custos do ambiente on-premises costumam ser subestimados e devem entrar na análise de TCO?","opcoes":["Apenas o preço de compra dos servidores.","Energia, refrigeração, espaço físico, equipe de operação e substituição de hardware, além do custo dos servidores.","Somente as licenças de software, pois o restante não muda entre nuvem e datacenter.","Nenhum custo adicional: o TCO on-premises se resume à conta de energia elétrica."],"corretas":[1],"explicacao":"O TCO on-premises inclui muito mais que o hardware: energia, refrigeração, espaço, redes, mão de obra de operação, manutenção e ciclos de substituição de equipamento. É justamente ao incluir esses custos indiretos que a comparação com a nuvem fica realista."},{"id":"D1-21","dominio":1,"tarefa":"1.4","tema":"Rightsizing","dificuldade":"media","tipo":"unica","enunciado":"Uma análise mostrou que dezenas de instâncias EC2 rodam com menos de 10% de utilização de CPU há meses. Qual prática de economia de custos se aplica diretamente a esse achado?","opcoes":["Rightsizing: ajustar o tipo e o tamanho das instâncias à necessidade real do workload.","Comprar mais instâncias do mesmo tamanho para distribuir a carga.","Migrar todas as instâncias para outra Region com o mesmo tamanho.","Desativar o Amazon CloudWatch para reduzir o custo de monitoramento."],"corretas":[0],"explicacao":"Rightsizing significa dimensionar recursos ao uso real — reduzir instâncias superdimensionadas é uma das formas mais rápidas de economizar. Ferramentas como AWS Compute Optimizer e Cost Explorer geram essas recomendações. As outras opções aumentam custo ou removem visibilidade."},{"id":"D1-22","dominio":1,"tarefa":"1.4","tema":"Automação e redução de custos","dificuldade":"facil","tipo":"unica","enunciado":"Como a automação (por exemplo, desligar ambientes de desenvolvimento fora do horário comercial com scripts ou schedules) contribui para a economia na nuvem?","opcoes":["Não contribui, pois recursos parados custam o mesmo que recursos em uso.","Reduz custos porque, no modelo pay-as-you-go, recursos desligados deixam de ser cobrados pelo tempo de computação.","Contribui apenas em contas com Enterprise Support.","Reduz custos apenas se todos os recursos usarem Reserved Instances."],"corretas":[1],"explicacao":"No modelo de pagamento por uso, uma instância parada não gera cobrança de computação (o armazenamento EBS associado continua sendo cobrado). Automatizar o desligamento de ambientes fora de uso é uma prática direta de otimização de custos, independente do plano de suporte."},{"id":"D1-23","dominio":1,"tarefa":"1.4","tema":"Serviços gerenciados e redução de TCO","dificuldade":"media","tipo":"unica","enunciado":"Uma equipe pequena gasta boa parte do tempo aplicando patches, fazendo backups e gerenciando failover do banco de dados que roda em EC2. Como o uso do Amazon RDS mudaria a equação de custos dessa equipe?","opcoes":["Aumentaria o TCO, pois serviços gerenciados sempre custam mais no total.","Reduziria o custo operacional, transferindo patching, backup e failover para a AWS e liberando a equipe para atividades de maior valor.","Não mudaria nada, pois o RDS exige as mesmas tarefas operacionais do banco em EC2.","Eliminaria a necessidade de qualquer administração, incluindo modelagem de dados e tuning de queries."],"corretas":[1],"explicacao":"Serviços gerenciados reduzem o custo operacional ao absorver o trabalho pesado indiferenciado (patching, backup, failover). O cliente ainda cuida do que é dele: schema, queries, usuários. Esse deslocamento de responsabilidade operacional é um argumento central de TCO na prova."},{"id":"D1-24","dominio":1,"tarefa":"1.4","tema":"Licenciamento (BYOL)","dificuldade":"dificil","tipo":"unica","enunciado":"Uma empresa possui licenças perpétuas de um software de banco de dados e quer continuar usando essas licenças ao migrar para a AWS para reduzir custos. Que conceito descreve essa possibilidade?","opcoes":["Bring Your Own License (BYOL), usando as licenças existentes em instâncias EC2 (por exemplo, em Dedicated Hosts quando o contrato exige hardware dedicado).","License Free Computing, programa da AWS que elimina custos de licença de qualquer software.","Pay-as-you-license, modelo em que a AWS compra as licenças do cliente.","Reserved Licensing, que converte licenças em Reserved Instances."],"corretas":[0],"explicacao":"BYOL permite aproveitar licenças já adquiridas na nuvem. Alguns contratos de licença exigem vincular a licença a hardware físico dedicado — cenário em que Dedicated Hosts entram, pois dão visibilidade de sockets e cores físicos. Os outros três nomes não existem."},{"id":"D2-01","dominio":2,"tarefa":"2.1","tema":"Modelo de responsabilidade compartilhada","dificuldade":"facil","tipo":"unica","enunciado":"No modelo de responsabilidade compartilhada da AWS, qual frase resume corretamente a divisão entre AWS e cliente?","opcoes":["A AWS é responsável pela segurança DA nuvem; o cliente é responsável pela segurança NA nuvem.","A AWS é responsável por toda a segurança, incluindo os dados do cliente.","O cliente é responsável por toda a segurança, incluindo a infraestrutura física.","AWS e cliente dividem igualmente cada tarefa de segurança, item por item."],"corretas":[0],"explicacao":"A divisão clássica: a AWS protege a infraestrutura que executa os serviços (security OF the cloud — hardware, datacenters, rede, hypervisor); o cliente protege o que coloca na nuvem (security IN the cloud — dados, configurações, acessos). A fronteira exata varia conforme o serviço."},{"id":"D2-02","dominio":2,"tarefa":"2.1","tema":"Responsabilidades com EC2","dificuldade":"media","tipo":"unica","enunciado":"Uma empresa executa uma aplicação em instâncias Amazon EC2. Qual tarefa de segurança é responsabilidade do CLIENTE nesse cenário?","opcoes":["Manutenção física dos servidores no datacenter.","Aplicação de patches no sistema operacional convidado (guest OS) das instâncias.","Segurança do hypervisor de virtualização.","Descarte seguro de discos defeituosos do datacenter."],"corretas":[1],"explicacao":"No EC2 (IaaS), o cliente gerencia o que está da camada do sistema operacional para cima: patches do guest OS, aplicações, dados, security groups e firewalls. Hardware, datacenter, hypervisor e descarte de mídia são responsabilidade da AWS."},{"id":"D2-03","dominio":2,"tarefa":"2.1","tema":"Responsabilidades com RDS","dificuldade":"media","tipo":"unica","enunciado":"Ao usar o Amazon RDS em vez de um banco de dados instalado em EC2, qual responsabilidade deixa de ser do cliente e passa para a AWS?","opcoes":["A definição de quais usuários da aplicação podem acessar os dados.","A aplicação de patches no sistema operacional e no motor do banco de dados.","A classificação e a proteção dos dados armazenados.","A configuração das regras de acesso à rede (security groups) da instância de banco."],"corretas":[1],"explicacao":"No RDS, um serviço gerenciado, a AWS assume o patching do SO e do engine do banco. O cliente continua responsável por seus dados, pela gestão de acessos e pelas configurações de rede e permissões — responsabilidades sobre dados nunca migram para a AWS."},{"id":"D2-04","dominio":2,"tarefa":"2.1","tema":"Responsabilidades que variam por serviço","dificuldade":"dificil","tipo":"unica","enunciado":"Por que se diz que a fronteira do modelo de responsabilidade compartilhada 'se move' conforme o serviço utilizado?","opcoes":["Porque quanto mais gerenciado o serviço (EC2 → RDS → Lambda), mais responsabilidades operacionais a AWS assume, embora dados e gestão de acesso permaneçam sempre com o cliente.","Porque a AWS renegocia contratualmente as responsabilidades a cada fatura mensal.","Porque em serviços serverless o cliente se torna responsável pelo hardware subjacente.","Porque em serviços gerenciados a AWS passa a ser responsável pelos dados do cliente."],"corretas":[0],"explicacao":"Em IaaS (EC2) o cliente cuida do SO para cima; em serviços gerenciados (RDS) a AWS absorve patching e infraestrutura do banco; em serverless (Lambda, S3, DynamoDB) a AWS gerencia praticamente toda a pilha de execução. O que nunca muda: dados, sua classificação e o controle de acesso são sempre do cliente."},{"id":"D2-05","dominio":2,"tarefa":"2.1","tema":"Responsabilidades sempre do cliente","dificuldade":"media","tipo":"multipla","enunciado":"Quais responsabilidades permanecem SEMPRE com o cliente, independentemente do serviço AWS utilizado? (Escolha DUAS.)","opcoes":["Gerenciamento dos dados e de sua classificação.","Gerenciamento de identidades, credenciais e permissões de acesso aos recursos.","Segurança física dos datacenters.","Manutenção do hardware de rede da AWS.","Patching do hypervisor."],"corretas":[0,1],"explicacao":"Dados (incluindo classificação e criptografia do lado do cliente) e gestão de identidades e acessos (IAM) são responsabilidades permanentes do cliente em qualquer serviço. Datacenters, hardware de rede e hypervisor são sempre da AWS."},{"id":"D2-06","dominio":2,"tarefa":"2.1","tema":"Responsabilidades da AWS","dificuldade":"facil","tipo":"unica","enunciado":"Qual das opções é uma responsabilidade exclusiva da AWS no modelo de responsabilidade compartilhada?","opcoes":["Configurar as políticas de bucket do S3 do cliente.","Proteger a infraestrutura global: Regions, Availability Zones e edge locations.","Habilitar MFA para o usuário root da conta do cliente.","Definir regras de entrada nos security groups do cliente."],"corretas":[1],"explicacao":"A infraestrutura global (instalações físicas, hardware, rede) é protegida pela AWS. Políticas de bucket, MFA no root e regras de security group são configurações do cliente — erros nelas são a causa mais comum de incidentes de segurança na nuvem."},{"id":"D2-07","dominio":2,"tarefa":"2.1","tema":"Configuração de segurança compartilhada","dificuldade":"dificil","tipo":"unica","enunciado":"Um bucket do Amazon S3 com dados sensíveis foi exposto publicamente por uma política mal configurada pelo administrador da empresa. Segundo o modelo de responsabilidade compartilhada, de quem foi a responsabilidade pela exposição?","opcoes":["Da AWS, porque o S3 é um serviço totalmente gerenciado.","Do cliente, porque a configuração de acesso aos dados (políticas, ACLs, Block Public Access) é responsabilidade dele.","De ninguém: exposições públicas fazem parte do risco aceito da nuvem.","Da Pearson VUE, responsável pela auditoria de contas AWS."],"corretas":[1],"explicacao":"Mesmo em serviços totalmente gerenciados, a configuração de acesso aos dados é do cliente. A AWS fornece os mecanismos (bucket policies, Block Public Access, IAM), mas usá-los corretamente é responsabilidade de quem administra a conta."},{"id":"D2-08","dominio":2,"tarefa":"2.2","tema":"AWS Artifact","dificuldade":"facil","tipo":"unica","enunciado":"O time de auditoria precisa dos relatórios de compliance da AWS (como SOC 2 e ISO 27001) para comprovar a conformidade do provedor a um órgão regulador. Onde obter esses documentos de forma self-service?","opcoes":["AWS Artifact.","AWS CloudTrail.","Amazon Inspector.","AWS Trusted Advisor."],"corretas":[0],"explicacao":"O AWS Artifact é o portal central e gratuito para baixar relatórios de compliance da AWS (SOC, ISO, PCI) e aceitar acordos como o BAA (HIPAA). CloudTrail audita chamadas de API, Inspector avalia vulnerabilidades e Trusted Advisor recomenda boas práticas."},{"id":"D2-09","dominio":2,"tarefa":"2.2","tema":"Compliance por serviço e por região","dificuldade":"media","tipo":"unica","enunciado":"Uma fintech precisa saber se um serviço específico da AWS está no escopo do PCI DSS antes de usá-lo com dados de cartão. Qual afirmação está correta?","opcoes":["Todos os serviços AWS são automaticamente compatíveis com todos os programas de compliance.","Os requisitos de compliance variam por serviço; a lista de serviços em escopo de cada programa está na página AWS Services in Scope by Compliance Program.","Compliance é responsabilidade exclusiva da AWS, então a empresa não precisa verificar nada.","Só o suporte Enterprise pode informar quais serviços estão em escopo."],"corretas":[1],"explicacao":"Nem todo serviço está no escopo de todo programa: a AWS publica a lista de serviços em escopo por programa de compliance. Além disso, usar um serviço em escopo não torna a aplicação do cliente automaticamente conforme — a conformidade do que roda na nuvem é responsabilidade compartilhada."},{"id":"D2-10","dominio":2,"tarefa":"2.2","tema":"Criptografia em repouso e em trânsito","dificuldade":"media","tipo":"unica","enunciado":"Uma equipe precisa proteger dados de clientes armazenados no S3 e também durante a comunicação entre a aplicação e o banco de dados. Quais mecanismos atendem, respectivamente, à criptografia em repouso (at rest) e em trânsito (in transit)?","opcoes":["Criptografia server-side com chaves do AWS KMS para repouso; TLS/HTTPS para trânsito.","AWS WAF para repouso; security groups para trânsito.","Amazon Macie para repouso; AWS Shield para trânsito.","CloudTrail para repouso; CloudWatch para trânsito."],"corretas":[0],"explicacao":"Em repouso, usa-se criptografia dos dados armazenados — tipicamente server-side encryption com chaves gerenciadas pelo KMS. Em trânsito, TLS/HTTPS protege a comunicação. WAF, Shield, Macie, CloudTrail e CloudWatch têm papéis de proteção e monitoramento, mas nenhum é mecanismo de criptografia."},{"id":"D2-11","dominio":2,"tarefa":"2.2","tema":"Quem habilita a criptografia","dificuldade":"media","tipo":"unica","enunciado":"Para um volume Amazon EBS com dados confidenciais, quem é responsável por habilitar a criptografia?","opcoes":["A AWS habilita criptografia em todos os recursos automaticamente, sem qualquer ação ou configuração do cliente em nenhum serviço.","O cliente: habilitar a criptografia dos seus recursos e escolher as chaves é uma decisão de configuração dele.","O AWS Support, mediante abertura de chamado.","Não é possível criptografar volumes EBS."],"corretas":[1],"explicacao":"Habilitar criptografia (e definir com quais chaves KMS) é configuração do cliente — embora vários serviços hoje tenham criptografia por padrão, a responsabilidade por garantir que os dados estejam protegidos conforme a política da empresa continua sendo do cliente. Esse é um ponto recorrente da prova: a AWS fornece as ferramentas; o cliente decide e configura."},{"id":"D2-12","dominio":2,"tarefa":"2.2","tema":"AWS CloudTrail","dificuldade":"facil","tipo":"unica","enunciado":"O time de segurança precisa saber quem excluiu uma instância EC2 de produção, quando e a partir de qual endereço IP. Qual serviço registra essas informações?","opcoes":["Amazon CloudWatch.","AWS CloudTrail.","AWS Config.","Amazon GuardDuty."],"corretas":[1],"explicacao":"O CloudTrail registra as chamadas de API na conta: quem fez o quê, quando e de onde — é a trilha de auditoria de ações. CloudWatch monitora métricas e logs de desempenho, Config rastreia o histórico de configuração dos recursos e GuardDuty detecta ameaças."},{"id":"D2-13","dominio":2,"tarefa":"2.2","tema":"AWS Config","dificuldade":"media","tipo":"unica","enunciado":"Uma empresa precisa garantir continuamente que nenhum bucket S3 esteja público e que todos os volumes EBS estejam criptografados, recebendo alertas de não conformidade e o histórico de configuração de cada recurso. Qual serviço atende a esse requisito?","opcoes":["AWS Config, avaliando os recursos contra regras de conformidade continuamente.","AWS CloudTrail, registrando as chamadas de API da conta.","Amazon Macie, escaneando dados sensíveis nos buckets.","AWS Artifact, baixando relatórios de compliance."],"corretas":[0],"explicacao":"O AWS Config avalia configurações de recursos contra regras (Config Rules), aponta não conformidades e mantém o histórico de mudanças de configuração. CloudTrail diz quem mudou; o Config diz como o recurso está e como estava. Macie encontra dados sensíveis e Artifact entrega relatórios da AWS."},{"id":"D2-14","dominio":2,"tarefa":"2.2","tema":"Governança de dados e residência","dificuldade":"media","tipo":"unica","enunciado":"Uma empresa do setor público brasileiro é obrigada a manter certos dados dentro do território nacional. Como atender a esse requisito de residência de dados na AWS?","opcoes":["Impossível: a AWS replica automaticamente todos os dados entre todas as Regions.","Armazenar os dados na Region da América do Sul (São Paulo), já que os dados de um serviço regional não saem da Region sem ação do cliente.","Solicitar à AWS a construção de um datacenter exclusivo para a empresa.","Usar apenas edge locations do CloudFront no Brasil."],"corretas":[1],"explicacao":"Dados de serviços regionais permanecem na Region escolhida — a AWS não move dados de clientes entre Regions sem que o cliente configure isso. Escolher a Region sa-east-1 (São Paulo) atende à residência. Controles adicionais (como SCPs restringindo Regions) podem reforçar a política."},{"id":"D2-15","dominio":2,"tarefa":"2.2","tema":"Least privilege","dificuldade":"facil","tipo":"unica","enunciado":"Qual prática expressa o princípio do menor privilégio (least privilege) no gerenciamento de acessos da AWS?","opcoes":["Conceder a cada identidade apenas as permissões mínimas necessárias para executar suas tarefas.","Usar o usuário root para as tarefas diárias, pois ele já tem todas as permissões.","Anexar a política AdministratorAccess a todos os usuários para evitar bloqueios de trabalho.","Compartilhar um único usuário IAM entre toda a equipe para simplificar a auditoria."],"corretas":[0],"explicacao":"Least privilege é conceder o mínimo necessário e ampliar somente quando preciso. Usar root no dia a dia, dar AdministratorAccess a todos e compartilhar credenciais são exatamente os antipadrões que a prova espera que você reconheça como errados."},{"id":"D2-16","dominio":2,"tarefa":"2.3","tema":"Proteção do usuário root","dificuldade":"facil","tipo":"multipla","enunciado":"Quais práticas a AWS recomenda para o usuário root de uma conta? (Escolha DUAS.)","opcoes":["Habilitar MFA no usuário root.","Não usar o root nas tarefas diárias, reservando-o apenas para as poucas ações que exigem root.","Criar access keys do root e distribuí-las às aplicações de produção.","Compartilhar a senha do root com todos os administradores.","Excluir o usuário root após criar o primeiro usuário IAM."],"corretas":[0,1],"explicacao":"Root deve ter MFA habilitado e ficar guardado para as raras tarefas que só ele executa (como alterar dados da conta ou fechar a conta); o trabalho diário é feito com identidades IAM de menor privilégio. Access keys do root não devem existir, senha não se compartilha e o root não pode ser excluído."},{"id":"D2-17","dominio":2,"tarefa":"2.3","tema":"Usuários, grupos e políticas","dificuldade":"facil","tipo":"unica","enunciado":"Uma empresa tem 15 desenvolvedores que precisam do mesmo conjunto de permissões. Qual é a forma recomendada de gerenciar essas permissões no IAM?","opcoes":["Anexar as políticas individualmente a cada um dos 15 usuários.","Criar um grupo IAM com as políticas necessárias e adicionar os 15 usuários ao grupo.","Compartilhar um único usuário IAM entre os 15 desenvolvedores.","Enviar as credenciais do root para os desenvolvedores mais experientes."],"corretas":[1],"explicacao":"Grupos IAM aplicam permissões a conjuntos de usuários: mudou a política do grupo, mudou para todos — mais simples e menos sujeito a erro. Compartilhar usuários destrói a rastreabilidade e usar root é o principal antipadrão de segurança."},{"id":"D2-18","dominio":2,"tarefa":"2.3","tema":"IAM roles para aplicações","dificuldade":"media","tipo":"unica","enunciado":"Uma aplicação em uma instância EC2 precisa ler objetos de um bucket S3. Qual é a forma mais segura de conceder esse acesso?","opcoes":["Gravar access keys de um usuário IAM em um arquivo de configuração dentro da instância.","Anexar uma IAM role à instância EC2 com permissão de leitura no bucket, usando credenciais temporárias.","Tornar o bucket público para leitura, eliminando a necessidade de credenciais.","Usar as credenciais do usuário root na aplicação."],"corretas":[1],"explicacao":"IAM roles fornecem credenciais temporárias, rotacionadas automaticamente, sem segredos gravados em disco ou código. Access keys estáticas em arquivos vazam; bucket público expõe os dados; credenciais de root em aplicação é o pior cenário possível."},{"id":"D2-19","dominio":2,"tarefa":"2.3","tema":"MFA","dificuldade":"facil","tipo":"unica","enunciado":"O que a autenticação multifator (MFA) adiciona ao processo de login na AWS?","opcoes":["Um segundo fator de verificação (algo que você tem, como um dispositivo ou token), além da senha.","Uma segunda senha, escolhida pelo administrador da conta.","Criptografia automática de todos os dados da conta.","Permissões de administrador para o usuário autenticado."],"corretas":[0],"explicacao":"MFA exige, além da senha (algo que você sabe), um fator adicional — código de um app autenticador, chave de segurança física ou token (algo que você tem). Roubar só a senha deixa de ser suficiente para invadir a conta. MFA não criptografa dados nem altera permissões."},{"id":"D2-20","dominio":2,"tarefa":"2.3","tema":"IAM Identity Center e federação","dificuldade":"dificil","tipo":"unica","enunciado":"Uma empresa com dezenas de contas AWS quer que os funcionários façam login uma única vez com as credenciais corporativas existentes (Active Directory) e acessem todas as contas com permissões centralizadas. Qual serviço foi desenhado para isso?","opcoes":["AWS IAM Identity Center (sucessor do AWS SSO), com federação ao diretório corporativo.","Amazon Cognito, criando um user pool para os funcionários.","Usuários IAM duplicados manualmente em cada uma das contas.","AWS Secrets Manager, distribuindo as senhas entre as contas."],"corretas":[0],"explicacao":"O IAM Identity Center centraliza o acesso single sign-on a múltiplas contas AWS, integrando-se a diretórios corporativos como o Active Directory. Cognito é para identidade de usuários finais de aplicações (não força de trabalho), duplicar usuários IAM não escala e Secrets Manager guarda segredos de aplicação, não faz SSO."},{"id":"D2-21","dominio":2,"tarefa":"2.3","tema":"Tipos de política IAM","dificuldade":"media","tipo":"unica","enunciado":"Qual é a diferença entre as políticas gerenciadas pela AWS (AWS managed policies) e as políticas gerenciadas pelo cliente (customer managed policies)?","opcoes":["As políticas da AWS são pré-criadas e mantidas pela AWS para casos de uso comuns; as do cliente são criadas e mantidas pelo próprio cliente para permissões sob medida.","As políticas da AWS são pagas e as do cliente são gratuitas.","As políticas do cliente não podem ser usadas em produção.","Não há diferença: são dois nomes para o mesmo objeto."],"corretas":[0],"explicacao":"AWS managed policies são prontas e atualizadas pela AWS (ex.: ReadOnlyAccess); customer managed policies são escritas pelo cliente quando é preciso granularidade — o caminho natural para aplicar least privilege com precisão. Ambas são gratuitas."},{"id":"D2-22","dominio":2,"tarefa":"2.3","tema":"Credential rotation e access keys","dificuldade":"media","tipo":"unica","enunciado":"Durante uma revisão de segurança, foram encontradas access keys de usuários IAM criadas há mais de dois anos e nunca trocadas. Qual é a recomendação da AWS para esse achado?","opcoes":["Manter as chaves, pois access keys não expiram e portanto não precisam de manutenção.","Rotacionar as credenciais regularmente e remover chaves não utilizadas, preferindo IAM roles com credenciais temporárias sempre que possível.","Publicar as chaves no repositório de código para facilitar o uso pela equipe.","Converter as access keys em senhas de console."],"corretas":[1],"explicacao":"Boas práticas de IAM: rotação regular de credenciais, remoção de chaves ociosas (o credential report ajuda a encontrá-las) e preferência por roles com credenciais temporárias em vez de chaves de longa duração. Chaves em repositório de código são uma das causas mais comuns de comprometimento de contas."},{"id":"D2-23","dominio":2,"tarefa":"2.3","tema":"AWS Organizations e SCPs","dificuldade":"dificil","tipo":"unica","enunciado":"Uma holding administra 40 contas AWS e quer impedir, de forma centralizada, que qualquer conta-membro use serviços fora das Regions aprovadas — mesmo que um administrador local tente conceder essa permissão. Qual mecanismo atende a esse requisito?","opcoes":["Service Control Policies (SCPs) do AWS Organizations, que estabelecem o limite máximo de permissões das contas-membro.","Uma política IAM idêntica copiada manualmente para cada conta.","AWS Artifact, gerando relatórios de restrição regional.","Amazon GuardDuty, bloqueando chamadas fora das Regions aprovadas."],"corretas":[0],"explicacao":"SCPs são guardrails do Organizations: definem o teto de permissões de contas-membro, e nenhuma política IAM local pode ultrapassá-lo. Copiar políticas IAM manualmente não impede um admin local de alterá-las; Artifact é repositório de relatórios e GuardDuty detecta ameaças, não bloqueia chamadas."},{"id":"D2-24","dominio":2,"tarefa":"2.4","tema":"Security groups vs. Network ACLs","dificuldade":"media","tipo":"unica","enunciado":"Qual é a principal diferença entre security groups e network ACLs em uma VPC?","opcoes":["Security groups atuam na instância e são stateful (permitem só regras de allow); network ACLs atuam na subnet e são stateless (aceitam regras de allow e deny).","Network ACLs atuam na instância e security groups na subnet.","Ambos são stateless e funcionam de forma idêntica.","Security groups são pagos e network ACLs são gratuitos."],"corretas":[0],"explicacao":"Security group = firewall no nível da instância (ENI), stateful (a resposta de um tráfego permitido volta automaticamente), só regras de permissão. NACL = firewall no nível da subnet, stateless (ida e volta precisam de regra), com regras de allow e deny avaliadas em ordem numérica. Ambos são gratuitos."},{"id":"D2-25","dominio":2,"tarefa":"2.4","tema":"AWS WAF e AWS Shield","dificuldade":"media","tipo":"unica","enunciado":"Uma aplicação web sofre tentativas de SQL injection e a empresa também teme ataques de DDoS volumétricos. Quais serviços endereçam, respectivamente, cada uma dessas ameaças?","opcoes":["AWS WAF para filtrar requisições maliciosas como SQL injection; AWS Shield para proteção contra DDoS.","AWS Shield para SQL injection; AWS WAF para DDoS.","Amazon Macie para SQL injection; Amazon Inspector para DDoS.","AWS KMS para ambos."],"corretas":[0],"explicacao":"O WAF é o firewall de aplicação web: filtra padrões maliciosos nas requisições HTTP(S), como SQL injection e cross-site scripting. O Shield protege contra DDoS — o Standard é automático e gratuito; o Advanced adiciona proteções e suporte especializado. Macie acha dados sensíveis, Inspector acha vulnerabilidades, KMS gerencia chaves."},{"id":"D2-26","dominio":2,"tarefa":"2.4","tema":"Amazon GuardDuty","dificuldade":"media","tipo":"unica","enunciado":"O time de segurança quer detecção inteligente e contínua de ameaças — como chamadas de API incomuns, instâncias comprometidas minerando criptomoedas e acessos de IPs maliciosos — sem instalar agentes nem gerenciar regras manualmente. Qual serviço atende?","opcoes":["Amazon GuardDuty, que analisa CloudTrail, VPC Flow Logs e DNS logs com machine learning e threat intelligence.","AWS Config, avaliando regras de conformidade.","AWS Artifact, monitorando relatórios de auditoria.","Amazon EFS, verificando integridade de arquivos."],"corretas":[0],"explicacao":"GuardDuty é o serviço de threat detection: consome fontes como CloudTrail, VPC Flow Logs e logs de DNS, aplicando ML e inteligência de ameaças para gerar findings. Config avalia conformidade de configuração (não comportamento malicioso), Artifact entrega relatórios e EFS é armazenamento de arquivos."},{"id":"D2-27","dominio":2,"tarefa":"2.4","tema":"Amazon Inspector e Amazon Macie","dificuldade":"dificil","tipo":"unica","enunciado":"Uma empresa precisa de duas coisas: (1) verificar vulnerabilidades de software e exposição de rede em suas instâncias EC2 e imagens de contêiner; (2) descobrir automaticamente dados sensíveis, como CPFs e cartões de crédito, armazenados em buckets S3. Quais serviços resolvem, respectivamente?","opcoes":["Amazon Inspector para as vulnerabilidades; Amazon Macie para os dados sensíveis no S3.","Amazon Macie para as vulnerabilidades; Amazon Inspector para os dados sensíveis.","AWS Shield para ambos.","AWS Config para vulnerabilidades; AWS WAF para dados sensíveis."],"corretas":[0],"explicacao":"Inspector = gerenciamento de vulnerabilidades (CVEs, exposição de rede) em EC2, ECR e Lambda. Macie = descoberta e classificação de dados sensíveis no S3 usando machine learning. A dupla aparece com frequência na prova, quase sempre com os papéis invertidos em alguma alternativa."},{"id":"D2-28","dominio":2,"tarefa":"2.4","tema":"AWS KMS e AWS Secrets Manager","dificuldade":"media","tipo":"unica","enunciado":"Uma equipe precisa (1) criar e gerenciar as chaves criptográficas usadas para criptografar dados em vários serviços e (2) armazenar a senha do banco de dados com rotação automática. Quais serviços usar, respectivamente?","opcoes":["AWS KMS para as chaves; AWS Secrets Manager para a senha com rotação automática.","AWS Secrets Manager para as chaves; AWS KMS para a senha.","Amazon Macie para ambos.","AWS Certificate Manager para as chaves; Amazon S3 para as senhas."],"corretas":[0],"explicacao":"KMS cria e gerencia chaves de criptografia integradas a dezenas de serviços (S3, EBS, RDS). Secrets Manager guarda segredos de aplicação (senhas, tokens) com rotação automática integrada, por exemplo, ao RDS. Certificate Manager gerencia certificados TLS e S3 não é lugar de guardar senha."},{"id":"D2-29","dominio":2,"tarefa":"2.4","tema":"AWS Security Hub","dificuldade":"dificil","tipo":"unica","enunciado":"Uma empresa habilitou GuardDuty, Inspector e Macie, mas o time de segurança está perdido alternando entre os consoles e quer uma visão única, com verificação automática contra padrões de segurança (como o CIS AWS Foundations Benchmark). Qual serviço consolida esses resultados?","opcoes":["AWS Security Hub.","AWS CloudTrail.","AWS Systems Manager.","Amazon CloudWatch."],"corretas":[0],"explicacao":"O Security Hub agrega findings de GuardDuty, Inspector, Macie e parceiros em um painel único e executa verificações contínuas contra padrões como CIS e AWS Foundational Security Best Practices. CloudTrail audita APIs, Systems Manager opera a frota e CloudWatch monitora métricas e logs."},{"id":"D2-30","dominio":2,"tarefa":"2.4","tema":"Onde encontrar informação de segurança","dificuldade":"facil","tipo":"multipla","enunciado":"Um analista novo na AWS quer aprender boas práticas oficiais de segurança e acompanhar comunicados e orientações da AWS sobre o tema. Quais fontes oficiais são adequadas? (Escolha DUAS.)","opcoes":["O AWS Security Blog e a página oficial de segurança na nuvem da AWS (AWS Cloud Security).","A documentação oficial de segurança de cada serviço e os whitepapers de segurança da AWS (como o de best practices).","Fóruns anônimos sem moderação, que publicam vulnerabilidades da AWS em primeira mão.","O código-fonte interno dos hypervisors da AWS, disponível sob NDA.","A fatura mensal da conta, que consolida os incidentes de segurança."],"corretas":[0,1],"explicacao":"As fontes oficiais incluem o AWS Security Blog, o AWS Security Center, a documentação de segurança por serviço, whitepapers e o AWS Knowledge Center. Código de hypervisor não é disponibilizado e a fatura não relata incidentes — reconhecer os canais oficiais faz parte da task 2.4 do edital."},{"id":"D3-01","dominio":3,"tarefa":"3.1","tema":"Formas de acessar a AWS","dificuldade":"facil","tipo":"unica","enunciado":"Uma equipe quer automatizar a criação de recursos AWS a partir de scripts e também integrar chamadas AWS ao código de suas aplicações. Quais interfaces atendem a esses dois usos, respectivamente?","opcoes":["AWS CLI para os scripts; SDKs da AWS para o código das aplicações.","Console de gerenciamento para os scripts; AWS CLI para o código.","AWS Marketplace para ambos.","Amazon Connect para os scripts; console para o código."],"corretas":[0],"explicacao":"As três formas de acesso são: console (interface web, boa para exploração), CLI (linha de comando, ideal para scripts) e SDKs (bibliotecas por linguagem, para integrar a AWS ao código). Todas usam as mesmas APIs por baixo. Marketplace é loja de software e Connect é contact center."},{"id":"D3-02","dominio":3,"tarefa":"3.1","tema":"Infraestrutura como código","dificuldade":"media","tipo":"unica","enunciado":"Uma empresa precisa recriar o mesmo ambiente (VPC, instâncias, banco) em várias contas e Regions de forma idêntica, repetível e versionada em Git. Qual serviço da AWS foi feito para isso?","opcoes":["AWS CloudFormation, definindo a infraestrutura como código em templates.","Amazon CloudFront, replicando o ambiente nas edge locations.","AWS Trusted Advisor, clonando os recursos automaticamente.","Criação manual pelo console, seguindo um checklist documentado."],"corretas":[0],"explicacao":"CloudFormation é o serviço de infrastructure as code: templates declarativos (YAML/JSON) versionáveis que provisionam pilhas idênticas em qualquer conta ou Region, eliminando o erro humano da criação manual. CloudFront é CDN e Trusted Advisor é ferramenta de recomendações."},{"id":"D3-03","dominio":3,"tarefa":"3.1","tema":"Modelos de implantação de nuvem","dificuldade":"media","tipo":"unica","enunciado":"Um hospital mantém sistemas legados no datacenter próprio por exigência regulatória, mas roda as aplicações novas na AWS, com conexão dedicada entre os dois ambientes. Qual modelo de implantação descreve esse cenário?","opcoes":["Nuvem híbrida.","Nuvem pública exclusivamente.","On-premises (nuvem privada) exclusivamente.","Multi-cloud."],"corretas":[0],"explicacao":"Híbrido = parte on-premises, parte na nuvem, operando de forma integrada (tipicamente via VPN ou Direct Connect). Multi-cloud seria usar vários provedores de nuvem pública, o que não foi descrito no cenário."},{"id":"D3-04","dominio":3,"tarefa":"3.1","tema":"Elastic Beanstalk","dificuldade":"dificil","tipo":"unica","enunciado":"Um desenvolvedor quer publicar uma aplicação web sem administrar servidores, balanceadores e auto scaling manualmente: ele quer apenas enviar o código e deixar a AWS provisionar e orquestrar esses recursos, mantendo a possibilidade de acessá-los depois. Qual serviço oferece exatamente isso?","opcoes":["AWS Elastic Beanstalk.","Amazon EC2 com configuração manual.","AWS CloudTrail.","Amazon Route 53."],"corretas":[0],"explicacao":"O Elastic Beanstalk é plataforma como serviço: você envia o código e ele provisiona e gerencia EC2, load balancer, auto scaling e monitoramento — sem esconder os recursos, que continuam acessíveis. EC2 manual exige montar tudo à mão; CloudTrail e Route 53 têm outros papéis."},{"id":"D3-05","dominio":3,"tarefa":"3.2","tema":"Regions e Availability Zones","dificuldade":"facil","tipo":"unica","enunciado":"Qual é a relação correta entre Regions e Availability Zones (AZs) na infraestrutura global da AWS?","opcoes":["Uma Region é uma área geográfica composta por múltiplas AZs isoladas e fisicamente separadas, conectadas por redes de baixa latência.","Uma AZ contém várias Regions dentro de um mesmo prédio.","Region e AZ são sinônimos para o mesmo datacenter.","Cada Region possui exatamente uma AZ, sempre."],"corretas":[0],"explicacao":"Region = área geográfica (ex.: São Paulo, Virgínia do Norte) com múltiplas AZs — no mínimo três nas Regions mais novas. Cada AZ é um ou mais datacenters com energia, refrigeração e rede independentes, longe o bastante para isolar desastres e perto o bastante para replicação de baixa latência."},{"id":"D3-06","dominio":3,"tarefa":"3.2","tema":"Alta disponibilidade multi-AZ","dificuldade":"media","tipo":"unica","enunciado":"Para tornar uma aplicação resiliente à falha completa de um datacenter, mantendo baixa latência entre os componentes, qual arquitetura a AWS recomenda como ponto de partida?","opcoes":["Distribuir a aplicação em múltiplas Availability Zones dentro de uma Region, atrás de um load balancer.","Concentrar todos os recursos em uma única AZ para reduzir custos de tráfego.","Executar a aplicação apenas em edge locations.","Manter um backup em fita no escritório da empresa."],"corretas":[0],"explicacao":"Multi-AZ é o padrão de alta disponibilidade: se uma AZ falhar, as demais continuam servindo o tráfego, e a latência entre AZs da mesma Region é baixa. Edge locations servem cache de conteúdo, não hospedam aplicações completas."},{"id":"D3-07","dominio":3,"tarefa":"3.2","tema":"Edge locations e CloudFront","dificuldade":"facil","tipo":"unica","enunciado":"Um site global quer entregar imagens e vídeos com baixa latência a usuários em qualquer continente, servindo o conteúdo de pontos próximos a eles. Qual serviço e qual componente da infraestrutura global fazem isso?","opcoes":["Amazon CloudFront, usando as edge locations como cache de conteúdo próximo aos usuários.","Amazon EBS, replicando volumes entre Regions.","AWS Direct Connect, ligando cada usuário à AWS por fibra dedicada.","Amazon RDS, com read replicas em todas as AZs."],"corretas":[0],"explicacao":"CloudFront é a CDN da AWS: armazena cópias do conteúdo nas centenas de edge locations e serve cada usuário do ponto mais próximo. EBS é armazenamento de bloco para EC2, Direct Connect conecta datacenters de empresas à AWS e RDS é banco relacional."},{"id":"D3-08","dominio":3,"tarefa":"3.2","tema":"Seleção de Region","dificuldade":"media","tipo":"multipla","enunciado":"Quais fatores uma empresa deve considerar ao escolher em qual Region da AWS implantar um workload? (Escolha DOIS.)","opcoes":["Proximidade dos usuários finais, para reduzir latência.","Requisitos legais de residência de dados e disponibilidade dos serviços necessários na Region.","A cor do console da AWS em cada Region.","O fuso horário da equipe de operação, já que serviços fora do horário local não funcionam.","O idioma falado nos datacenters da Region."],"corretas":[0,1],"explicacao":"Os critérios clássicos de escolha de Region: latência (proximidade dos usuários), compliance e residência de dados, disponibilidade de serviços e preços (que variam entre Regions). Console, fuso e idioma dos datacenters não influenciam o funcionamento."},{"id":"D3-09","dominio":3,"tarefa":"3.2","tema":"Infraestrutura híbrida e de borda","dificuldade":"dificil","tipo":"unica","enunciado":"Por exigência regulatória, uma empresa precisa executar serviços AWS (EC2, EBS) dentro do seu próprio datacenter, com a mesma API e as mesmas ferramentas da nuvem, gerenciados pela AWS. Qual oferta atende a esse requisito?","opcoes":["AWS Outposts, que leva infraestrutura e serviços AWS para o datacenter do cliente.","Amazon Lightsail, com servidores virtuais simplificados.","AWS Local Zones instaladas pelo próprio cliente.","Amazon WorkSpaces, com desktops virtuais."],"corretas":[0],"explicacao":"Outposts é o rack de infraestrutura AWS instalado e gerenciado pela AWS dentro do datacenter do cliente, com as mesmas APIs da nuvem — o caminho para requisitos estritos de processamento local. Local Zones são infraestrutura da AWS em grandes centros urbanos (não instaláveis pelo cliente), Lightsail é VPS simplificado e WorkSpaces é desktop virtual."},{"id":"D3-10","dominio":3,"tarefa":"3.3","tema":"Famílias de instância EC2","dificuldade":"media","tipo":"unica","enunciado":"Um cientista de dados precisa de instâncias EC2 para simulações que exigem enorme poder de processamento de CPU, enquanto outro time roda um banco em memória que exige muita RAM. Quais famílias de instância atendem melhor a cada caso, respectivamente?","opcoes":["Compute optimized (ex.: família C) para as simulações; memory optimized (ex.: família R) para o banco em memória.","Memory optimized para as simulações; storage optimized para o banco.","General purpose para ambos, sempre.","Storage optimized para as simulações; compute optimized para o banco."],"corretas":[0],"explicacao":"Compute optimized (C) prioriza CPU — simulações, HPC, batch pesado. Memory optimized (R, X) prioriza RAM — bancos em memória e caches grandes. General purpose (T, M) equilibra recursos e storage optimized (I, D) prioriza I/O de disco local."},{"id":"D3-11","dominio":3,"tarefa":"3.3","tema":"AWS Lambda","dificuldade":"facil","tipo":"unica","enunciado":"Uma equipe quer executar uma função que processa cada imagem enviada a um bucket S3, sem provisionar nem gerenciar servidores, pagando apenas pelo tempo de execução. Qual serviço usar?","opcoes":["AWS Lambda, disparado por eventos do S3.","Amazon EC2 com uma instância dedicada ligada 24/7.","Amazon Lightsail com um plano mensal fixo.","AWS Outposts no datacenter da empresa."],"corretas":[0],"explicacao":"Lambda é o serviço serverless de execução de funções orientadas a eventos: o upload no S3 dispara a função, e a cobrança é por número de invocações e tempo de execução. Não há servidor para provisionar, escalar ou pagar quando ocioso."},{"id":"D3-12","dominio":3,"tarefa":"3.3","tema":"Contêineres: ECS, EKS e Fargate","dificuldade":"dificil","tipo":"unica","enunciado":"Uma equipe já usa Kubernetes on-premises e quer migrar seus clusters para um serviço gerenciado na AWS mantendo compatibilidade com as ferramentas do ecossistema Kubernetes. Além disso, prefere não gerenciar os servidores que executam os contêineres. Qual combinação atende?","opcoes":["Amazon EKS para orquestrar com Kubernetes, com AWS Fargate como motor de computação serverless para os contêineres.","Amazon ECS, que é a distribuição oficial do Kubernetes.","Amazon EC2 puro, instalando o Kubernetes manualmente em cada instância.","AWS Lambda, empacotando o cluster inteiro em uma função."],"corretas":[0],"explicacao":"EKS é o Kubernetes gerenciado da AWS — mantém a compatibilidade com o ecossistema. Fargate executa os contêineres (do EKS ou do ECS) sem que o cliente gerencie instâncias. ECS é o orquestrador proprietário da AWS (não é Kubernetes) e instalar Kubernetes na mão em EC2 é justamente o que a equipe quer evitar."},{"id":"D3-13","dominio":3,"tarefa":"3.3","tema":"Auto Scaling e Load Balancing","dificuldade":"media","tipo":"unica","enunciado":"Uma aplicação web precisa (1) ajustar automaticamente o número de instâncias EC2 conforme o tráfego e (2) distribuir as requisições entre as instâncias saudáveis. Quais serviços cumprem esses papéis, respectivamente?","opcoes":["Amazon EC2 Auto Scaling para ajustar a frota; Elastic Load Balancing para distribuir o tráfego.","Elastic Load Balancing para ajustar a frota; Auto Scaling para distribuir o tráfego.","Amazon CloudFront para ambos.","AWS Batch para ajustar a frota; Amazon SQS para distribuir o tráfego."],"corretas":[0],"explicacao":"Auto Scaling adiciona e remove instâncias conforme métricas de demanda; o ELB distribui as requisições entre as instâncias saudáveis (health checks). Juntos formam o padrão de elasticidade e alta disponibilidade para aplicações web na AWS."},{"id":"D3-14","dominio":3,"tarefa":"3.3","tema":"Amazon Lightsail","dificuldade":"media","tipo":"unica","enunciado":"Um freelancer quer hospedar um site WordPress simples com preço mensal fixo e previsível, painel simplificado e sem precisar aprender VPC, security groups e load balancers. Qual serviço da AWS é o mais adequado?","opcoes":["Amazon Lightsail.","Amazon EKS.","AWS Batch.","Amazon Redshift."],"corretas":[0],"explicacao":"Lightsail é a oferta de VPS simplificada: servidores virtuais com preço fixo mensal, blueprints prontos (como WordPress) e rede pré-configurada — ideal para projetos simples e quem está começando. EKS é Kubernetes, Batch processa jobs em lote e Redshift é data warehouse."},{"id":"D3-15","dominio":3,"tarefa":"3.4","tema":"Amazon RDS Multi-AZ vs. read replicas","dificuldade":"dificil","tipo":"unica","enunciado":"Um banco Amazon RDS precisa de duas melhorias: failover automático em caso de falha da AZ e mais capacidade para as consultas de leitura dos relatórios. Quais recursos do RDS resolvem cada necessidade, respectivamente?","opcoes":["Implantação Multi-AZ para o failover automático; read replicas para escalar as leituras.","Read replicas para o failover; Multi-AZ para escalar as leituras.","Snapshots manuais para o failover; Multi-AZ para as leituras.","ElastiCache para o failover; snapshots para as leituras."],"corretas":[0],"explicacao":"Multi-AZ mantém uma réplica síncrona standby em outra AZ e faz failover automático — é solução de disponibilidade, não de performance. Read replicas são cópias assíncronas que atendem consultas de leitura — solução de escala de leitura, sem failover automático nativo. A prova adora inverter os dois."},{"id":"D3-16","dominio":3,"tarefa":"3.4","tema":"Amazon DynamoDB","dificuldade":"media","tipo":"unica","enunciado":"Uma aplicação de jogos precisa de um banco de dados NoSQL chave-valor, totalmente gerenciado e serverless, com latência de milissegundos em qualquer escala. Qual serviço atende?","opcoes":["Amazon DynamoDB.","Amazon RDS for MySQL.","Amazon Redshift.","Amazon Neptune."],"corretas":[0],"explicacao":"DynamoDB é o banco NoSQL chave-valor/documento serverless da AWS: sem servidores para gerenciar, escala automática e latência de milissegundos de um dígito. RDS é relacional, Redshift é data warehouse analítico e Neptune é banco de grafos."},{"id":"D3-17","dominio":3,"tarefa":"3.4","tema":"Amazon Aurora","dificuldade":"media","tipo":"unica","enunciado":"Qual característica descreve corretamente o Amazon Aurora?","opcoes":["Banco relacional gerenciado da AWS compatível com MySQL e PostgreSQL, com performance e disponibilidade aprimoradas em relação às versões padrão.","Banco NoSQL de documentos compatível com MongoDB.","Serviço de cache em memória compatível com Redis.","Data warehouse para análises em petabytes."],"corretas":[0],"explicacao":"Aurora é o banco relacional de alta performance da AWS, compatível com MySQL e PostgreSQL, com armazenamento distribuído em múltiplas AZs. Compatível com MongoDB é o DocumentDB; cache Redis é o ElastiCache; data warehouse é o Redshift."},{"id":"D3-18","dominio":3,"tarefa":"3.4","tema":"Amazon ElastiCache","dificuldade":"media","tipo":"unica","enunciado":"Um e-commerce quer reduzir a latência das consultas mais frequentes ao catálogo de produtos, aliviando a carga do banco relacional com uma camada de cache em memória gerenciada. Qual serviço usar?","opcoes":["Amazon ElastiCache (Redis ou Memcached).","Amazon S3 Glacier.","AWS Storage Gateway.","Amazon Keyspaces."],"corretas":[0],"explicacao":"ElastiCache é o serviço gerenciado de cache em memória (compatível com Redis/Valkey e Memcached): respostas em microssegundos e menos pressão no banco. Glacier é arquivamento, Storage Gateway integra armazenamento híbrido e Keyspaces é compatível com Apache Cassandra."},{"id":"D3-19","dominio":3,"tarefa":"3.4","tema":"Bancos de propósito específico","dificuldade":"dificil","tipo":"unica","enunciado":"Uma rede social quer armazenar e consultar relacionamentos altamente conectados entre usuários (amigos de amigos, recomendações por conexões). Qual banco de dados da AWS é construído para esse tipo de dado?","opcoes":["Amazon Neptune, banco de dados de grafos.","Amazon Redshift, data warehouse colunar.","Amazon RDS for SQL Server.","Amazon ElastiCache for Memcached."],"corretas":[0],"explicacao":"Relacionamentos altamente conectados são o caso de uso de bancos de grafos — Neptune. A filosofia purpose-built databases da AWS aparece na prova assim: identificar o banco certo para o padrão de dados (grafo → Neptune, documento → DocumentDB, séries temporais → Timestream, ledger → QLDB)."},{"id":"D3-20","dominio":3,"tarefa":"3.5","tema":"Classes de armazenamento S3","dificuldade":"media","tipo":"unica","enunciado":"Uma empresa guarda backups que raramente são acessados, mas que precisam estar disponíveis em milissegundos quando solicitados, com custo menor que o S3 Standard. Logs de 7 anos atrás, por sua vez, podem esperar horas para serem recuperados ao menor custo possível. Quais classes S3 combinam com cada caso?","opcoes":["S3 Standard-IA para os backups; S3 Glacier Deep Archive para os logs antigos.","S3 Glacier Deep Archive para os backups; S3 Standard para os logs.","S3 Standard para ambos, pois classes não mudam o custo.","S3 One Zone-IA para os logs; S3 Intelligent-Tiering para nada."],"corretas":[0],"explicacao":"Standard-IA: acesso raro com recuperação imediata e custo de armazenamento menor. Glacier Deep Archive: o menor custo de armazenamento da AWS, com recuperação em horas — perfeito para retenção de longo prazo. A escolha de classe é troca entre custo de armazenamento, custo/tempo de recuperação e frequência de acesso."},{"id":"D3-21","dominio":3,"tarefa":"3.5","tema":"S3 Intelligent-Tiering e lifecycle","dificuldade":"media","tipo":"unica","enunciado":"Uma equipe não sabe prever o padrão de acesso dos seus objetos no S3 e quer que eles migrem automaticamente para camadas mais baratas quando não forem acessados, sem taxa de recuperação nem trabalho operacional. Qual classe de armazenamento resolve?","opcoes":["S3 Intelligent-Tiering.","S3 Glacier Flexible Retrieval.","S3 Standard.","EBS Cold HDD."],"corretas":[0],"explicacao":"Intelligent-Tiering monitora o padrão de acesso de cada objeto e o move automaticamente entre camadas de acesso frequente, infrequente e de arquivo, sem taxas de recuperação — ideal para padrões imprevisíveis. Lifecycle policies são a alternativa quando o padrão é conhecido e programável."},{"id":"D3-22","dominio":3,"tarefa":"3.5","tema":"EBS vs. EFS vs. instance store","dificuldade":"dificil","tipo":"unica","enunciado":"Uma aplicação em várias instâncias EC2 (Linux) precisa que todas leiam e gravem os mesmos arquivos simultaneamente em um sistema de arquivos compartilhado e elástico. Qual serviço de armazenamento atende?","opcoes":["Amazon EFS, sistema de arquivos de rede compartilhável entre múltiplas instâncias.","Amazon EBS, anexando o mesmo volume a dezenas de instâncias em Regions diferentes.","Instance store, que persiste os dados após o encerramento da instância.","AWS Snowcone conectado permanentemente à VPC."],"corretas":[0],"explicacao":"EFS é o file system elástico (NFS) montável por muitas instâncias ao mesmo tempo. EBS é armazenamento de bloco tipicamente anexado a uma instância na mesma AZ (Multi-Attach é limitado e não cruza Regions). Instance store é efêmero — os dados se perdem quando a instância para. Snowcone é dispositivo de edge/migração."},{"id":"D3-23","dominio":3,"tarefa":"3.5","tema":"AWS Storage Gateway e AWS Backup","dificuldade":"media","tipo":"unica","enunciado":"Uma empresa quer (1) que suas aplicações on-premises continuem acessando arquivos localmente, mas com os dados armazenados na nuvem AWS, e (2) centralizar e automatizar os backups de vários serviços AWS com políticas únicas. Quais serviços resolvem, respectivamente?","opcoes":["AWS Storage Gateway para o acesso híbrido; AWS Backup para centralizar backups.","AWS Backup para o acesso híbrido; Amazon EFS para os backups.","Amazon CloudFront para ambos.","AWS DataSync para os backups; S3 Glacier para o acesso híbrido."],"corretas":[0],"explicacao":"Storage Gateway conecta ambientes on-premises ao armazenamento AWS com cache local (File, Volume e Tape Gateway). AWS Backup centraliza políticas e automação de backup para EBS, RDS, DynamoDB, EFS e outros. DataSync transfere dados; não é serviço de acesso híbrido contínuo nem de política de backup."},{"id":"D3-24","dominio":3,"tarefa":"3.6","tema":"Componentes de VPC","dificuldade":"media","tipo":"unica","enunciado":"Em uma VPC, servidores web precisam receber tráfego da internet, enquanto o banco de dados não deve ser acessível externamente, mas precisa baixar patches. Quais componentes tornam isso possível?","opcoes":["Servidores web em subnet pública com rota para o internet gateway; banco em subnet privada saindo para a internet via NAT gateway.","Todos os recursos em subnet pública, protegidos apenas por senha forte.","Banco em subnet pública e servidores web em subnet privada.","Duas VPCs sem qualquer conectividade entre elas."],"corretas":[0],"explicacao":"O padrão clássico: subnet pública (com rota para o internet gateway) para o que recebe tráfego externo; subnet privada para o banco, que acessa a internet somente para saída via NAT gateway — a internet não consegue iniciar conexões de entrada com ele."},{"id":"D3-25","dominio":3,"tarefa":"3.6","tema":"Amazon Route 53","dificuldade":"facil","tipo":"unica","enunciado":"Qual serviço da AWS fornece DNS gerenciado e altamente disponível, incluindo registro de domínios e políticas de roteamento como failover e latência?","opcoes":["Amazon Route 53.","Amazon VPC.","AWS Direct Connect.","Amazon SES."],"corretas":[0],"explicacao":"Route 53 é o serviço de DNS da AWS: resolução de nomes, registro de domínios, health checks e políticas de roteamento (simples, ponderado, latência, failover, geolocalização). VPC é rede virtual, Direct Connect é conexão dedicada e SES é envio de e-mail."},{"id":"D3-26","dominio":3,"tarefa":"3.6","tema":"VPN vs. Direct Connect","dificuldade":"media","tipo":"unica","enunciado":"Uma empresa quer conectar seu datacenter à AWS. A primeira necessidade é uma conexão rápida de estabelecer e criptografada pela internet; depois, planeja uma conexão dedicada com banda consistente que não trafegue pela internet pública. Quais serviços correspondem a cada fase?","opcoes":["AWS Site-to-Site VPN primeiro; AWS Direct Connect depois.","AWS Direct Connect primeiro; VPN depois.","Amazon Route 53 primeiro; CloudFront depois.","VPC peering para ambas as fases."],"corretas":[0],"explicacao":"Site-to-Site VPN atravessa a internet com criptografia IPsec e fica pronta em horas. Direct Connect é o circuito físico dedicado — semanas ou meses para provisionar, mas com largura de banda consistente e tráfego fora da internet pública. VPC peering conecta VPCs entre si, não o datacenter à AWS."},{"id":"D3-27","dominio":3,"tarefa":"3.6","tema":"Conectividade privada e API Gateway","dificuldade":"dificil","tipo":"unica","enunciado":"Instâncias em subnets privadas precisam acessar o Amazon S3 sem que o tráfego passe pela internet pública nem por um NAT gateway. Qual recurso de rede da VPC atende a esse requisito?","opcoes":["VPC endpoints (por exemplo, um gateway endpoint para S3), mantendo o tráfego dentro da rede da AWS.","Um segundo internet gateway exclusivo para o S3.","Um registro DNS no Route 53 apontando para o bucket.","Uma distribuição do CloudFront na frente do bucket."],"corretas":[0],"explicacao":"VPC endpoints criam um caminho privado da VPC para serviços AWS — o gateway endpoint para S3 (e DynamoDB) é gratuito e evita internet e NAT. Internet gateway é justamente o que se quer evitar; DNS e CDN não mudam o caminho privado do tráfego."},{"id":"D3-28","dominio":3,"tarefa":"3.6","tema":"AWS Global Accelerator vs. CloudFront","dificuldade":"dificil","tipo":"unica","enunciado":"Uma aplicação com usuários globais precisa melhorar a performance e a disponibilidade de tráfego que NÃO é cacheável (TCP/UDP dinâmico), roteando os usuários pela rede global da AWS com endereços IP estáticos de entrada. Qual serviço é o mais indicado?","opcoes":["AWS Global Accelerator.","Amazon CloudFront, pois tudo se resolve com cache.","Amazon EBS com provisioned IOPS.","AWS Snowmobile."],"corretas":[0],"explicacao":"Global Accelerator dá dois IPs estáticos anycast e leva o tráfego do usuário para a rede backbone da AWS no ponto de presença mais próximo — melhora latência e failover para tráfego dinâmico TCP/UDP. CloudFront é para conteúdo cacheável HTTP(S). É a comparação favorita da prova entre os dois."},{"id":"D3-29","dominio":3,"tarefa":"3.7","tema":"Serviços de IA prontos","dificuldade":"media","tipo":"unica","enunciado":"Sem ter cientistas de dados na equipe, uma empresa quer adicionar às suas aplicações: extração de texto de documentos digitalizados e conversão de texto em fala natural. Quais serviços de IA da AWS resolvem, respectivamente?","opcoes":["Amazon Textract para extrair texto de documentos; Amazon Polly para converter texto em fala.","Amazon Polly para os documentos; Amazon Transcribe para a fala.","Amazon Rekognition para ambos.","Amazon SageMaker AI exigindo treinamento de modelos próprios."],"corretas":[0],"explicacao":"Textract extrai texto e dados de documentos (OCR inteligente); Polly transforma texto em fala. Transcribe faz o inverso (fala → texto), Rekognition analisa imagens e vídeos, e o SageMaker AI é para construir e treinar modelos próprios — desnecessário quando os serviços prontos resolvem."},{"id":"D3-30","dominio":3,"tarefa":"3.7","tema":"Serviços de ML e GenAI","dificuldade":"media","tipo":"unica","enunciado":"Qual é a diferença de propósito entre o Amazon SageMaker AI e o Amazon Bedrock?","opcoes":["SageMaker AI é a plataforma para construir, treinar e implantar modelos de machine learning próprios; Bedrock dá acesso gerenciado a foundation models de IA generativa via API.","Bedrock treina modelos do zero; SageMaker AI apenas hospeda chatbots.","Ambos são serviços de banco de dados.","SageMaker AI é o serviço de OCR e Bedrock o de tradução."],"corretas":[0],"explicacao":"SageMaker AI cobre o ciclo de ML (preparar dados, treinar, implantar modelos próprios). Bedrock oferece foundation models prontos (para texto, imagem, chat) consumidos por API, sem gerenciar infraestrutura de modelo. O CLF-C02 cobra reconhecer o propósito de cada um."},{"id":"D3-31","dominio":3,"tarefa":"3.7","tema":"Serviços de análise de dados","dificuldade":"media","tipo":"unica","enunciado":"Um analista quer executar consultas SQL diretamente sobre arquivos armazenados no Amazon S3, sem provisionar servidores, e depois montar dashboards interativos para a diretoria. Quais serviços combinam com cada tarefa, respectivamente?","opcoes":["Amazon Athena para consultar o S3 com SQL; Amazon QuickSight para os dashboards.","Amazon QuickSight para as consultas; Athena para os dashboards.","Amazon Kinesis para ambos.","Amazon Neptune para consultas; CloudWatch para dashboards de negócio."],"corretas":[0],"explicacao":"Athena é o serviço serverless de consultas SQL sobre dados no S3 (paga por dados escaneados). QuickSight é o BI da AWS para dashboards e visualizações. Kinesis processa streaming em tempo real e CloudWatch monitora infraestrutura, não indicadores de negócio para diretoria."},{"id":"D3-32","dominio":3,"tarefa":"3.7","tema":"Streaming e ETL","dificuldade":"dificil","tipo":"unica","enunciado":"Uma empresa precisa (1) ingerir e processar dados de cliques do site em tempo real e (2) catalogar e preparar (ETL) os dados do data lake para análise. Quais serviços da AWS atendem, respectivamente?","opcoes":["Amazon Kinesis para o streaming em tempo real; AWS Glue para catálogo e ETL.","AWS Glue para o streaming; Amazon Athena para o ETL.","Amazon Redshift para o streaming; Amazon EMR para catálogo.","Amazon SQS para o ETL; Amazon SNS para o streaming."],"corretas":[0],"explicacao":"Kinesis (Data Streams/Firehose) é a família de ingestão e processamento de dados em tempo real. Glue é o serviço serverless de integração de dados: data catalog e jobs de ETL. Athena consulta, Redshift armazena para análise, EMR roda big data (Spark/Hadoop), SQS/SNS são mensageria."},{"id":"D3-33","dominio":3,"tarefa":"3.8","tema":"Integração de aplicações: SQS e SNS","dificuldade":"media","tipo":"unica","enunciado":"Uma arquitetura de microsserviços precisa (1) enfileirar pedidos para processamento assíncrono, garantindo que cada mensagem seja consumida por um único worker, e (2) publicar notificações que várias aplicações e e-mails assinam simultaneamente. Quais serviços usar, respectivamente?","opcoes":["Amazon SQS para a fila; Amazon SNS para publicar/assinar notificações.","Amazon SNS para a fila; Amazon SQS para o publicar/assinar.","AWS Step Functions para ambos.","Amazon MQ apenas, pois SQS e SNS foram descontinuados."],"corretas":[0],"explicacao":"SQS = fila (cada mensagem processada por um consumidor; desacopla e absorve picos). SNS = pub/sub (uma mensagem entregue a muitos assinantes: e-mail, SMS, Lambda, SQS). Step Functions orquestra workflows e o Amazon MQ atende quem já usa brokers como RabbitMQ/ActiveMQ."},{"id":"D3-34","dominio":3,"tarefa":"3.8","tema":"Serviços de usuário final e negócios","dificuldade":"media","tipo":"multipla","enunciado":"Quais afirmações associam corretamente um serviço AWS ao seu propósito? (Escolha DUAS.)","opcoes":["Amazon Connect fornece um contact center (central de atendimento) na nuvem.","AWS Systems Manager centraliza a visão e a operação da frota de recursos, incluindo execução remota de comandos e gestão de patches.","Amazon Redshift é o serviço de envio de e-mails transacionais.","AWS CloudFormation é o serviço de desktops virtuais para funcionários.","Amazon Athena é o serviço de fila de mensagens."],"corretas":[0,1],"explicacao":"Connect = contact center na nuvem; Systems Manager = hub operacional (Session Manager, Run Command, Patch Manager). E-mail transacional é o Amazon SES, desktop virtual é o Amazon WorkSpaces, fila é o SQS e o Athena consulta dados no S3 — associações trocadas são o formato mais comum de pegadinha no D3."},{"id":"D4-01","dominio":4,"tarefa":"4.1","tema":"Modelos de compra do EC2","dificuldade":"media","tipo":"unica","enunciado":"Uma empresa tem três workloads: (1) um sistema em produção com uso estável e previsto para os próximos 3 anos; (2) processamento em lote que tolera interrupções a qualquer momento; (3) testes esporádicos e imprevisíveis. Qual combinação de modelos de compra do EC2 minimiza o custo de cada workload?","opcoes":["Savings Plans ou Reserved Instances para o estável; Spot Instances para o lote interrompível; On-Demand para os testes esporádicos.","On-Demand para tudo, pois é sempre o mais barato.","Spot para o sistema de produção estável; Reserved para os testes.","Dedicated Hosts para os três workloads."],"corretas":[0],"explicacao":"A tríade clássica: compromisso de 1 ou 3 anos (RI/Savings Plans, até ~72% de desconto) para uso estável; Spot (até ~90% de desconto, mas interrompível) para trabalho tolerante a falhas; On-Demand (sem compromisso) para uso imprevisível. Spot em produção crítica e Reserved para uso esporádico invertem a lógica."},{"id":"D4-02","dominio":4,"tarefa":"4.1","tema":"Savings Plans","dificuldade":"media","tipo":"unica","enunciado":"Qual é a característica dos Compute Savings Plans que os diferencia das Reserved Instances padrão?","opcoes":["O compromisso é com um valor de gasto por hora (USD/hora) por 1 ou 3 anos, com flexibilidade para trocar família de instância, Region e até usar Fargate e Lambda.","Não exigem nenhum compromisso de prazo.","Aplicam-se apenas ao Amazon S3.","São gratuitos para contas novas."],"corretas":[0],"explicacao":"Savings Plans trocam o compromisso por instância específica por um compromisso de gasto por hora, mantendo o desconto com muito mais flexibilidade — Compute Savings Plans cobrem EC2 (qualquer família/Region), Fargate e Lambda. O compromisso de 1 ou 3 anos continua existindo."},{"id":"D4-03","dominio":4,"tarefa":"4.1","tema":"Custos de transferência de dados","dificuldade":"dificil","tipo":"unica","enunciado":"Ao estimar custos na AWS, qual afirmação sobre transferência de dados está correta e costuma surpreender times novos na nuvem?","opcoes":["A entrada de dados (inbound) para a AWS geralmente é gratuita; a saída de dados (outbound) para a internet é cobrada.","Toda transferência de dados, em qualquer direção, é sempre gratuita.","A entrada de dados é cobrada e a saída é gratuita.","Transferências entre Availability Zones são sempre gratuitas em qualquer serviço."],"corretas":[0],"explicacao":"O padrão de preço da AWS: dados entrando são gratuitos; dados saindo para a internet são cobrados por GB, e transferências entre AZs ou Regions também podem gerar custo. É um dos itens que mais geram surpresa na primeira fatura — e uma pergunta recorrente na prova."},{"id":"D4-04","dominio":4,"tarefa":"4.1","tema":"Free Tier","dificuldade":"facil","tipo":"unica","enunciado":"Um estudante quer praticar na AWS sem gastar. O que o nível gratuito (AWS Free Tier) oferece?","opcoes":["Ofertas gratuitas de três tipos: sempre gratuitas (always free), gratuitas por 12 meses para contas novas e testes gratuitos de curta duração (trials).","Uso ilimitado e gratuito de todos os serviços para sempre.","Apenas descontos de 10% na fatura mensal.","Acesso gratuito somente mediante aprovação do AWS Support."],"corretas":[0],"explicacao":"O Free Tier tem três categorias: always free (ex.: 1 milhão de requisições Lambda/mês), 12 meses grátis para contas novas (ex.: horas de EC2) e trials temporários. Exceder os limites gera cobrança normal — por isso vale configurar alertas de billing desde o primeiro dia."},{"id":"D4-05","dominio":4,"tarefa":"4.2","tema":"AWS Pricing Calculator","dificuldade":"facil","tipo":"unica","enunciado":"Antes de migrar, uma empresa precisa apresentar à diretoria uma estimativa de custo mensal da arquitetura planejada na AWS. Qual ferramenta oficial serve para criar essa estimativa?","opcoes":["AWS Pricing Calculator.","AWS Cost Explorer.","AWS CloudTrail.","Amazon Inspector."],"corretas":[0],"explicacao":"O Pricing Calculator estima custos futuros de uma arquitetura antes de implantá-la, gerando relatórios compartilháveis. O Cost Explorer analisa custos que já aconteceram na conta — a distinção entre estimar (futuro) e analisar (passado) é o ponto avaliado."},{"id":"D4-06","dominio":4,"tarefa":"4.2","tema":"Cost Explorer vs. Budgets","dificuldade":"media","tipo":"unica","enunciado":"O time financeiro quer (1) analisar visualmente os gastos dos últimos meses por serviço e prever a tendência futura e (2) ser alertado por e-mail quando o gasto previsto do mês ultrapassar um valor definido. Quais ferramentas usar, respectivamente?","opcoes":["AWS Cost Explorer para análise e tendência; AWS Budgets para alertas de orçamento.","AWS Budgets para análise; Cost Explorer para alertas.","AWS Artifact para ambos.","Amazon QuickSight para alertas; CloudWatch para análise de fatura."],"corretas":[0],"explicacao":"Cost Explorer visualiza e filtra custos históricos (com previsão de tendência); Budgets define limites de gasto ou uso e dispara alertas quando o real ou o previsto ultrapassa o limiar — inclusive com ações automáticas. São complementares e a prova costuma cobrar a distinção."},{"id":"D4-07","dominio":4,"tarefa":"4.2","tema":"Cost allocation tags","dificuldade":"media","tipo":"unica","enunciado":"Uma empresa quer saber quanto cada departamento (marketing, produto, dados) gasta na AWS dentro da mesma conta. Qual mecanismo viabiliza esse rateio nos relatórios de custo?","opcoes":["Cost allocation tags: etiquetar os recursos por departamento e ativar essas tags nos relatórios de cobrança.","Criar um usuário IAM por departamento, pois o custo é rateado por usuário automaticamente.","Abrir um chamado mensal ao AWS Support pedindo o rateio.","Não é possível separar custos dentro de uma mesma conta."],"corretas":[0],"explicacao":"Tags de alocação de custos (ex.: Department=Marketing) ativadas no billing permitem filtrar e agrupar custos por qualquer dimensão de negócio no Cost Explorer e no Cost and Usage Report. Custo não é atribuído a usuários IAM."},{"id":"D4-08","dominio":4,"tarefa":"4.2","tema":"Consolidated billing","dificuldade":"media","tipo":"multipla","enunciado":"Quais são benefícios do faturamento consolidado (consolidated billing) do AWS Organizations? (Escolha DOIS.)","opcoes":["Uma única fatura para todas as contas da organização.","Agregação do uso de todas as contas, ajudando a atingir faixas de desconto por volume e a compartilhar descontos de Reserved Instances e Savings Plans.","Bloqueio automático de serviços caros em contas-membro.","Isenção total de impostos sobre a fatura.","Suporte Enterprise gratuito para todas as contas."],"corretas":[0,1],"explicacao":"Consolidated billing traz fatura única e agrega o uso das contas, o que acelera o alcance de tiers de desconto por volume e permite compartilhar RIs/Savings Plans entre contas. Bloquear serviços é papel das SCPs (não do billing), e não há isenção de impostos nem suporte gratuito."},{"id":"D4-09","dominio":4,"tarefa":"4.2","tema":"Alertas de cobrança","dificuldade":"facil","tipo":"unica","enunciado":"Um desenvolvedor criou uma conta pessoal na AWS e teme esquecer recursos ligados e receber uma fatura inesperada. Qual é a primeira providência recomendada?","opcoes":["Configurar um AWS Budget (ou alarme de billing no CloudWatch) para ser notificado ao se aproximar de um limite de gasto.","Desativar o console após cada uso.","Solicitar à AWS um limite físico de cobrança, que bloqueia a conta ao atingir o valor.","Verificar a fatura apenas no fim do ano."],"corretas":[0],"explicacao":"Budgets (e alarmes de billing) notificam quando o gasto real ou previsto cruza o limiar definido — a proteção básica de qualquer conta nova. Não existe um bloqueio automático de cobrança da AWS; a responsabilidade de desligar recursos é do cliente."},{"id":"D4-10","dominio":4,"tarefa":"4.3","tema":"Planos de suporte","dificuldade":"media","tipo":"unica","enunciado":"Uma empresa com workloads de produção na AWS quer suporte técnico 24/7 por telefone e chat, orientação contextual sobre casos de uso e acesso à API do suporte, pelo menor custo que atenda a esses requisitos. Qual plano de suporte contratar?","opcoes":["Business Support.","Basic Support.","Developer Support.","Enterprise Support."],"corretas":[0],"explicacao":"O Business é o primeiro plano com suporte 24/7 por telefone/chat, resposta em 1 hora para sistemas de produção com problema e Trusted Advisor completo. Basic não tem suporte técnico, Developer atende por e-mail em horário comercial e o Enterprise adiciona TAM a custo muito maior."},{"id":"D4-11","dominio":4,"tarefa":"4.3","tema":"Enterprise Support e TAM","dificuldade":"media","tipo":"unica","enunciado":"Qual recurso é exclusivo do plano Enterprise Support (não disponível no Business)?","opcoes":["Um Technical Account Manager (TAM) designado, com orientação proativa e revisões operacionais, e resposta em 15 minutos para sistemas críticos indisponíveis.","Acesso ao Trusted Advisor.","Acesso à documentação oficial da AWS.","Suporte a aumentos de service quotas."],"corretas":[0],"explicacao":"O TAM designado e o SLA de 15 minutos para business-critical down são marcas do Enterprise (o Enterprise On-Ramp oferece um meio-termo com pool de TAMs e 30 minutos). Trusted Advisor completo já vem no Business, e documentação e quotas estão disponíveis a todos."},{"id":"D4-12","dominio":4,"tarefa":"4.3","tema":"Trusted Advisor, Marketplace e comunidades","dificuldade":"dificil","tipo":"unica","enunciado":"Associe as necessidades aos recursos corretos: (1) receber verificações automáticas de otimização de custo, segurança, performance e limites de serviço na conta; (2) comprar software de terceiros pronto para rodar na AWS com cobrança integrada à fatura; (3) tirar dúvidas técnicas em uma comunidade oficial e gratuita.","opcoes":["(1) AWS Trusted Advisor; (2) AWS Marketplace; (3) AWS re:Post.","(1) AWS Marketplace; (2) re:Post; (3) Trusted Advisor.","(1) re:Post; (2) Trusted Advisor; (3) Marketplace.","(1) AWS Artifact; (2) AWS Config; (3) AWS CloudTrail."],"corretas":[0],"explicacao":"Trusted Advisor roda checks de boas práticas (custo, segurança, performance, resiliência, limites) — os checks completos exigem Business ou superior. Marketplace é o catálogo de software de terceiros com cobrança na fatura AWS. re:Post é a comunidade oficial de perguntas e respostas, gratuita."}];
+
+const DOM = {
+ 1:{nome:"Cloud Concepts", peso:24},
+ 2:{nome:"Security and Compliance", peso:30},
+ 3:{nome:"Cloud Technology and Services", peso:34},
+ 4:{nome:"Billing, Pricing and Support", peso:12}
+};
+const TASK = {
+ "1.1":"Benefícios da nuvem AWS","1.2":"Princípios de design (Well-Architected)","1.3":"Migração para a nuvem (CAF, 7 Rs)","1.4":"Economia da nuvem (TCO)",
+ "2.1":"Modelo de responsabilidade compartilhada","2.2":"Segurança, governança e compliance","2.3":"Gerenciamento de acessos (IAM)","2.4":"Componentes e recursos de segurança",
+ "3.1":"Implantação e operação na AWS","3.2":"Infraestrutura global da AWS","3.3":"Serviços de computação","3.4":"Serviços de banco de dados","3.5":"Serviços de armazenamento","3.6":"Serviços de rede","3.7":"IA/ML e análise de dados","3.8":"Outras categorias de serviço",
+ "4.1":"Modelos de preço da AWS","4.2":"Cobrança, orçamento e gestão de custos","4.3":"Recursos técnicos e planos de suporte"
+};
+const DOMS = [1,2,3,4];
+const LETRA = ["A","B","C","D","E"];
+const $ = s => document.querySelector(s);
+
+let S = null;          // sessão atual
+let tick = null;
+const HIST = [];       // histórico em memória
+
+/* ---------- utilidades ---------- */
+const shuffle = a => { a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+const eqSet = (a,b) => a.length===b.length && a.slice().sort((x,y)=>x-y).join()===b.slice().sort((x,y)=>x-y).join();
+const fmt = s => String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
+const esc = t => String(t).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+/* quantas alternativas a questão exige (fonte única da verdade) */
+const exige = q => q.corretas.length;
+
+/* amostragem proporcional aos pesos oficiais (maior resto) */
+function amostrar(total){
+  const alvo = {}, resto = [];
+  const pools = {};
+  let soma = 0;
+  for(const d of DOMS){
+    pools[d] = shuffle(BANK.filter(q=>q.dominio===d));
+    const exato = total*DOM[d].peso/100;
+    alvo[d] = Math.floor(exato); soma += alvo[d];
+    resto.push([d, exato-Math.floor(exato)]);
+  }
+  resto.sort((a,b)=>b[1]-a[1]);
+  let i=0; while(soma<total && i<DOMS.length*total){ alvo[resto[i%DOMS.length][0]]++; soma++; i++; }
+  let out=[];
+  for(const d of DOMS) out = out.concat(pools[d].slice(0, Math.min(alvo[d], pools[d].length)));
+  /* se algum domínio tinha banco menor que a cota, completa com o que sobrou
+     em vez de devolver uma prova curta */
+  if(out.length < total){
+    const usados = new Set(out.map(q=>q.id));
+    const sobra = shuffle(BANK.filter(q=>!usados.has(q.id)));
+    out = out.concat(sobra.slice(0, total-out.length));
+  }
+  return out;
+}
+
+function prepara(qs, shufA){
+  return qs.map(q=>{
+    if(!shufA) return {...q, ordem:q.opcoes.map((_,i)=>i)};
+    const ordem = shuffle(q.opcoes.map((_,i)=>i));
+    return {...q, ordem,
+      opcoes: ordem.map(i=>q.opcoes[i]),
+      corretas: q.corretas.map(c=>ordem.indexOf(c)).sort((a,b)=>a-b)};
+  });
+}
+
+/* ---------- home ---------- */
+function montaHome(){
+  const dl = $("#domList");
+  dl.innerHTML = DOMS.map(d=>{
+    const n = BANK.filter(q=>q.dominio===d).length;
+    return `<button class="domrow" data-dom="${d}">
+      <span class="dn">D${d}</span>
+      <span class="dt"><b>${DOM[d].nome}</b><small>${n} questões no banco</small></span>
+      <span class="dw">${DOM[d].peso}% da prova</span></button>`;
+  }).join("");
+  dl.querySelectorAll(".domrow").forEach(b=>b.onclick=()=>iniciar("dom", +b.dataset.dom));
+  document.querySelectorAll(".mode").forEach(b=>b.onclick=()=>iniciar(b.dataset.mode));
+}
+
+function iniciar(modo, dom){
+  let qs, minutos, rotulo;
+  if(modo==="full"){ qs=amostrar(65); minutos=90; rotulo="Simulado completo (65q)"; }
+  else if(modo==="quick"){ qs=amostrar(30); minutos=45; rotulo="Prova rápida (30q)"; }
+  else if(modo==="all"){ qs=BANK.slice(); minutos=0; rotulo="Banco inteiro ("+BANK.length+"q)"; }
+  else if(modo==="retry"){ qs=dom; minutos=0; rotulo="Revisão dos erros ("+qs.length+"q)"; }
+  else { qs=BANK.filter(q=>q.dominio===dom); minutos=0; rotulo="Domínio "+dom+" — "+DOM[dom].nome; }
+
+  if(!qs.length){ alert("Nenhuma questão disponível para este modo."); return; }
+
+  if($("#optShuffleQ").checked && modo!=="retry") qs = shuffle(qs);
+  qs = prepara(qs, $("#optShuffleA").checked);
+
+  /* a revisão dos erros é sempre com gabarito na hora, sem alterar a preferência
+     que o usuário deixou marcada na home */
+  S = { rotulo, questoes:qs, i:0, resp:{}, flags:new Set(),
+        estudo: modo==="retry" ? true : $("#optStudy").checked,
+        cronometro:$("#optTimer").checked && minutos>0, restante:minutos*60,
+        inicio:Date.now(), terminado:false };
+
+  $("#viewHome").classList.add("hidden");
+  $("#viewResult").classList.add("hidden");
+  $("#viewQuiz").classList.remove("hidden");
+  $("#btnAbort").classList.remove("hidden");
+  window.scrollTo(0,0);
+
+  $("#qTimer").classList.remove("warn");
+  if(S.cronometro){ rodaTempo(); }
+  else { clearInterval(tick); $("#qTimer").textContent=""; }
+  render();
+}
+
+function rodaTempo(){
+  clearInterval(tick);
+  $("#qTimer").textContent = fmt(S.restante);
+  tick = setInterval(()=>{
+    S.restante--;
+    $("#qTimer").textContent = fmt(Math.max(0,S.restante));
+    $("#qTimer").classList.toggle("warn", S.restante<=300);
+    if(S.restante<=0){ clearInterval(tick); finalizar(true); }
+  },1000);
+}
+
+/* ---------- render da questão ---------- */
+function render(){
+  const q = S.questoes[S.i];
+  const marcada = S.resp[q.id] || [];
+  /* só revela o gabarito quando a resposta está completa — em questões de
+     múltipla resposta, revelar na 1ª marcação entregava o gabarito e travava
+     a 2ª escolha */
+  const revelado = S.estudo && marcada.length===exige(q);
+
+  $("#qCounter").textContent = (S.i+1)+" / "+S.questoes.length;
+  $("#qProg").style.width = ((S.i+1)/S.questoes.length*100)+"%";
+
+  $("#qHead").innerHTML =
+    `<span class="chip on">D${q.dominio} · ${q.tarefa}</span>`+
+    `<span class="chip">${esc(TASK[q.tarefa]||q.tarefa)}</span>`+
+    `<span class="chip">${esc(q.dificuldade)}</span>`+
+    (exige(q)>1 ? `<span class="chip on">escolha ${exige(q)}</span>` : ``);
+  $("#qStem").textContent = q.enunciado;
+
+  $("#qAlts").innerHTML = q.opcoes.map((o,i)=>{
+    let cls = marcada.includes(i) ? "alt sel" : "alt";
+    if(revelado){
+      cls = q.corretas.includes(i) ? "alt good" : (marcada.includes(i) ? "alt bad" : "alt");
+      cls += " travada";
+    }
+    return `<button type="button" class="${cls}" data-i="${i}" aria-pressed="${marcada.includes(i)}">`+
+           `<span class="k">${LETRA[i]}</span><span>${esc(o)}</span></button>`;
+  }).join("");
+  $("#qAlts").querySelectorAll(".alt").forEach(el=>el.onclick=()=>escolher(+el.dataset.i));
+
+  $("#qFb").innerHTML = revelado
+    ? `<div class="fb"><b>${eqSet(marcada,q.corretas)?"Correto.":"Resposta correta: "+q.corretas.map(c=>LETRA[c]).join(" e ")+"."}</b> ${esc(q.explicacao)}</div>`
+    : "";
+
+  $("#btnPrev").disabled = S.i===0;
+  $("#btnNext").textContent = S.i===S.questoes.length-1 ? "Última questão" : "Próxima →";
+  $("#btnNext").disabled = S.i===S.questoes.length-1;
+  $("#btnFlag").textContent = S.flags.has(q.id) ? "★ Marcada" : "Marcar para revisar";
+
+  $("#qGrid").innerHTML = S.questoes.map((x,i)=>{
+    let c="gq";
+    if((S.resp[x.id]||[]).length) c+=" done";
+    if(S.flags.has(x.id)) c+=" flag";
+    if(i===S.i) c+=" cur";
+    return `<button class="${c}" data-g="${i}">${i+1}</button>`;
+  }).join("");
+  $("#qGrid").querySelectorAll(".gq").forEach(b=>b.onclick=()=>{S.i=+b.dataset.g;render();window.scrollTo(0,0);});
+}
+
+function escolher(i){
+  const q = S.questoes[S.i];
+  const n = exige(q);
+  let cur = S.resp[q.id] ? S.resp[q.id].slice() : [];
+  if(S.estudo && cur.length===n) return;                 // trava só depois de revelar
+  if(n===1){ cur=[i]; }
+  else {
+    if(cur.includes(i)) cur = cur.filter(x=>x!==i);
+    else if(cur.length<n) cur.push(i);
+    else cur = cur.slice(1).concat(i);                   // descarta a marcação mais antiga
+  }
+  S.resp[q.id] = cur.sort((a,b)=>a-b);
+  render();
+}
+
+$("#btnPrev").onclick = ()=>{ if(S.i>0){S.i--;render();window.scrollTo(0,0);} };
+$("#btnNext").onclick = ()=>{ if(S.i<S.questoes.length-1){S.i++;render();window.scrollTo(0,0);} };
+$("#btnFlag").onclick = ()=>{ const id=S.questoes[S.i].id; S.flags.has(id)?S.flags.delete(id):S.flags.add(id); render(); };
+$("#btnFinish").onclick = ()=>finalizar(false);
+$("#btnAbort").onclick = ()=>{ if(confirm("Sair e descartar este simulado?")){ clearInterval(tick); voltarHome(); } };
+
+document.addEventListener("keydown", e=>{
+  if($("#viewQuiz").classList.contains("hidden") || !S || S.terminado) return;
+  if(e.ctrlKey||e.altKey||e.metaKey) return;
+  const alvo = e.target;
+  if(alvo && /^(INPUT|TEXTAREA|SELECT)$/.test(alvo.tagName)) return;
+  if(e.key==="ArrowRight"){ e.preventDefault(); $("#btnNext").click(); return; }
+  if(e.key==="ArrowLeft"){ e.preventDefault(); $("#btnPrev").click(); return; }
+  const n = "12345".indexOf(e.key);
+  if(n>=0 && n < S.questoes[S.i].opcoes.length){ e.preventDefault(); escolher(n); }
+});
+
+/* ---------- resultado ---------- */
+function finalizar(porTempo){
+  if(!S || S.terminado) return;                          // evita resultado duplicado
+  const naoResp = S.questoes.filter(q=>!(S.resp[q.id]||[]).length).length;
+  if(!porTempo && naoResp>0 && !confirm(naoResp+" questão(ões) sem resposta. Finalizar mesmo assim?")) return;
+  if(S.terminado) return;                                // o cronômetro pode ter estourado durante o confirm
+  S.terminado = true;
+  clearInterval(tick);
+  $("#qTimer").classList.remove("warn");
+
+  const itens = S.questoes.map(q=>{
+    const m = S.resp[q.id]||[];
+    return {q, marcada:m, acertou: m.length>0 && eqSet(m,q.corretas)};
+  });
+  const acertos = itens.filter(i=>i.acertou).length;
+  const pct = itens.length ? acertos/itens.length : 0;
+  const nota = Math.max(100, Math.round(pct*1000));   // a escala oficial vai de 100 a 1000
+
+  // por domínio
+  const porDom = DOMS.map(d=>{
+    const sub = itens.filter(i=>i.q.dominio===d);
+    const ac = sub.filter(i=>i.acertou).length;
+    const p = sub.length ? ac/sub.length : null;
+    return {d, total:sub.length, ac, pct:p, peso:DOM[d].peso,
+            perda: p===null ? 0 : DOM[d].peso*(1-p)};
+  });
+  // por task statement
+  const porTask = Object.keys(TASK).map(t=>{
+    const sub = itens.filter(i=>i.q.tarefa===t);
+    const ac = sub.filter(i=>i.acertou).length;
+    return {t, total:sub.length, ac, pct: sub.length?ac/sub.length:null};
+  }).filter(x=>x.total>0);
+
+  const temasErrados = {};
+  itens.filter(i=>!i.acertou).forEach(i=>{ temasErrados[i.q.tema]=(temasErrados[i.q.tema]||0)+1; });
+  const temas = Object.entries(temasErrados).sort((a,b)=>b[1]-a[1]);
+
+  HIST.push({rotulo:S.rotulo, acertos, total:itens.length, nota,
+             fraco: porDom.filter(x=>x.total>0).sort((a,b)=>b.perda-a.perda)[0]});
+
+  desenhaResultado({itens, acertos, pct, nota, porDom, porTask, temas, porTempo});
+  $("#viewQuiz").classList.add("hidden");
+  $("#btnAbort").classList.add("hidden");
+  $("#viewResult").classList.remove("hidden");
+  window.scrollTo(0,0);
+}
+
+function corPct(p){ return p>=.8 ? "var(--ok)" : p>=.6 ? "var(--ambar)" : "var(--erro)"; }
+function pill(p){ return p>=.8 ? '<span class="pill p3">sólido</span>' : p>=.6 ? '<span class="pill p2">atenção</span>' : '<span class="pill p1">prioridade</span>'; }
+
+function desenhaResultado(R){
+  const passou = R.nota>=700;
+  const raio=58, circ=2*Math.PI*raio, off=circ*(1-R.pct);
+  const segs = Math.round((Date.now()-S.inicio)/1000);
+  const min = segs<60 ? "menos de 1 min" : Math.round(segs/60)+" min";
+
+  const errados = R.itens.filter(i=>!i.acertou);
+  const domOrd = R.porDom.filter(x=>x.total>0).sort((a,b)=>b.perda-a.perda);
+
+  $("#resWrap").innerHTML = `
+  <div class="hero">
+    <div class="score">
+      <svg class="ring" viewBox="0 0 132 132">
+        <circle cx="66" cy="66" r="${raio}" fill="none" stroke="#3A342C" stroke-width="11"/>
+        <circle cx="66" cy="66" r="${raio}" fill="none" stroke="${passou?'#8FD9A8':'#F2A33C'}" stroke-width="11"
+                stroke-linecap="round" stroke-dasharray="${circ}" stroke-dashoffset="${off}"
+                transform="rotate(-90 66 66)"/>
+        <text x="66" y="62" text-anchor="middle" font-family="Sora" font-size="27" font-weight="700" fill="#F2EEE6">${Math.round(R.pct*100)}%</text>
+        <text x="66" y="80" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#8A8578">ACERTOS</text>
+      </svg>
+      <div>
+        <div class="verdict ${passou?'pass':'fail'}">${passou?"Aprovado no simulado":"Ainda não passou"}</div>
+        <p style="color:#8A8578;margin-top:6px">${R.acertos} de ${R.itens.length} questões · ${min} · ${S.rotulo}${R.porTempo?" · tempo esgotado":""}</p>
+        <div class="facts" style="margin-top:16px">
+          <div class="fact"><b>${R.nota}</b><span>nota estimada / 1000</span></div>
+          <div class="fact"><b>700</b><span>corte oficial</span></div>
+          <div class="fact"><b>${errados.length}</b><span>questões a revisar</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="secttl">Desempenho por domínio, ordenado por quanto custa na nota</div>
+  <div class="card">
+    <table><thead><tr><th>Domínio</th><th style="width:26%">Acerto</th><th>Peso oficial</th><th>Perda ponderada</th><th></th></tr></thead><tbody>
+    ${domOrd.map(x=>`<tr>
+      <td><b style="font-family:var(--sora)">D${x.d}</b> <span style="color:var(--aco)">${DOM[x.d].nome}</span></td>
+      <td><div class="bar"><i style="width:${(x.pct*100).toFixed(0)}%;background:${corPct(x.pct)}"></i></div>
+          <span class="num" style="color:var(--aco)">${x.ac}/${x.total} · ${Math.round(x.pct*100)}%</span></td>
+      <td class="num">${x.peso}%</td>
+      <td class="num" style="color:${x.perda>6?'var(--erro)':'var(--aco)'}">−${x.perda.toFixed(1)} pts</td>
+      <td>${pill(x.pct)}</td></tr>`).join("")}
+    </tbody></table>
+    <p class="lead" style="margin-top:14px;font-size:13px">A <b>perda ponderada</b> combina o seu erro com o peso do domínio na prova: é quanto daquele domínio você está deixando na mesa em pontos percentuais da nota final. Estudar de cima para baixo nesta lista é o que rende mais nota por hora de estudo.</p>
+  </div>
+
+  <div class="secttl">Detalhe por task statement do edital</div>
+  <div class="card">
+    <table><thead><tr><th>Task</th><th>Assunto</th><th style="width:30%">Acerto</th><th></th></tr></thead><tbody>
+    ${R.porTask.sort((a,b)=>a.pct-b.pct).map(x=>`<tr>
+      <td class="num" style="color:var(--ambar);font-weight:700">${x.t}</td>
+      <td>${TASK[x.t]}</td>
+      <td><div class="bar"><i style="width:${(x.pct*100).toFixed(0)}%;background:${corPct(x.pct)}"></i></div>
+          <span class="num" style="color:var(--aco)">${x.ac}/${x.total}</span></td>
+      <td>${pill(x.pct)}</td></tr>`).join("")}
+    </tbody></table>
+  </div>
+
+  ${R.temas.length?`<div class="secttl">Temas específicos onde você errou</div>
+  <div class="card"><div style="display:flex;flex-wrap:wrap;gap:8px">
+    ${R.temas.map(([t,n])=>`<span class="chip ${n>1?'on':''}">${esc(t)}${n>1?" · "+n+"×":""}</span>`).join("")}
+  </div></div>`:""}
+
+  <div class="secttl">Revisão questão a questão</div>
+  <div class="opts" style="margin-bottom:12px">
+    <label class="toggle"><input type="checkbox" id="filtroErro"> Mostrar só os erros</label>
+  </div>
+  <div id="revList">${R.itens.map((it,n)=>revCard(it,n)).join("")}</div>
+
+  <div class="qnav" style="margin-top:24px">
+    <button class="btn amber" id="btnHome">Novo simulado</button>
+    ${errados.length?`<button class="btn ghost" id="btnRetry">Refazer só os ${errados.length} erros</button>`:""}
+    <button class="btn ghost" id="btnExport">Baixar resultado (.json)</button>
+  </div>`;
+
+  $("#btnHome").onclick = voltarHome;
+  const br = $("#btnRetry");
+  if(br) br.onclick = ()=>iniciar("retry", errados.map(e=>BANK.find(b=>b.id===e.q.id) || e.q));
+  $("#btnExport").onclick = ()=>exportar(R);
+  $("#filtroErro").onchange = e=>{
+    document.querySelectorAll("#revList .revq.right").forEach(el=>el.classList.toggle("hidden", e.target.checked));
+  };
+}
+
+function revCard(it,n){
+  const q=it.q;
+  return `<details class="revq ${it.acertou?'right':'wrong'}">
+    <summary><span class="mark ${it.acertou?'ok':'no'}">${it.acertou?"✓":"✗"}</span>
+      <span><span class="num" style="color:var(--aco)">${String(n+1).padStart(2,"0")} · D${q.dominio} ${q.tarefa} · ${esc(q.tema)}</span><br>${esc(q.enunciado)}</span></summary>
+    <div class="revbody">
+      ${q.opcoes.map((o,i)=>{
+        const c = q.corretas.includes(i);
+        const m = it.marcada.includes(i);
+        return `<span class="l ${c?'good':(m?'bad':'')}"><b class="num">${LETRA[i]}</b> ${esc(o)}
+          ${c?' <b style="color:var(--ok)">← correta</b>':''}${m&&!c?' <b style="color:var(--erro)">← sua resposta</b>':''}${m&&c?' <b style="color:var(--ok)">(sua resposta)</b>':''}</span>`;
+      }).join("")}
+      <div class="fb" style="margin-top:12px"><b>Por quê:</b> ${esc(q.explicacao)}</div>
+    </div></details>`;
+}
+
+function exportar(R){
+  const dados = {
+    data:new Date().toISOString(), modo:S.rotulo, acertos:R.acertos, total:R.itens.length,
+    notaEstimada:R.nota,
+    dominios:R.porDom.filter(x=>x.total>0).map(x=>({dominio:"D"+x.d, nome:DOM[x.d].nome, acertos:x.ac, total:x.total, pesoOficial:x.peso+"%", perdaPonderada:+x.perda.toFixed(1)})),
+    tasks:R.porTask.map(x=>({task:x.t, assunto:TASK[x.t], acertos:x.ac, total:x.total})),
+    errosPorTema:Object.fromEntries(R.temas),
+    questoesErradas:R.itens.filter(i=>!i.acertou).map(i=>({id:i.q.id, tema:i.q.tema, enunciado:i.q.enunciado}))
+  };
+  const b = new Blob([JSON.stringify(dados,null,2)],{type:"application/json"});
+  const url = URL.createObjectURL(b);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "simulado-clf-c02-"+new Date().toISOString().slice(0,10)+".json";
+  document.body.appendChild(a);            // Firefox exige o link no DOM
+  a.click();
+  a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url), 1000);
+}
+
+function voltarHome(){
+  clearInterval(tick);
+  $("#qTimer").textContent = "";
+  $("#qTimer").classList.remove("warn");
+  $("#viewQuiz").classList.add("hidden");
+  $("#viewResult").classList.add("hidden");
+  $("#btnAbort").classList.add("hidden");
+  $("#viewHome").classList.remove("hidden");
+  if(HIST.length){
+    $("#histBox").classList.remove("hidden");
+    $("#histBody").innerHTML = HIST.map((h,i)=>`<tr>
+      <td class="num">${i+1}</td><td>${h.rotulo}</td>
+      <td class="num">${h.acertos}/${h.total}</td>
+      <td class="num" style="color:${h.nota>=700?'var(--ok)':'var(--erro)'}">${h.nota}</td>
+      <td>${h.fraco?("D"+h.fraco.d+" · "+DOM[h.fraco.d].nome):"—"}</td></tr>`).join("");
+  }
+  window.scrollTo(0,0);
+}
+
+montaHome();
+</script>
+</body>
+</html>
