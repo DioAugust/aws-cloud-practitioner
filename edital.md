@@ -78,4 +78,9 @@ EC2 (+ Auto Scaling, ELB), Lambda, ECS/EKS/Fargate, Lightsail, Batch, S3 (+ clas
 
 ## Material de apoio neste repositório
 
-- [`index.html`](index.html) — simulado interativo com 100 questões inéditas em PT-BR (termos técnicos em inglês), distribuídas na proporção oficial 24/30/34/12. Modos: prova completa (65q, 90 min), prova rápida (30q), banco inteiro, treino por domínio e modo estudo com gabarito imediato. O painel final mostra acerto por domínio e por task statement, ordenado por **perda ponderada** (erro × peso do domínio), que é a fila de prioridade de estudo.
+- [`index.html`](index.html) — simulado interativo com **150 questões inéditas** em PT-BR (termos técnicos em inglês), na proporção oficial 24/30/34/12. Modos: prova completa (65q, 90 min), prova rápida (30q), banco inteiro, treino por domínio, **caderno de erros persistente** e modo estudo com gabarito imediato. O painel final mostra acerto por domínio e por task statement, ordenado por **perda ponderada** (erro × peso do domínio), que é a fila de prioridade de estudo.
+- [`flashcards.html`](flashcards.html) — 120 flashcards com repetição espaçada (método de Leitner) cobrindo os quatro domínios.
+- [`vespera.html`](vespera.html) — revisão de véspera: 15 tabelas de decisão dos pares confundíveis, checklist auto-avaliável por domínio e os 20 fatos mais cobrados.
+- [`glossario.html`](glossario.html) — glossário pesquisável com 100 serviços: o que é, quando é a resposta e com o que a prova o confunde.
+- [`labs/`](labs/) — 4 laboratórios práticos no Free Tier (conta segura, S3, EC2 com IAM role, custos e suporte).
+- [`plano-de-estudo.md`](plano-de-estudo.md) — cronograma de 3 semanas dia a dia, com versões condensadas para 10 dias, 1 semana e 1 dia.

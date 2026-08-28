@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Revisão de véspera CLF-C02 · @dioaugusto.dev</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23201C18'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-family='Segoe UI,Helvetica,sans-serif' font-size='19' font-weight='700' fill='%23F2EEE6'%3Ed%3C/text%3E%3Crect x='19' y='20' width='7' height='2.4' fill='%23F2A33C'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --grafite:#201C18; --papel:#F5F1E8; --papel2:#EFEBE2; --ink:#181510;
+  --giz:#F2EEE6; --ambar:#F2A33C; --aco:#8A8578;
+  --linha:#DCD6C8; --ok:#3F7D53; --erro:#B4483C;
+  --sora:'Sora',-apple-system,BlinkMacSystemFont,sans-serif;
+  --inter:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  --mono:ui-monospace,'JetBrains Mono',Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--papel2);color:var(--ink);font-family:var(--inter);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--sora);font-weight:600;line-height:1.25}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px}
+
+header{background:var(--grafite);color:var(--giz);padding:18px 0}
+header .wrap{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.wordmark{font-family:var(--sora);font-weight:600;font-size:20px;letter-spacing:-.02em;color:var(--giz);white-space:nowrap}
+.wordmark .at{color:var(--aco)} .wordmark .dev{color:var(--ambar)}
+nav.top{display:flex;gap:16px;flex-wrap:wrap}
+nav.top a{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--aco);text-decoration:none;padding-bottom:2px;border-bottom:1.5px solid transparent}
+nav.top a:hover{color:var(--giz)}
+nav.top a.on{color:var(--ambar);border-bottom-color:var(--ambar)}
+
+main{padding:34px 0 80px}
+.card{background:var(--papel);border:1px solid var(--linha);border-radius:12px;padding:22px;margin-bottom:16px}
+.lead{color:var(--aco);font-size:15px}
+.secttl{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--aco);margin:32px 0 12px}
+.hl{box-shadow:inset 0 -.42em 0 rgba(242,163,60,.42)}
+.hero{background:var(--grafite);color:var(--giz);border-radius:12px;padding:30px 26px;margin-bottom:18px}
+.hero h1{font-size:29px;letter-spacing:-.02em}
+.hero p{color:var(--aco);margin-top:8px;max-width:64ch}
+
+h2.bloco{font-size:20px;margin:0 0 4px}
+.card h3{font-size:16.5px;margin:0 0 10px;font-family:var(--sora)}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th{text-align:left;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--aco);font-weight:500;padding:0 8px 9px;border-bottom:1px solid var(--linha)}
+td{padding:10px 8px;border-bottom:1px solid var(--linha);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td b{font-family:var(--sora)}
+.tw{overflow-x:auto}
+mark{background:rgba(242,163,60,.35);color:inherit;padding:0 3px;border-radius:3px}
+
+/* checklist */
+.chk{display:flex;gap:11px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--linha);cursor:pointer}
+.chk:last-of-type{border-bottom:none}
+.chk input{accent-color:var(--ambar);width:17px;height:17px;margin-top:3px;flex:0 0 auto}
+.chk span{font-size:15px}
+.chk input:checked+span{color:var(--aco);text-decoration:line-through}
+.prog{height:6px;background:var(--linha);border-radius:99px;overflow:hidden;margin:10px 0 4px}
+.prog i{display:block;height:100%;background:var(--ambar);width:0;transition:.25s}
+.bar-lbl{font-family:var(--mono);font-size:12px;color:var(--aco)}
+.treino{display:inline-block;margin-top:12px;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);border:1.5px solid var(--linha);border-radius:999px;padding:6px 13px;text-decoration:none}
+.treino:hover{border-color:var(--ambar)}
+
+ol.fatos{margin:0;padding-left:22px}
+ol.fatos li{padding:7px 0;border-bottom:1px solid var(--linha);font-size:15px}
+ol.fatos li:last-child{border-bottom:none}
+
+.btn{font-family:var(--sora);font-weight:600;font-size:15px;border:none;border-radius:12px;padding:13px 22px;cursor:pointer;background:var(--grafite);color:var(--giz);text-decoration:none;display:inline-block}
+.btn.amber{background:var(--ambar);color:var(--ink)}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--linha)}
+.btn.sm{font-size:13px;padding:9px 15px;border-radius:10px}
+.acoes{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;align-items:center}
+
+footer{border-top:1px solid var(--linha);padding:22px 0 40px;color:var(--aco);font-size:12.5px}
+footer .sig{font-family:var(--sora);font-weight:600;color:var(--ink)}
+@media(max-width:620px){.hero h1{font-size:23px}.wrap{padding:0 14px}table{font-size:13.5px}}
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <div class="wordmark"><span class="at">@</span>dioaugusto<span class="dev">.dev</span></div>
+  <nav class="top">
+    <a href="index.html">Simulado</a>
+    <a href="flashcards.html">Flashcards</a>
+    <a href="vespera.html" class="on">Véspera</a>
+    <a href="glossario.html">Glossário</a>
+  </nav>
+</div></header>
+
+<main><div class="wrap">
+  <div class="hero">
+    <h1>Revisão de <span class="hl">véspera</span></h1>
+    <p>Para ler no dia anterior à prova, na ordem: as tabelas de decisão dos serviços que a prova confunde de propósito, o checklist do que você precisa saber explicar e os fatos que caem quase sempre. Se travar em algum bloco, o link leva direto ao treino daquele domínio.</p>
+  </div>
+
+  <!-- ============ 1. PARES CONFUNDÍVEIS ============ -->
+  <div class="secttl">Parte 1 · Os pares que a prova confunde de propósito</div>
+  <h2 class="bloco">Tabelas de decisão</h2>
+  <p class="lead" style="margin-bottom:16px">Boa parte das questões é "qual serviço faz X". Se você souber decidir dentro destes grupos, já garante a maioria dos pontos de D2 e D3.</p>
+
+  <div class="card">
+    <h3>Auditoria e monitoramento — o trio mais cobrado</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Serviço</th><th>Responde à pergunta</th><th>Palavra-chave no enunciado</th></tr></thead>
+      <tbody>
+        <tr><td><b>CloudTrail</b></td><td><mark>Quem</mark> chamou a API, quando e de onde</td><td>auditoria, quem excluiu, quem alterou, rastrear ação</td></tr>
+        <tr><td><b>AWS Config</b></td><td><mark>Como</mark> o recurso está (e estava) configurado e se viola regra</td><td>conformidade, histórico de configuração, bucket público, regra</td></tr>
+        <tr><td><b>CloudWatch</b></td><td><mark>Como</mark> o recurso está se comportando (métricas, logs)</td><td>CPU, memória, alarme, log de aplicação, dashboard operacional</td></tr>
+      </tbody></table></div>
+  </div>
+
+  <div class="card">
+    <h3>Detecção e proteção</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Serviço</th><th>Do que trata</th><th>Onde atua</th></tr></thead>
+      <tbody>
+        <tr><td><b>GuardDuty</b></td><td><mark>Ameaças</mark> e comportamento malicioso</td><td>Analisa CloudTrail, VPC Flow Logs e DNS logs</td></tr>
+        <tr><td><b>Inspector</b></td><td><mark>Vulnerabilidades</mark> (CVEs) e exposição de rede</td><td>EC2, imagens no ECR e funções Lambda</td></tr>
+        <tr><td><b>Macie</b></td><td><mark>Dados sensíveis</mark> (CPF, cartão, PII)</td><td>Buckets S3</td></tr>
+        <tr><td><b>Security Hub</b></td><td><mark>Consolida</mark> os findings dos três acima</td><td>Painel único + checks CIS e AWS Foundational</td></tr>
+        <tr><td><b>WAF</b></td><td>Requisições web maliciosas (camada 7)</td><td>SQL injection, XSS, bots — CloudFront, ALB, API Gateway</td></tr>
+        <tr><td><b>Shield</b></td><td>DDoS (camadas 3/4)</td><td>Standard grátis e automático; Advanced é pago</td></tr>
+      </tbody></table></div>
+  </div>
+
+  <div class="card">
+    <h3>Firewalls da VPC</h3>
+    <div class="tw"><table>
+      <thead><tr><th></th><th>Security group</th><th>Network ACL</th></tr></thead>
+      <tbody>
+        <tr><td><b>Atua em</b></td><td>Instância (interface de rede)</td><td>Subnet</td></tr>
+        <tr><td><b>Estado</b></td><td><mark>Stateful</mark> — a resposta volta automaticamente</td><td><mark>Stateless</mark> — precisa de regra de ida e de volta</td></tr>
+        <tr><td><b>Regras</b></td><td>Só allow</td><td>Allow e deny, avaliadas em ordem numérica</td></tr>
+        <tr><td><b>Padrão</b></td><td>Nega toda entrada, permite toda saída</td><td>A default permite tudo; uma criada por você nega tudo</td></tr>
+      </tbody></table></div>
+  </div>
+
+  <div class="card">
+    <h3>Banco de dados: disponibilidade × performance</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Recurso</th><th>Resolve</th><th>Como funciona</th></tr></thead>
+      <tbody>
+        <tr><td><b>RDS Multi-AZ</b></td><td><mark>Disponibilidade</mark> (failover automático)</td><td>Réplica síncrona em standby noutra AZ; não serve leitura</td></tr>
+        <tr><td><b>Read replica</b></td><td><mark>Performance</mark> de leitura</td><td>Cópias assíncronas que atendem consultas; sem failover automático</td></tr>
+        <tr><td><b>ElastiCache</b></td><td>Latência de microssegundos</td><td>Cache em memória (Redis/Valkey ou Memcached) na frente do banco</td></tr>
+        <tr><td><b>Aurora</b></td><td>Performance + disponibilidade no relacional</td><td>Compatível com MySQL e PostgreSQL, storage distribuído</td></tr>
+      </tbody></table></div>
+    <p class="lead" style="margin-top:12px;font-size:13.5px">Se o enunciado fala em <b>continuar operando após falha</b> → Multi-AZ. Se fala em <b>relatórios lentos / muitas consultas</b> → read replica.</p>
+  </div>
+
+  <div class="card">
+    <h3>Bancos por tipo de dado (purpose-built)</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Padrão de dado</th><th>Serviço</th></tr></thead>
+      <tbody>
+        <tr><td>Relacional gerenciado</td><td><b>RDS</b> (ou <b>Aurora</b> para mais performance)</td></tr>
+        <tr><td>Chave-valor NoSQL serverless, milissegundos</td><td><b>DynamoDB</b></td></tr>
+        <tr><td>Cache em memória</td><td><b>ElastiCache</b></td></tr>
+        <tr><td>Data warehouse / análise de petabytes</td><td><b>Redshift</b></td></tr>
+        <tr><td>Grafos e relacionamentos conectados</td><td><b>Neptune</b></td></tr>
+        <tr><td>Documentos (compatível MongoDB)</td><td><b>DocumentDB</b></td></tr>
+        <tr><td>Séries temporais / Cassandra</td><td><b>Timestream</b> / <b>Keyspaces</b></td></tr>
+      </tbody></table></div>
+  </div>
+
+  <div class="card">
+    <h3>Armazenamento</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Serviço</th><th>Tipo</th><th>Quando é a resposta</th></tr></thead>
+      <tbody>
+        <tr><td><b>S3</b></td><td>Objetos</td><td>Arquivos, backups, data lake, site estático, qualquer escala</td></tr>
+        <tr><td><b>EBS</b></td><td>Bloco</td><td>Disco de <mark>uma</mark> instância EC2, na mesma AZ; persistente</td></tr>
+        <tr><td><b>EFS</b></td><td>Arquivo (NFS)</td><td><mark>Muitas</mark> instâncias Linux compartilhando os mesmos arquivos</td></tr>
+        <tr><td><b>FSx</b></td><td>Arquivo (SMB/Lustre)</td><td>Windows com Active Directory (FSx for Windows) ou HPC (Lustre)</td></tr>
+        <tr><td><b>Instance store</b></td><td>Bloco efêmero</td><td>Disco local temporário — <mark>os dados somem</mark> quando a instância para</td></tr>
+        <tr><td><b>Storage Gateway</b></td><td>Híbrido</td><td>Aplicação on-premises usando armazenamento AWS com cache local</td></tr>
+      </tbody></table></div>
+  </div>
+
+  <div class="card">
+    <h3>Classes do Amazon S3</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Classe</th><th>Acesso</th><th>Recuperação</th><th>Use quando</th></tr></thead>
+      <tbody>
+        <tr><td><b>Standard</b></td><td>Frequente</td><td>Imediata</td><td>Dado quente, uso ativo</td></tr>
+        <tr><td><b>Intelligent-Tiering</b></td><td><mark>Imprevisível</mark></td><td>Imediata</td><td>Não sei o padrão de acesso; move sozinho, sem taxa de recuperação</td></tr>
+        <tr><td><b>Standard-IA</b></td><td>Raro</td><td>Imediata</td><td>Backup acessado poucas vezes, mas que não pode esperar</td></tr>
+        <tr><td><b>One Zone-IA</b></td><td>Raro</td><td>Imediata</td><td>Dado recriável; fica em <mark>uma só AZ</mark> e custa menos</td></tr>
+        <tr><td><b>Glacier Instant</b></td><td>Arquivo</td><td>Milissegundos</td><td>Arquivo que às vezes precisa ser lido na hora</td></tr>
+        <tr><td><b>Glacier Flexible</b></td><td>Arquivo</td><td>Minutos a horas</td><td>Arquivamento com resgate ocasional</td></tr>
+        <tr><td><b>Glacier Deep Archive</b></td><td>Arquivo profundo</td><td><mark>Horas</mark></td><td>Retenção legal de anos pelo <mark>menor custo</mark></td></tr>
+      </tbody></table></div>
+  </div>
+
+  <div class="card">
+    <h3>Modelos de compra do EC2</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Modelo</th><th>Desconto</th><th>Use quando</th></tr></thead>
+      <tbody>
+        <tr><td><b>On-Demand</b></td><td>—</td><td>Carga imprevisível, testes curtos, sem compromisso</td></tr>
+        <tr><td><b>Savings Plans</b></td><td>até ~72%</td><td>Uso estável; compromisso de <mark>USD/hora</mark> por 1 ou 3 anos, cobre EC2, Fargate e Lambda</td></tr>
+        <tr><td><b>Reserved Instances</b></td><td>até ~72%</td><td>Uso estável e previsível de configuração específica</td></tr>
+        <tr><td><b>Spot</b></td><td>até ~90%</td><td>Trabalho <mark>tolerante a interrupção</mark>: batch, CI, renderização</td></tr>
+        <tr><td><b>Dedicated Hosts</b></td><td>—</td><td>Licença amarrada a hardware físico (BYOL) e compliance</td></tr>
+      </tbody></table></div>
+    <p class="lead" style="margin-top:12px;font-size:13.5px">Pagamento das RIs: <b>All Upfront &gt; Partial &gt; No Upfront</b>, e 3 anos economiza mais que 1 ano.</p>
+  </div>
+
+  <div class="card">
+    <h3>Custos: estimar, analisar, alertar</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Ferramenta</th><th>Momento</th><th>Para quê</th></tr></thead>
+      <tbody>
+        <tr><td><b>Pricing Calculator</b></td><td><mark>Antes</mark></td><td>Estimar o custo de uma arquitetura que ainda não existe</td></tr>
+        <tr><td><b>Cost Explorer</b></td><td><mark>Depois</mark></td><td>Analisar o que já foi gasto, por serviço e por tag, com tendência</td></tr>
+        <tr><td><b>Budgets</b></td><td><mark>Durante</mark></td><td>Alertar (e agir) quando o gasto real ou previsto cruza um limite</td></tr>
+        <tr><td><b>Cost and Usage Report</b></td><td>Depois</td><td>Dado bruto mais granular (por hora, por recurso) num bucket S3</td></tr>
+        <tr><td><b>Compute Optimizer</b></td><td>Durante</td><td>Recomendação de rightsizing baseada em uso real</td></tr>
+      </tbody></table></div>
+  </div>
+
+  <div class="card">
+    <h3>Conectividade e entrega global</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Serviço</th><th>Resolve</th></tr></thead>
+      <tbody>
+        <tr><td><b>Site-to-Site VPN</b></td><td>Ligar datacenter à AWS pela <mark>internet</mark>, criptografado, pronto em horas</td></tr>
+        <tr><td><b>Direct Connect</b></td><td>Circuito <mark>físico dedicado</mark>, banda consistente, fora da internet; leva semanas</td></tr>
+        <tr><td><b>VPC endpoint</b></td><td>Subnet privada acessa S3/DynamoDB e outros <mark>sem internet e sem NAT</mark></td></tr>
+        <tr><td><b>VPC peering / Transit Gateway</b></td><td>Ligar VPCs entre si (Transit Gateway centraliza quando são muitas)</td></tr>
+        <tr><td><b>CloudFront</b></td><td>CDN: <mark>cache</mark> de conteúdo HTTP(S) nas edge locations</td></tr>
+        <tr><td><b>Global Accelerator</b></td><td>IPs estáticos anycast para tráfego <mark>dinâmico</mark> TCP/UDP pelo backbone da AWS</td></tr>
+        <tr><td><b>Route 53</b></td><td>DNS, registro de domínio e roteamento (latência, failover, ponderado, geo)</td></tr>
+      </tbody></table></div>
+  </div>
+
+  <div class="card">
+    <h3>Integração de aplicações</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Serviço</th><th>Modelo</th><th>Use quando</th></tr></thead>
+      <tbody>
+        <tr><td><b>SQS</b></td><td>Fila</td><td>Cada mensagem processada por <mark>um</mark> consumidor; desacoplar e absorver picos</td></tr>
+        <tr><td><b>SNS</b></td><td>Pub/sub</td><td>Uma mensagem entregue a <mark>muitos</mark> assinantes (e-mail, SMS, Lambda, SQS)</td></tr>
+        <tr><td><b>EventBridge</b></td><td>Barramento de eventos</td><td>Rotear eventos de serviços AWS e SaaS por regras de correspondência</td></tr>
+        <tr><td><b>Step Functions</b></td><td>Orquestração</td><td>Workflow com etapas, condições, retentativas e histórico de execução</td></tr>
+      </tbody></table></div>
+  </div>
+
+  <div class="card">
+    <h3>Computação: qual serviço para qual carga</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Serviço</th><th>Use quando</th></tr></thead>
+      <tbody>
+        <tr><td><b>EC2</b></td><td>Controle total do servidor; famílias: C = CPU, R = memória, I/D = disco, T/M = geral</td></tr>
+        <tr><td><b>Lambda</b></td><td>Função curta disparada por evento, sem servidor, paga por execução</td></tr>
+        <tr><td><b>ECS / EKS</b></td><td>Contêineres — EKS quando o requisito diz <mark>Kubernetes</mark></td></tr>
+        <tr><td><b>Fargate</b></td><td>Rodar contêineres <mark>sem gerenciar instâncias</mark> (serve ECS e EKS)</td></tr>
+        <tr><td><b>Elastic Beanstalk</b></td><td>"Só quero subir meu código" e deixar a AWS montar EC2, ELB e auto scaling</td></tr>
+        <tr><td><b>Lightsail</b></td><td>Projeto simples com <mark>preço mensal fixo</mark> (ex.: WordPress)</td></tr>
+        <tr><td><b>Batch</b></td><td>Milhares de jobs em lote com fila e provisionamento automático</td></tr>
+        <tr><td><b>Outposts</b></td><td>Serviços AWS rodando <mark>dentro do datacenter do cliente</mark></td></tr>
+      </tbody></table></div>
+  </div>
+
+  <div class="card">
+    <h3>IA, ML e análise de dados</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Preciso de…</th><th>Serviço</th></tr></thead>
+      <tbody>
+        <tr><td>Extrair texto de documentos digitalizados</td><td><b>Textract</b></td></tr>
+        <tr><td>Transformar texto em fala</td><td><b>Polly</b></td></tr>
+        <tr><td>Transformar fala em texto</td><td><b>Transcribe</b></td></tr>
+        <tr><td>Analisar imagens e vídeos</td><td><b>Rekognition</b></td></tr>
+        <tr><td>Sentimento e entidades em texto (NLP)</td><td><b>Comprehend</b></td></tr>
+        <tr><td>Traduzir idiomas / chatbot</td><td><b>Translate</b> / <b>Lex</b></td></tr>
+        <tr><td>Construir e treinar modelos próprios</td><td><b>SageMaker AI</b></td></tr>
+        <tr><td>Usar foundation models de IA generativa por API</td><td><b>Bedrock</b></td></tr>
+        <tr><td>SQL direto sobre arquivos no S3</td><td><b>Athena</b></td></tr>
+        <tr><td>Catálogo de dados e ETL</td><td><b>Glue</b></td></tr>
+        <tr><td>Streaming em tempo real</td><td><b>Kinesis</b></td></tr>
+        <tr><td>Dashboards de BI</td><td><b>QuickSight</b></td></tr>
+        <tr><td>Spark/Hadoop gerenciado · busca em logs</td><td><b>EMR</b> · <b>OpenSearch</b></td></tr>
+      </tbody></table></div>
+  </div>
+
+  <div class="card">
+    <h3>Planos de suporte</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Plano</th><th>Canal e resposta</th><th>Marca registrada</th></tr></thead>
+      <tbody>
+        <tr><td><b>Basic</b></td><td>Sem suporte técnico</td><td>Grátis; só conta, billing e checks básicos do Trusted Advisor</td></tr>
+        <tr><td><b>Developer</b></td><td>E-mail, horário comercial</td><td>Ambientes de teste e desenvolvimento</td></tr>
+        <tr><td><b>Business</b></td><td><mark>24/7 telefone e chat</mark>; produção com problema em 1 h</td><td>Primeiro plano com Trusted Advisor completo e API de suporte</td></tr>
+        <tr><td><b>Enterprise On-Ramp</b></td><td>Crítico indisponível em <mark>30 min</mark></td><td>Pool de TAMs</td></tr>
+        <tr><td><b>Enterprise</b></td><td>Crítico indisponível em <mark>15 min</mark></td><td><mark>TAM dedicado</mark> e revisões proativas</td></tr>
+      </tbody></table></div>
+  </div>
+
+  <div class="card">
+    <h3>Frameworks e migração</h3>
+    <div class="tw"><table>
+      <thead><tr><th>Assunto</th><th>Decore assim</th></tr></thead>
+      <tbody>
+        <tr><td><b>6 pilares do Well-Architected</b></td><td>Excelência operacional · Segurança · Confiabilidade · Eficiência de performance · Otimização de custos · Sustentabilidade</td></tr>
+        <tr><td><b>6 perspectivas do CAF</b></td><td>Negócio: Business, People, Governance · Técnicas: Platform, Security, Operations</td></tr>
+        <tr><td><b>7 Rs da migração</b></td><td>Rehost (lift and shift) · Replatform (lift, tinker and shift) · Refactor (reescrever) · Repurchase (SaaS) · Retire (desligar) · Retain (manter) · Relocate (VMware)</td></tr>
+        <tr><td><b>CAF × Well-Architected</b></td><td>CAF = a <mark>organização</mark> adotando nuvem · Well-Architected = um <mark>workload</mark> específico</td></tr>
+      </tbody></table></div>
+  </div>
+
+  <!-- ============ 2. CHECKLIST ============ -->
+  <div class="secttl">Parte 2 · Checklist: você sabe explicar?</div>
+  <h2 class="bloco">Marque só o que você explicaria em voz alta agora</h2>
+  <p class="lead" style="margin-bottom:16px">Se sobrar mais de dois itens desmarcados em um domínio, não vá para o simulado completo ainda: treine aquele domínio primeiro. Suas marcações ficam salvas neste navegador.</p>
+  <div class="prog"><i id="progGeral"></i></div>
+  <div class="bar-lbl" id="lblGeral">0 de 0 itens</div>
+  <div id="checklist"></div>
+
+  <!-- ============ 3. FATOS ============ -->
+  <div class="secttl">Parte 3 · Os fatos que caem quase sempre</div>
+  <h2 class="bloco">20 frases para reler antes de dormir</h2>
+  <div class="card"><ol class="fatos">
+    <li>A prova tem <b>65 questões</b> (50 valem nota, 15 são de calibração), <b>90 minutos</b> e corte de <b>700 de 1000</b>. O modelo é compensatório: passa pelo total, não domínio a domínio.</li>
+    <li>Pesos: <b>D1 24% · D2 30% · D3 34% · D4 12%</b>. Segurança e Tecnologia somam 64% da prova.</li>
+    <li>A AWS é responsável pela segurança <b>DA</b> nuvem; o cliente, pela segurança <b>NA</b> nuvem.</li>
+    <li><b>Dados e gestão de acessos são sempre do cliente</b>, em qualquer serviço — inclusive nos totalmente gerenciados.</li>
+    <li>O <b>root</b> tem MFA, não é usado no dia a dia e não deve ter access keys. Ele não pode ser excluído.</li>
+    <li>Para aplicação em EC2 acessar outro serviço, use <b>IAM role</b>, nunca access keys em arquivo.</li>
+    <li><b>Deny explícito sempre vence</b> qualquer Allow, venha de onde vier.</li>
+    <li><b>SCPs</b> do Organizations definem o teto de permissões; política IAM local não ultrapassa esse limite.</li>
+    <li>Entrada de dados na AWS é <b>gratuita</b>; saída para a internet é <b>cobrada</b> por GB.</li>
+    <li><b>Não existe bloqueio automático de cobrança</b>: configure um Budget na conta nova.</li>
+    <li>Instância <b>parada não custa computação</b>, mas o volume EBS anexado continua sendo cobrado.</li>
+    <li><b>Multi-AZ</b> é disponibilidade (failover); <b>read replica</b> é performance de leitura.</li>
+    <li><b>Multi-AZ</b> protege contra falha de datacenter; só <b>multi-Region</b> protege contra a perda de uma Region.</li>
+    <li><b>Security group</b> é stateful, na instância, só allow. <b>NACL</b> é stateless, na subnet, com allow e deny.</li>
+    <li><b>Instance store é efêmero</b>: desligou a instância, os dados foram embora.</li>
+    <li><b>Glacier Deep Archive</b> é o menor custo de armazenamento, com recuperação em horas.</li>
+    <li><b>Spot</b> pode ser interrompida a qualquer momento — nunca é a resposta para produção crítica.</li>
+    <li><b>Business Support</b> é o primeiro plano com 24/7 por telefone e Trusted Advisor completo; <b>TAM dedicado</b> só no Enterprise.</li>
+    <li><b>Artifact</b> entrega os relatórios de compliance <b>da AWS</b>; <b>Audit Manager</b> coleta evidências <b>do seu</b> ambiente.</li>
+    <li>São gratuitos por si só: <b>IAM, VPC, security groups, NACLs, Auto Scaling, CloudFormation e o console</b> — você paga pelos recursos que eles criam ou protegem.</li>
+  </ol></div>
+
+  <div class="card" style="border-left:3px solid var(--ambar)">
+    <h3>No dia da prova</h3>
+    <p class="lead" style="color:var(--ink);font-size:15px">Leia o enunciado inteiro antes das alternativas e procure a palavra que decide (<i>auditoria</i>, <i>failover</i>, <i>menor custo</i>, <i>sem servidores</i>, <i>tempo real</i>). Elimine primeiro as alternativas absolutas — "sempre", "nunca", "100%", "elimina totalmente" quase nunca são a resposta. Marque para revisão o que travar e siga: as 65 questões valem o mesmo, e as fáceis do fim valem mais que os cinco minutos gastos numa difícil do meio.</p>
+    <div class="acoes">
+      <a class="btn amber" href="index.html">Fazer um simulado completo</a>
+      <a class="btn ghost" href="flashcards.html">Passar os flashcards</a>
+    </div>
+  </div>
+</div></main>
+
+<footer><div class="wrap">
+  Material de estudo não oficial, escrito a partir do exam guide público do CLF-C02.
+  <div class="sig" style="margin-top:6px">@dioaugusto.dev</div>
+</div></footer>
+
+<script>
+const BLOCOS = [
+ {d:1, titulo:"D1 · Cloud Concepts (24%)", itens:[
+   "Explicar os benefícios da nuvem: CapEx→OpEx, economias de escala, parar de adivinhar capacidade, agilidade, global em minutos.",
+   "Diferenciar elasticidade, escalabilidade (vertical × horizontal), alta disponibilidade e tolerância a falhas.",
+   "Listar os 6 pilares do Well-Architected e reconhecer a qual pilar pertence uma prática.",
+   "Listar as 6 perspectivas do CAF e separar as de negócio das técnicas.",
+   "Explicar as 7 estratégias de migração e reconhecer cada uma por um cenário.",
+   "Explicar o que entra no TCO on-premises e o que é rightsizing."
+ ]},
+ {d:2, titulo:"D2 · Security and Compliance (30%)", itens:[
+   "Dizer o que é responsabilidade da AWS e o que é do cliente em EC2, RDS, Lambda e S3.",
+   "Explicar por que dados e IAM nunca deixam de ser responsabilidade do cliente.",
+   "Diferenciar CloudTrail, AWS Config e CloudWatch por um cenário.",
+   "Diferenciar GuardDuty, Inspector, Macie e Security Hub.",
+   "Explicar WAF × Shield e security group × NACL.",
+   "Explicar as regras do usuário root, MFA e por que role é melhor que access key.",
+   "Explicar SCPs do Organizations e a regra do deny explícito.",
+   "Saber onde baixar relatórios de compliance (Artifact) e o que faz o Audit Manager.",
+   "Explicar criptografia em repouso (KMS) × em trânsito (TLS) e quem habilita."
+ ]},
+ {d:3, titulo:"D3 · Cloud Technology and Services (34%)", itens:[
+   "Explicar console × CLI × SDK e o que faz o CloudFormation.",
+   "Explicar Region × AZ × edge location e quando usar multi-AZ ou multi-Region.",
+   "Escolher a família de instância EC2 certa (CPU, memória, disco, geral).",
+   "Diferenciar Lambda, ECS, EKS, Fargate, Beanstalk e Lightsail.",
+   "Explicar Auto Scaling × Elastic Load Balancing e os tipos de load balancer.",
+   "Escolher o banco certo: RDS, Aurora, DynamoDB, ElastiCache, Redshift, Neptune, DocumentDB.",
+   "Explicar Multi-AZ × read replica sem hesitar.",
+   "Escolher a classe do S3 pelo padrão de acesso e diferenciar S3, EBS, EFS, FSx e instance store.",
+   "Explicar subnet pública × privada, NAT gateway e VPC endpoint.",
+   "Diferenciar VPN, Direct Connect, CloudFront e Global Accelerator.",
+   "Associar os serviços de IA (Textract, Polly, Transcribe, Rekognition, Comprehend) ao caso de uso.",
+   "Diferenciar SQS, SNS, EventBridge e Step Functions."
+ ]},
+ {d:4, titulo:"D4 · Billing, Pricing and Support (12%)", itens:[
+   "Escolher entre On-Demand, Savings Plans, Reserved, Spot e Dedicated Hosts por cenário.",
+   "Explicar as três dimensões de preço e a regra de entrada grátis / saída paga.",
+   "Diferenciar Pricing Calculator, Cost Explorer, Budgets e Cost and Usage Report.",
+   "Explicar cost allocation tags e os benefícios do faturamento consolidado.",
+   "Listar os planos de suporte em ordem e dizer o que é exclusivo do Enterprise.",
+   "Dizer o que o Trusted Advisor verifica e o que são Marketplace e re:Post."
+ ]}
+];
+
+const $ = s => document.querySelector(s);
+const esc = t => String(t).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+const MEM = {};
+function ler(k, padrao){
+  try{ const v=localStorage.getItem(k); return v===null ? (k in MEM?MEM[k]:padrao) : JSON.parse(v); }
+  catch(e){ return k in MEM ? MEM[k] : padrao; }
+}
+function salvar(k,v){ MEM[k]=v; try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+
+function monta(){
+  const st = ler("clf.checklist", {});
+  $("#checklist").innerHTML = BLOCOS.map(b=>{
+    const itens = b.itens.map((t,i)=>{
+      const id = `c${b.d}_${i}`;
+      return `<label class="chk"><input type="checkbox" data-id="${id}" ${st[id]?"checked":""}><span>${esc(t)}</span></label>`;
+    }).join("");
+    return `<div class="card">
+      <h3>${esc(b.titulo)}</h3>
+      ${itens}
+      <a class="treino" href="index.html">Treinar o domínio ${b.d} no simulado →</a>
+    </div>`;
+  }).join("");
+
+  $("#checklist").querySelectorAll("input[type=checkbox]").forEach(el=>{
+    el.onchange = ()=>{
+      const s = ler("clf.checklist", {});
+      s[el.dataset.id] = el.checked;
+      salvar("clf.checklist", s);
+      atualizaBarra();
+    };
+  });
+  atualizaBarra();
+}
+
+function atualizaBarra(){
+  const todos = $("#checklist").querySelectorAll("input[type=checkbox]");
+  const n = [...todos].filter(x=>x.checked).length;
+  $("#progGeral").style.width = todos.length ? (n/todos.length*100)+"%" : "0";
+  $("#lblGeral").textContent = `${n} de ${todos.length} itens que você já sabe explicar`;
+}
+
+monta();
+</script>
+</body>
+</html>

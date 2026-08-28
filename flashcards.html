@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flashcards AWS Cloud Practitioner (CLF-C02) · @dioaugusto.dev</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23201C18'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-family='Segoe UI,Helvetica,sans-serif' font-size='19' font-weight='700' fill='%23F2EEE6'%3Ed%3C/text%3E%3Crect x='19' y='20' width='7' height='2.4' fill='%23F2A33C'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --grafite:#201C18; --papel:#F5F1E8; --papel2:#EFEBE2; --ink:#181510;
+  --giz:#F2EEE6; --ambar:#F2A33C; --aco:#8A8578;
+  --linha:#DCD6C8; --ok:#3F7D53; --erro:#B4483C;
+  --sora:'Sora',-apple-system,BlinkMacSystemFont,sans-serif;
+  --inter:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  --mono:ui-monospace,'JetBrains Mono',Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--papel2);color:var(--ink);font-family:var(--inter);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--sora);font-weight:600;line-height:1.2}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px}
+
+header{background:var(--grafite);color:var(--giz);padding:18px 0}
+header .wrap{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.wordmark{font-family:var(--sora);font-weight:600;font-size:20px;letter-spacing:-.02em;color:var(--giz);white-space:nowrap}
+.wordmark .at{color:var(--aco)} .wordmark .dev{color:var(--ambar)}
+nav.top{display:flex;gap:16px;flex-wrap:wrap}
+nav.top a{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--aco);text-decoration:none;padding-bottom:2px;border-bottom:1.5px solid transparent}
+nav.top a:hover{color:var(--giz)}
+nav.top a.on{color:var(--ambar);border-bottom-color:var(--ambar)}
+.spacer{flex:1}
+
+main{padding:34px 0 80px}
+.card{background:var(--papel);border:1px solid var(--linha);border-radius:12px;padding:22px}
+.card+.card{margin-top:16px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;border:1.5px solid var(--linha);border-radius:999px;padding:4px 10px;color:var(--aco)}
+.chip.on{border-color:var(--ambar);color:var(--ink)}
+.lead{color:var(--aco);font-size:15px}
+.secttl{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--aco);margin:26px 0 12px}
+.hl{box-shadow:inset 0 -.42em 0 rgba(242,163,60,.42)}
+
+.btn{font-family:var(--sora);font-weight:600;font-size:15px;border:none;border-radius:12px;padding:13px 22px;cursor:pointer;background:var(--grafite);color:var(--giz);transition:.15s}
+.btn:hover{background:#2C2721}
+.btn.amber{background:var(--ambar);color:var(--ink)}
+.btn.amber:hover{background:#E5952F}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--linha)}
+.btn.ghost:hover{border-color:var(--aco)}
+.btn.sm{font-size:13px;padding:9px 15px;border-radius:10px}
+.btn.ok{background:var(--ok);color:#fff} .btn.ok:hover{background:#356B46}
+.btn.no{background:var(--erro);color:#fff} .btn.no:hover{background:#9C3E34}
+
+.hero{background:var(--grafite);color:var(--giz);border-radius:12px;padding:30px 26px;margin-bottom:18px}
+.hero h1{font-size:29px;letter-spacing:-.02em}
+.hero p{color:var(--aco);margin-top:8px;max-width:62ch}
+.facts{display:flex;gap:26px;flex-wrap:wrap;margin-top:20px;padding-top:18px;border-top:1px solid #3A342C}
+.fact b{display:block;font-family:var(--sora);font-size:21px;color:var(--giz)}
+.fact span{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--aco)}
+
+.filtros{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.fbtn{font-family:var(--inter);font-size:13.5px;border:1.5px solid var(--linha);background:var(--papel);border-radius:999px;padding:7px 14px;cursor:pointer;color:var(--ink);transition:.15s}
+.fbtn:hover{border-color:var(--aco)}
+.fbtn.on{border-color:var(--ambar);background:#FBF3E5}
+
+/* caixas de Leitner */
+.boxes{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:14px}
+.box{border:1.5px solid var(--linha);border-radius:12px;padding:12px 14px;background:var(--papel)}
+.box b{display:block;font-family:var(--sora);font-size:22px}
+.box span{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--aco)}
+.box small{display:block;color:var(--aco);font-size:12px;margin-top:3px}
+
+/* card de estudo */
+.fcard{background:var(--papel);border:1.5px solid var(--linha);border-radius:16px;padding:34px 28px;min-height:230px;display:flex;flex-direction:column;justify-content:center;cursor:pointer;transition:.15s}
+.fcard:hover{border-color:var(--ambar)}
+.fcard .frente{font-family:var(--sora);font-size:22px;font-weight:600;line-height:1.35}
+.fcard .verso{margin-top:20px;padding-top:18px;border-top:1px solid var(--linha);font-size:16px;line-height:1.6}
+.fcard .dica{margin-top:18px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--aco)}
+.prog{height:5px;background:var(--linha);border-radius:99px;overflow:hidden;margin:14px 0}
+.prog i{display:block;height:100%;background:var(--ambar);width:0;transition:.25s}
+.acoes{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;align-items:center}
+
+footer{border-top:1px solid var(--linha);padding:22px 0 40px;color:var(--aco);font-size:12.5px}
+footer .sig{font-family:var(--sora);font-weight:600;color:var(--ink)}
+.hidden{display:none!important}
+@media(max-width:620px){.hero h1{font-size:23px}.wrap{padding:0 14px}.fcard .frente{font-size:19px}}
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <div class="wordmark"><span class="at">@</span>dioaugusto<span class="dev">.dev</span></div>
+  <nav class="top">
+    <a href="index.html">Simulado</a>
+    <a href="flashcards.html" class="on">Flashcards</a>
+    <a href="vespera.html">Véspera</a>
+    <a href="glossario.html">Glossário</a>
+  </nav>
+</div></header>
+
+<!-- ============ HOME ============ -->
+<main id="viewHome"><div class="wrap">
+  <div class="hero">
+    <h1>Flashcards com <span class="hl">repetição espaçada</span></h1>
+    <p>O que você acerta volta cada vez mais tarde; o que você erra volta hoje mesmo. É o método de Leitner: em vez de reler tudo toda vez, você gasta o tempo só no que ainda não fixou. Seu progresso fica salvo neste navegador.</p>
+    <div class="facts">
+      <div class="fact"><b id="fTotal">0</b><span>cards no baralho</span></div>
+      <div class="fact"><b id="fHoje">0</b><span>para revisar hoje</span></div>
+      <div class="fact"><b id="fDominados">0</b><span>na caixa 4 (dominados)</span></div>
+    </div>
+  </div>
+
+  <div class="secttl">Filtrar por domínio</div>
+  <div class="filtros" id="filtros"></div>
+
+  <div class="secttl">Suas caixas</div>
+  <div class="boxes" id="boxes"></div>
+
+  <div class="acoes">
+    <button class="btn amber" id="btnEstudar">Estudar os de hoje</button>
+    <button class="btn ghost" id="btnTudo">Revisar o baralho inteiro</button>
+    <button class="btn ghost sm" id="btnReset">Zerar progresso</button>
+  </div>
+  <p class="lead" style="margin-top:14px;font-size:13.5px">Intervalos: caixa 1 = hoje · caixa 2 = 2 dias · caixa 3 = 5 dias · caixa 4 = 10 dias. Acertou, sobe uma caixa; errou, volta para a caixa 1.</p>
+</div></main>
+
+<!-- ============ ESTUDO ============ -->
+<div id="viewEstudo" class="hidden"><main><div class="wrap">
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+    <span class="chip on" id="eCount">1 / 20</span>
+    <span class="chip" id="eDom">D1</span>
+    <span class="chip" id="eTema">tema</span>
+    <div class="spacer"></div>
+    <button class="btn ghost sm" id="btnSair">Sair</button>
+  </div>
+  <div class="prog"><i id="eProg"></i></div>
+
+  <div class="fcard" id="fcard">
+    <div class="frente" id="eFrente"></div>
+    <div class="verso hidden" id="eVerso"></div>
+    <div class="dica" id="eDica">Clique no card ou aperte espaço para ver a resposta</div>
+  </div>
+
+  <div class="acoes" id="eAcoes">
+    <button class="btn no" id="btnErrei">Errei &nbsp;<span style="opacity:.7">1</span></button>
+    <button class="btn ok" id="btnAcertei">Acertei &nbsp;<span style="opacity:.7">2</span></button>
+    <span class="lead" style="font-size:13px">Responda com sinceridade: o método só funciona se o "acertei" for de verdade.</span>
+  </div>
+</div></main></div>
+
+<!-- ============ FIM ============ -->
+<div id="viewFim" class="hidden"><main><div class="wrap" id="fimWrap"></div></main></div>
+
+<footer><div class="wrap">
+  Material de estudo não oficial, escrito a partir do exam guide público do CLF-C02.
+  <div class="sig" style="margin-top:6px">@dioaugusto.dev</div>
+</div></footer>
+
+<script>
+const CARDS = [{"id":"C001","dominio":1,"tema":"Benefícios da nuvem","frente":"Quais são os 6 benefícios clássicos da computação em nuvem citados pela AWS?","verso":"1) Trocar CapEx por despesa variável · 2) Beneficiar-se de economias de escala massivas · 3) Parar de adivinhar capacidade · 4) Aumentar velocidade e agilidade · 5) Parar de gastar com operação de datacenters · 6) Ficar global em minutos."},{"id":"C002","dominio":1,"tema":"CapEx vs. OpEx","frente":"O que significa 'trocar CapEx por OpEx' ao migrar para a nuvem?","verso":"Sai o investimento antecipado em hardware e datacenter (capital expense) e entra a despesa variável por consumo (operational expense): paga-se só o que se usa, quando se usa."},{"id":"C003","dominio":1,"tema":"Elasticidade vs. escalabilidade","frente":"Elasticidade × escalabilidade × alta disponibilidade: qual é qual?","verso":"Elasticidade = capacidade acompanha a demanda automaticamente, para cima e para baixo. Escalabilidade = capacidade de crescer (vertical: instância maior; horizontal: mais instâncias). Alta disponibilidade = continuar operando apesar de falhas (multi-AZ)."},{"id":"C004","dominio":1,"tema":"Alta disponibilidade vs. tolerância a falhas","frente":"Qual a diferença entre alta disponibilidade e tolerância a falhas?","verso":"Alta disponibilidade minimiza o downtime, aceitando interrupção breve (failover). Tolerância a falhas é mais rigorosa e mais cara: opera sem interrupção perceptível mesmo durante a falha de um componente."},{"id":"C005","dominio":1,"tema":"Escala horizontal vs. vertical","frente":"Scale up × scale out","verso":"Scale up (vertical) = aumentar o tamanho da instância. Scale out (horizontal) = adicionar mais instâncias. A AWS recomenda horizontal: sem teto de tamanho e com mais disponibilidade agregada."},{"id":"C006","dominio":1,"tema":"Well-Architected: pilares","frente":"Quais são os 6 pilares do AWS Well-Architected Framework?","verso":"Excelência operacional · Segurança · Confiabilidade · Eficiência de performance · Otimização de custos · Sustentabilidade. (Sustentabilidade é o mais recente, de 2021.)"},{"id":"C007","dominio":1,"tema":"Well-Architected: qual pilar","frente":"Recuperação automática de falhas e teste de procedimentos de recuperação: qual pilar?","verso":"Confiabilidade (reliability). Trata da capacidade do workload de se recuperar de falhas e continuar entregando o serviço esperado."},{"id":"C008","dominio":1,"tema":"Well-Architected: qual pilar","frente":"Operações como código, mudanças pequenas e reversíveis, aprender com incidentes: qual pilar?","verso":"Excelência operacional (operational excellence)."},{"id":"C009","dominio":1,"tema":"Well-Architected: qual pilar","frente":"Maximizar utilização, escolher hardware/Region mais eficientes, reduzir impacto ambiental: qual pilar?","verso":"Sustentabilidade (sustainability)."},{"id":"C010","dominio":1,"tema":"Well-Architected: qual pilar","frente":"'Democratizar tecnologias avançadas' e usar serverless: qual pilar?","verso":"Eficiência de performance (performance efficiency): consumir tecnologia complexa como serviço gerenciado em vez de construir e operar você mesmo."},{"id":"C011","dominio":1,"tema":"Well-Architected Tool","frente":"Qual ferramenta gratuita revisa seu workload contra os pilares e aponta riscos?","verso":"AWS Well-Architected Tool, no console. Gera relatório com high/medium risk issues e recomendações. Não confundir com o Trusted Advisor (checks automáticos na conta)."},{"id":"C012","dominio":1,"tema":"CAF: perspectivas","frente":"Quais são as 6 perspectivas do AWS Cloud Adoption Framework (CAF)?","verso":"Negócio: Business · People · Governance. Técnicas: Platform · Security · Operations. Servem para achar lacunas de capacidade organizacional na adoção da nuvem."},{"id":"C013","dominio":1,"tema":"CAF vs. Well-Architected","frente":"CAF × Well-Architected Framework: para que serve cada um?","verso":"CAF = jornada de adoção da nuvem na ORGANIZAÇÃO (pessoas, processos, governança). Well-Architected = revisão técnica de um WORKLOAD específico. Um não substitui o outro."},{"id":"C014","dominio":1,"tema":"7 Rs: rehost","frente":"Migração: o que é rehost?","verso":"'Lift and shift': mover a aplicação como está (ex.: VMs para EC2), sem mudar arquitetura nem código. É a estratégia mais rápida — típica de quem tem prazo curto para sair do datacenter."},{"id":"C015","dominio":1,"tema":"7 Rs: replatform","frente":"Migração: o que é replatform?","verso":"'Lift, tinker and shift': pequenas otimizações sem mudar o código, tipicamente adotando um serviço gerenciado (ex.: banco Oracle → Amazon RDS)."},{"id":"C016","dominio":1,"tema":"7 Rs: refactor e repurchase","frente":"Migração: refactor × repurchase","verso":"Refactor = re-arquitetar para cloud-native (ex.: monolito → microsserviços/serverless). Repurchase = 'drop and shop': trocar o software próprio por um SaaS (ex.: CRM → Salesforce)."},{"id":"C017","dominio":1,"tema":"7 Rs: retire, retain, relocate","frente":"Migração: retire × retain × relocate","verso":"Retire = desligar o que não é mais usado. Retain = manter on-premises por ora (licença, dependência). Relocate = mover a plataforma inteira sem converter VMs (VMware Cloud on AWS)."},{"id":"C018","dominio":1,"tema":"Serviços de migração","frente":"Quais serviços apoiam migração: inventário, banco de dados e acompanhamento?","verso":"Application Discovery Service = inventário e dependências on-premises. DMS = migração de bancos (com SCT para heterogêneos). Migration Hub = acompanhamento centralizado. Snow Family = dados em massa quando a rede é inviável."},{"id":"C019","dominio":1,"tema":"TCO","frente":"Quais custos on-premises entram no TCO e costumam ser esquecidos?","verso":"Energia, refrigeração, espaço físico, rede, equipe de operação, manutenção e o ciclo de substituição do hardware — não só o preço de compra dos servidores."},{"id":"C020","dominio":1,"tema":"Rightsizing","frente":"O que é rightsizing e qual serviço recomenda automaticamente?","verso":"Ajustar tipo e tamanho dos recursos ao uso real (ex.: instâncias com 10% de CPU). O AWS Compute Optimizer gera as recomendações com base em métricas do CloudWatch; Cost Explorer e Trusted Advisor também sugerem."},{"id":"C021","dominio":1,"tema":"Undifferentiated heavy lifting","frente":"O que é 'undifferentiated heavy lifting'?","verso":"Trabalho pesado que toda empresa faz igual e não gera diferencial competitivo (racks, energia, patching de infra). Transferi-lo para a AWS libera a equipe para o que diferencia o negócio."},{"id":"C022","dominio":1,"tema":"BYOL","frente":"O que é BYOL e qual opção de tenancy costuma acompanhá-lo?","verso":"Bring Your Own License: reaproveitar licenças já compradas na nuvem. Quando a licença exige vínculo com hardware físico, usa-se Dedicated Hosts (dão visibilidade de sockets e cores)."},{"id":"C023","dominio":2,"tema":"Responsabilidade compartilhada","frente":"Qual a frase que resume o modelo de responsabilidade compartilhada?","verso":"A AWS é responsável pela segurança DA nuvem (infraestrutura, hardware, datacenter, hypervisor). O cliente é responsável pela segurança NA nuvem (dados, configuração, acessos, SO quando aplicável)."},{"id":"C024","dominio":2,"tema":"Responsabilidade compartilhada","frente":"O que é SEMPRE responsabilidade do cliente, em qualquer serviço?","verso":"Os dados (e sua classificação) e o gerenciamento de identidades e acessos (IAM). Isso nunca migra para a AWS, nem em serviços totalmente gerenciados."},{"id":"C025","dominio":2,"tema":"Responsabilidade compartilhada","frente":"Como a fronteira se move de EC2 → RDS → Lambda?","verso":"EC2 (IaaS): cliente cuida do SO para cima. RDS: AWS assume patching do SO e do engine. Lambda/S3 (serverless): AWS gerencia toda a pilha de execução. Em todos, dados e permissões seguem com o cliente."},{"id":"C026","dominio":2,"tema":"Responsabilidade: EC2","frente":"Em EC2, quem aplica patch no sistema operacional convidado?","verso":"O cliente. A AWS cuida do hardware, do datacenter e do hypervisor; o guest OS, as aplicações e os security groups são do cliente."},{"id":"C027","dominio":2,"tema":"AWS Artifact","frente":"Onde baixar os relatórios de compliance DA AWS (SOC, ISO, PCI)?","verso":"AWS Artifact — portal self-service e gratuito. Também é onde se aceita acordos como o BAA (HIPAA)."},{"id":"C028","dominio":2,"tema":"Artifact vs. Audit Manager","frente":"AWS Artifact × AWS Audit Manager","verso":"Artifact = relatórios de compliance DA AWS (prova que o provedor é conforme). Audit Manager = coleta automática de evidências do SEU ambiente para as SUAS auditorias."},{"id":"C029","dominio":2,"tema":"CloudTrail × Config × CloudWatch","frente":"Quem fez a chamada de API? Qual era a configuração do recurso? Qual era o uso de CPU?","verso":"CloudTrail = quem fez o quê, quando, de onde (auditoria de API). Config = como o recurso está/estava configurado e se viola regras. CloudWatch = métricas, logs e alarmes de desempenho."},{"id":"C030","dominio":2,"tema":"AWS Config","frente":"Qual serviço verifica continuamente se buckets estão públicos ou volumes sem criptografia?","verso":"AWS Config, com Config Rules. Ele avalia conformidade da configuração e guarda o histórico de mudanças de cada recurso."},{"id":"C031","dominio":2,"tema":"Criptografia","frente":"Criptografia em repouso × em trânsito: quais mecanismos?","verso":"Em repouso: criptografia dos dados armazenados, tipicamente server-side com chaves do AWS KMS. Em trânsito: TLS/HTTPS."},{"id":"C032","dominio":2,"tema":"Criptografia client-side","frente":"Server-side × client-side encryption no S3","verso":"Server-side: o S3 criptografa ao gravar (SSE-S3, SSE-KMS, SSE-C). Client-side: você criptografa antes do upload — a AWS nunca vê o dado em texto claro. Controle máximo."},{"id":"C033","dominio":2,"tema":"Residência de dados","frente":"Como garantir que dados fiquem no Brasil?","verso":"Escolher a Region sa-east-1 (São Paulo): dados de serviços regionais não saem da Region sem ação do cliente. SCPs podem restringir o uso de outras Regions."},{"id":"C034","dominio":2,"tema":"Least privilege","frente":"O que é o princípio do menor privilégio?","verso":"Conceder apenas as permissões mínimas necessárias, nos recursos necessários, pelo tempo necessário. Ampliar só quando comprovadamente preciso."},{"id":"C035","dominio":2,"tema":"Usuário root","frente":"Quais são as regras de ouro do usuário root?","verso":"Habilitar MFA, não usar no dia a dia, não criar access keys para ele e reservá-lo às poucas tarefas que exigem root (alterar dados da conta, fechar a conta, mudar plano de suporte). Root não pode ser excluído."},{"id":"C036","dominio":2,"tema":"IAM: usuários, grupos, roles","frente":"Usuário × grupo × role no IAM","verso":"Usuário = identidade persistente com credenciais próprias. Grupo = conjunto de usuários para aplicar políticas em bloco. Role = identidade assumida temporariamente (por serviços, usuários ou outras contas), com credenciais temporárias."},{"id":"C037","dominio":2,"tema":"IAM roles","frente":"Aplicação em EC2 precisa acessar o S3. Qual a forma segura?","verso":"Anexar uma IAM role à instância. Credenciais temporárias, rotacionadas automaticamente, sem access keys gravadas em arquivo ou código."},{"id":"C038","dominio":2,"tema":"IAM: avaliação de políticas","frente":"Uma política permite e outra nega a mesma ação. O que acontece?","verso":"A ação é negada. Deny explícito sempre vence qualquer Allow, venha de onde vier (usuário, grupo, SCP, política de recurso). Por padrão, tudo é negado implicitamente."},{"id":"C039","dominio":2,"tema":"IAM: estrutura de política","frente":"Quais elementos formam uma política IAM?","verso":"Effect (Allow/Deny), Action (quais operações), Resource (sobre quais recursos) e Condition (opcional: IP, MFA, Region, tags)."},{"id":"C040","dominio":2,"tema":"MFA","frente":"O que é MFA e por que importa?","verso":"Autenticação multifator: além da senha (algo que você sabe), exige um segundo fator (algo que você tem — app autenticador, chave física). Roubar a senha deixa de ser suficiente."},{"id":"C041","dominio":2,"tema":"IAM Identity Center","frente":"SSO em várias contas AWS com credenciais corporativas: qual serviço?","verso":"AWS IAM Identity Center (sucessor do AWS SSO), federando com Active Directory ou outro provedor de identidade. Não confundir com Cognito (usuários finais de aplicações)."},{"id":"C042","dominio":2,"tema":"Cognito","frente":"Identidade de usuários finais de um app (cadastro, login social): qual serviço?","verso":"Amazon Cognito (user pools e identity pools). Identity Center é para a força de trabalho; Cognito é para os clientes da sua aplicação."},{"id":"C043","dominio":2,"tema":"Organizations e SCPs","frente":"Como impedir centralmente que contas-membro usem Regions não aprovadas?","verso":"Service Control Policies (SCPs) do AWS Organizations: definem o teto máximo de permissões da conta. Nenhuma política IAM local consegue ultrapassar esse limite."},{"id":"C044","dominio":2,"tema":"Auditoria de credenciais","frente":"Como listar senhas, MFA e idade das access keys de todos os usuários? E achar recursos expostos externamente?","verso":"IAM credential report (CSV com o estado das credenciais) e IAM Access Analyzer (recursos acessíveis por entidades externas à conta)."},{"id":"C045","dominio":2,"tema":"Security group × NACL","frente":"Security group × Network ACL","verso":"SG: nível da instância, STATEFUL (resposta volta automática), só regras de allow. NACL: nível da subnet, STATELESS (precisa regra de ida e volta), aceita allow e deny, avaliadas por número. Ambos são gratuitos."},{"id":"C046","dominio":2,"tema":"WAF × Shield","frente":"AWS WAF × AWS Shield","verso":"WAF = firewall de aplicação web (camada 7): bloqueia SQL injection, XSS, bots, por regras. Shield = proteção DDoS (camadas 3/4): Standard é automático e grátis; Advanced é pago, com DDoS Response Team e cost protection."},{"id":"C047","dominio":2,"tema":"GuardDuty × Inspector × Macie","frente":"GuardDuty × Inspector × Macie","verso":"GuardDuty = detecção de AMEAÇAS (analisa CloudTrail, VPC Flow Logs, DNS). Inspector = VULNERABILIDADES em EC2, ECR e Lambda. Macie = DADOS SENSÍVEIS no S3 (CPF, cartão)."},{"id":"C048","dominio":2,"tema":"Security Hub","frente":"Qual serviço consolida os findings de GuardDuty, Inspector e Macie em um painel só?","verso":"AWS Security Hub, que ainda roda checks contínuos contra padrões como CIS AWS Foundations e AWS Foundational Security Best Practices."},{"id":"C049","dominio":2,"tema":"KMS × Secrets Manager","frente":"AWS KMS × AWS Secrets Manager","verso":"KMS = cria e gerencia CHAVES criptográficas usadas por dezenas de serviços. Secrets Manager = guarda SEGREDOS de aplicação (senhas, tokens) com rotação automática integrada ao RDS."},{"id":"C050","dominio":2,"tema":"Certificate Manager","frente":"Onde provisionar e renovar certificados TLS automaticamente e de graça?","verso":"AWS Certificate Manager (ACM), integrado a CloudFront, ELB e API Gateway. Certificados públicos são gratuitos."},{"id":"C051","dominio":2,"tema":"Firewall Manager","frente":"Como aplicar regras de WAF e Shield em todas as contas da organização?","verso":"AWS Firewall Manager, integrado ao Organizations. Aplica políticas de WAF, Shield Advanced, security groups e Network Firewall — inclusive em contas criadas depois."},{"id":"C052","dominio":2,"tema":"Pentest","frente":"É permitido fazer teste de penetração na AWS?","verso":"Sim, sem aprovação prévia, para uma lista de serviços elegíveis e apenas sobre recursos da sua própria conta, respeitando a política de uso aceitável. Simulação de DDoS ainda exige autorização."},{"id":"C053","dominio":2,"tema":"Fontes oficiais de segurança","frente":"Onde achar orientação oficial de segurança da AWS?","verso":"AWS Security Blog, AWS Security Center, documentação de segurança de cada serviço, whitepapers de best practices e o AWS Knowledge Center."},{"id":"C054","dominio":3,"tema":"Formas de acesso","frente":"Quais são as três formas de interagir com a AWS?","verso":"Console (web, exploração), CLI (scripts e automação) e SDKs (integração no código). As três usam as mesmas APIs públicas por baixo."},{"id":"C055","dominio":3,"tema":"CloudFormation","frente":"Qual serviço provisiona infraestrutura como código com templates declarativos?","verso":"AWS CloudFormation (YAML/JSON), permitindo recriar ambientes idênticos em qualquer conta ou Region. O AWS CDK gera esses templates a partir de linguagens como TypeScript e Python."},{"id":"C056","dominio":3,"tema":"Elastic Beanstalk","frente":"Quero só enviar meu código e a AWS provisiona EC2, load balancer e auto scaling. Qual serviço?","verso":"AWS Elastic Beanstalk (PaaS). Você continua com acesso aos recursos criados — diferente de um serviço totalmente opaco."},{"id":"C057","dominio":3,"tema":"Region × AZ × edge","frente":"Region × Availability Zone × edge location","verso":"Region = área geográfica com várias AZs. AZ = um ou mais datacenters com energia, refrigeração e rede independentes. Edge location = ponto de presença do CloudFront para cache perto do usuário."},{"id":"C058","dominio":3,"tema":"Multi-AZ × multi-Region","frente":"Multi-AZ × multi-Region: contra o que cada um protege?","verso":"Multi-AZ = alta disponibilidade contra falha de datacenter/AZ, com baixa latência entre elas. Multi-Region = disaster recovery contra a perda de uma Region inteira e latência global."},{"id":"C059","dominio":3,"tema":"Escolha de Region","frente":"Quais critérios definem a escolha de uma Region?","verso":"Latência (proximidade dos usuários), compliance e residência de dados, disponibilidade dos serviços necessários na Region e preço (que varia entre Regions)."},{"id":"C060","dominio":3,"tema":"Outposts, Local Zones, Wavelength","frente":"Outposts × Local Zones × Wavelength","verso":"Outposts = rack da AWS dentro do SEU datacenter. Local Zones = extensão da Region perto de grandes centros urbanos. Wavelength = infraestrutura AWS dentro de redes 5G de operadoras."},{"id":"C061","dominio":3,"tema":"CloudFront × Global Accelerator","frente":"CloudFront × Global Accelerator","verso":"CloudFront = CDN, faz CACHE de conteúdo HTTP(S) nas edge locations. Global Accelerator = 2 IPs estáticos anycast que levam tráfego TCP/UDP DINÂMICO (não cacheável) para o backbone da AWS."},{"id":"C062","dominio":3,"tema":"Famílias EC2","frente":"Famílias de instância EC2: qual para CPU, qual para memória?","verso":"General purpose (T, M) = equilíbrio. Compute optimized (C) = CPU intensiva, HPC, batch. Memory optimized (R, X) = bancos em memória, caches. Storage optimized (I, D) = alto I/O de disco local."},{"id":"C063","dominio":3,"tema":"Lambda","frente":"O que é AWS Lambda e como se paga por ele?","verso":"Execução serverless de funções disparadas por evento, sem provisionar servidores. Cobrança por número de invocações e tempo de execução — nada roda ocioso, nada é cobrado ocioso."},{"id":"C064","dominio":3,"tema":"ECS × EKS × Fargate","frente":"ECS × EKS × Fargate","verso":"ECS = orquestrador de contêineres próprio da AWS. EKS = Kubernetes gerenciado (compatível com o ecossistema K8s). Fargate = motor de computação SERVERLESS que executa contêineres do ECS ou do EKS sem você gerenciar instâncias."},{"id":"C065","dominio":3,"tema":"Auto Scaling × ELB","frente":"EC2 Auto Scaling × Elastic Load Balancing","verso":"Auto Scaling AJUSTA o número de instâncias conforme a demanda (elasticidade). ELB DISTRIBUI as requisições entre as instâncias saudáveis (health checks). Juntos: elasticidade + alta disponibilidade."},{"id":"C066","dominio":3,"tema":"Tipos de load balancer","frente":"ALB × NLB × Gateway Load Balancer","verso":"ALB = camada 7 (HTTP/HTTPS), roteia por caminho, host e cabeçalho. NLB = camada 4 (TCP/UDP), latência ultrabaixa e IP estático. GWLB = distribui tráfego para appliances virtuais de segurança de terceiros."},{"id":"C067","dominio":3,"tema":"Lightsail","frente":"Site WordPress simples com preço mensal fixo e painel simplificado: qual serviço?","verso":"Amazon Lightsail — VPS com blueprints prontos, rede pré-configurada e preço previsível. Para quem não quer montar VPC, security groups e load balancer."},{"id":"C068","dominio":3,"tema":"AWS Batch","frente":"Milhares de jobs em lote com filas e provisionamento automático: qual serviço?","verso":"AWS Batch, que gerencia as filas e provisiona a computação (EC2 ou Fargate, inclusive Spot) dimensionada ao volume."},{"id":"C069","dominio":3,"tema":"RDS Multi-AZ × read replica","frente":"RDS Multi-AZ × read replicas — a pegadinha nº 1 da prova","verso":"Multi-AZ = réplica SÍNCRONA em standby noutra AZ, para FAILOVER automático (disponibilidade). Read replicas = cópias ASSÍNCRONAS para escalar LEITURA (performance). Não troque os dois."},{"id":"C070","dominio":3,"tema":"Aurora","frente":"O que é o Amazon Aurora?","verso":"Banco relacional gerenciado da AWS compatível com MySQL e PostgreSQL, com performance e disponibilidade superiores às versões padrão e armazenamento distribuído em várias AZs."},{"id":"C071","dominio":3,"tema":"DynamoDB","frente":"Banco NoSQL chave-valor serverless com latência de milissegundos: qual?","verso":"Amazon DynamoDB. Sem servidores para gerenciar, escala automática e latência de milissegundos de um dígito em qualquer escala."},{"id":"C072","dominio":3,"tema":"Bancos purpose-built","frente":"Qual banco para: grafos? documentos? cache? data warehouse?","verso":"Grafos = Neptune. Documentos (MongoDB) = DocumentDB. Cache em memória = ElastiCache (Redis/Memcached). Data warehouse = Redshift. Séries temporais = Timestream. Cassandra = Keyspaces."},{"id":"C073","dominio":3,"tema":"RDS: backups","frente":"Backup automatizado × snapshot manual no RDS","verso":"Automatizado: criado pela AWS na janela configurada, permite point-in-time recovery e EXPIRA conforme a retenção. Snapshot manual: criado por você e persiste até ser excluído — para retenção longa."},{"id":"C074","dominio":3,"tema":"Classes S3","frente":"Quando usar Standard-IA, Intelligent-Tiering e Glacier Deep Archive?","verso":"Standard-IA = acesso raro, recuperação imediata, armazenamento mais barato. Intelligent-Tiering = padrão de acesso IMPREVISÍVEL, move sozinho, sem taxa de recuperação. Glacier Deep Archive = menor custo, recuperação em horas, retenção de anos."},{"id":"C075","dominio":3,"tema":"EBS × EFS × instance store","frente":"EBS × EFS × instance store","verso":"EBS = bloco, tipicamente 1 instância, mesma AZ, persistente. EFS = arquivo (NFS), MUITAS instâncias Linux ao mesmo tempo, elástico. Instance store = disco local EFÊMERO: some quando a instância para."},{"id":"C076","dominio":3,"tema":"FSx × EFS","frente":"Preciso de file system SMB integrado ao Active Directory. EFS ou FSx?","verso":"FSx for Windows File Server (SMB + AD). EFS é NFS, para cargas Linux. FSx for Lustre atende HPC."},{"id":"C077","dominio":3,"tema":"Versionamento S3","frente":"Como proteger objetos do S3 contra exclusão acidental?","verso":"Habilitar versionamento: a exclusão cria um delete marker e as versões anteriores continuam recuperáveis. Combina com MFA Delete e políticas de lifecycle."},{"id":"C078","dominio":3,"tema":"Storage Gateway e AWS Backup","frente":"Storage Gateway × AWS Backup","verso":"Storage Gateway = acesso híbrido: aplicações on-premises usam armazenamento AWS com cache local (File, Volume, Tape Gateway). AWS Backup = políticas centralizadas de backup para EBS, RDS, DynamoDB, EFS e outros."},{"id":"C079","dominio":3,"tema":"VPC: subnets","frente":"Subnet pública × subnet privada","verso":"Pública = tem rota para o internet gateway (recebe tráfego da internet). Privada = sem rota de entrada da internet; para SAIR (baixar patches) usa NAT gateway em uma subnet pública."},{"id":"C080","dominio":3,"tema":"VPC endpoints","frente":"Instância em subnet privada precisa falar com o S3 sem internet nem NAT. Como?","verso":"VPC endpoint — o gateway endpoint para S3 e DynamoDB é gratuito e mantém o tráfego dentro da rede da AWS. Interface endpoints (PrivateLink) atendem os demais serviços."},{"id":"C081","dominio":3,"tema":"VPN × Direct Connect","frente":"Site-to-Site VPN × Direct Connect","verso":"VPN = criptografada sobre a INTERNET, pronta em horas, banda variável. Direct Connect = circuito FÍSICO dedicado, banda consistente, fora da internet pública, semanas/meses para provisionar."},{"id":"C082","dominio":3,"tema":"Route 53","frente":"O que o Route 53 faz e quais políticas de roteamento existem?","verso":"DNS gerenciado + registro de domínios + health checks. Políticas: simples, ponderada (canary), latência (menor tempo de resposta), failover (ativo/passivo), geolocalização e multivalue."},{"id":"C083","dominio":3,"tema":"Textract × Polly × Transcribe","frente":"Textract × Polly × Transcribe × Translate","verso":"Textract = extrai texto de DOCUMENTOS (OCR). Polly = texto → FALA. Transcribe = fala → TEXTO. Translate = tradução entre idiomas."},{"id":"C084","dominio":3,"tema":"Rekognition × Comprehend","frente":"Rekognition × Comprehend","verso":"Rekognition = análise de IMAGEM e VÍDEO (objetos, rostos, moderação). Comprehend = NLP em TEXTO (sentimento, entidades, idioma, tópicos)."},{"id":"C085","dominio":3,"tema":"SageMaker × Bedrock","frente":"Amazon SageMaker AI × Amazon Bedrock","verso":"SageMaker AI = plataforma para CONSTRUIR, treinar e implantar modelos de ML próprios. Bedrock = acesso gerenciado por API a FOUNDATION MODELS de IA generativa prontos."},{"id":"C086","dominio":3,"tema":"Athena × Glue × QuickSight","frente":"Athena × Glue × QuickSight × Kinesis","verso":"Athena = SQL direto sobre dados no S3, serverless (paga por dado escaneado). Glue = catálogo de dados + ETL serverless. QuickSight = BI e dashboards. Kinesis = ingestão e processamento em TEMPO REAL."},{"id":"C087","dominio":3,"tema":"EMR × OpenSearch","frente":"EMR × OpenSearch Service","verso":"EMR = clusters gerenciados de big data (Spark, Hadoop, Hive, Presto). OpenSearch Service = indexação e busca de logs e dados operacionais, com dashboards."},{"id":"C088","dominio":3,"tema":"SQS × SNS","frente":"Amazon SQS × Amazon SNS","verso":"SQS = FILA: cada mensagem é processada por UM consumidor; desacopla e absorve picos. SNS = PUB/SUB: uma mensagem entregue a MUITOS assinantes (e-mail, SMS, Lambda, SQS)."},{"id":"C089","dominio":3,"tema":"EventBridge × Step Functions","frente":"EventBridge × Step Functions","verso":"EventBridge = barramento de EVENTOS: roteia eventos de serviços AWS e SaaS por regras de correspondência. Step Functions = ORQUESTRA workflows como máquina de estados, com condições, retentativas e histórico."},{"id":"C090","dominio":3,"tema":"SES, Connect, WorkSpaces","frente":"SES × Connect × WorkSpaces","verso":"SES = envio e recebimento de E-MAIL em escala. Connect = CONTACT CENTER na nuvem. WorkSpaces = DESKTOPS virtuais gerenciados para funcionários."},{"id":"C091","dominio":3,"tema":"Systems Manager","frente":"Qual serviço opera a frota: patches, execução remota de comandos e acesso sem SSH?","verso":"AWS Systems Manager (Patch Manager, Run Command, Session Manager, Parameter Store). É o hub operacional da frota de instâncias."},{"id":"C092","dominio":4,"tema":"Modelos de compra EC2","frente":"On-Demand × Reserved/Savings Plans × Spot × Dedicated Hosts","verso":"On-Demand = imprevisível, sem compromisso. Reserved/Savings Plans = uso ESTÁVEL, 1 ou 3 anos, até ~72%. Spot = capacidade ociosa, até ~90%, pode ser INTERROMPIDA. Dedicated Hosts = hardware físico dedicado para licenças e compliance."},{"id":"C093","dominio":4,"tema":"Savings Plans","frente":"O que diferencia Savings Plans das Reserved Instances?","verso":"O compromisso é de GASTO por hora (USD/h) por 1 ou 3 anos, com flexibilidade de família, tamanho e Region — e o Compute Savings Plan cobre também Fargate e Lambda."},{"id":"C094","dominio":4,"tema":"Reserved Instances: pagamento","frente":"Qual opção de pagamento de RI dá mais desconto?","verso":"All Upfront > Partial Upfront > No Upfront. E 3 anos economiza mais que 1 ano: quanto maior o compromisso, maior o desconto."},{"id":"C095","dominio":4,"tema":"Transferência de dados","frente":"Como funciona a cobrança de transferência de dados?","verso":"Entrada (inbound) para a AWS geralmente é GRATUITA. Saída (outbound) para a internet é COBRADA por GB. Tráfego entre AZs e entre Regions também pode gerar custo."},{"id":"C096","dominio":4,"tema":"Free Tier","frente":"Quais são os três tipos de oferta do AWS Free Tier?","verso":"Always free (ex.: 1 milhão de invocações Lambda/mês), 12 meses grátis para contas novas (ex.: horas de EC2 t2/t3.micro) e trials de curta duração. Passou do limite, cobra normal."},{"id":"C097","dominio":4,"tema":"Dimensões de preço","frente":"Quais são as três dimensões de cobrança predominantes na AWS?","verso":"Computação (tempo de execução), armazenamento (GB por mês) e transferência de dados de saída. Usuários IAM, tags e o console não são cobrados."},{"id":"C098","dominio":4,"tema":"Pricing Calculator × Cost Explorer","frente":"Pricing Calculator × Cost Explorer × Budgets","verso":"Pricing Calculator = ESTIMAR custo ANTES de implantar. Cost Explorer = ANALISAR o que já foi gasto, com tendência. Budgets = ALERTAR (e agir) quando o gasto real ou previsto cruza um limite."},{"id":"C099","dominio":4,"tema":"Cost and Usage Report","frente":"Qual é o relatório de cobrança mais detalhado da AWS?","verso":"O AWS Cost and Usage Report (CUR): granularidade por hora e por recurso, entregue em um bucket S3, consultável com Athena e QuickSight."},{"id":"C100","dominio":4,"tema":"Cost allocation tags","frente":"Como saber quanto cada departamento gasta na mesma conta?","verso":"Cost allocation tags: etiquetar recursos (ex.: Department=Marketing) e ativar as tags no billing para filtrar no Cost Explorer e no CUR. Custo não é atribuído a usuários IAM."},{"id":"C101","dominio":4,"tema":"Consolidated billing","frente":"Quais os benefícios do faturamento consolidado no Organizations?","verso":"Fatura única para todas as contas e AGREGAÇÃO do uso, o que ajuda a alcançar faixas de desconto por volume e permite compartilhar Reserved Instances e Savings Plans entre contas."},{"id":"C102","dominio":4,"tema":"Contas separadas","frente":"Por que separar produção, dev e sandbox em contas diferentes?","verso":"Conta é o limite de isolamento mais forte da AWS: reduz o raio de impacto, permite SCPs distintas por ambiente e deixa o custo por ambiente explícito na fatura consolidada."},{"id":"C103","dominio":4,"tema":"Planos de suporte","frente":"Quais são os planos de suporte da AWS, do menor ao maior?","verso":"Basic (grátis, só conta/billing) → Developer (e-mail, horário comercial) → Business (24/7 telefone/chat, Trusted Advisor completo, API) → Enterprise On-Ramp (pool de TAMs) → Enterprise (TAM dedicado)."},{"id":"C104","dominio":4,"tema":"Suporte: qual plano","frente":"Qual é o primeiro plano com suporte 24/7 por telefone e chat?","verso":"Business Support. Também é o primeiro com Trusted Advisor completo e API de suporte. Resposta em 1 hora para sistema de produção com problema."},{"id":"C105","dominio":4,"tema":"Suporte: SLAs","frente":"Quais são os tempos de resposta que caem na prova?","verso":"Produção com problema (Business+): 1 hora. Produção INDISPONÍVEL (Business+): 1 hora. Business-critical indisponível: 30 min no Enterprise On-Ramp e 15 MINUTOS no Enterprise."},{"id":"C106","dominio":4,"tema":"Enterprise Support","frente":"O que é exclusivo do Enterprise Support?","verso":"Technical Account Manager (TAM) DEDICADO, com orientação proativa e revisões operacionais, e resposta em 15 minutos para casos business-critical."},{"id":"C107","dominio":4,"tema":"Trusted Advisor","frente":"O que o Trusted Advisor verifica?","verso":"Cinco categorias: otimização de custos, segurança, tolerância a falhas, performance e limites (service quotas). Os checks completos exigem Business ou superior."},{"id":"C108","dominio":4,"tema":"Marketplace e re:Post","frente":"AWS Marketplace × AWS re:Post","verso":"Marketplace = catálogo para comprar software de terceiros, com cobrança integrada à fatura AWS. re:Post = comunidade oficial e GRATUITA de perguntas e respostas (sucessora dos fóruns)."},{"id":"C109","dominio":4,"tema":"Health Dashboard","frente":"Onde ver eventos da AWS que afetam especificamente a sua conta?","verso":"AWS Health Dashboard: tem a visão pública do status dos serviços e a visão da SUA conta (manutenções programadas, recursos afetados, ações recomendadas)."},{"id":"C110","dominio":4,"tema":"Alerta de billing","frente":"Qual a primeira providência de segurança financeira em uma conta nova?","verso":"Criar um AWS Budget (ou alarme de billing no CloudWatch) para ser avisado ao se aproximar de um limite. Não existe bloqueio automático de cobrança pela AWS."},{"id":"C111","dominio":4,"tema":"Automação e custo","frente":"Por que desligar ambientes de dev fora do horário economiza?","verso":"No pay-as-you-go, instância parada não gera custo de COMPUTAÇÃO (o volume EBS anexado continua sendo cobrado). Automatizar o desligamento é economia direta."},{"id":"C112","dominio":4,"tema":"Formato da prova","frente":"Formato do CLF-C02: questões, tempo, corte e tipos","verso":"65 questões (50 valem nota, 15 são de calibração), 90 minutos, corte 700 de 1000, escala 100–1000, modelo compensatório. Tipos: múltipla escolha (1 correta) e múltipla resposta (2 corretas)."},{"id":"C113","dominio":4,"tema":"Pesos dos domínios","frente":"Quais os pesos dos 4 domínios do CLF-C02?","verso":"D1 Cloud Concepts 24% · D2 Security and Compliance 30% · D3 Cloud Technology and Services 34% · D4 Billing, Pricing and Support 12%. D2+D3 = 64% da prova."},{"id":"C114","dominio":2,"tema":"Retenção de logs","frente":"Como reter logs de auditoria por 7 anos pelo menor custo?","verso":"Entregar ao S3 e aplicar lifecycle transicionando para Glacier Deep Archive (menor custo de armazenamento, recuperação em horas). CloudWatch Logs e EBS ligado custam bem mais por GB."},{"id":"C115","dominio":3,"tema":"Snow Family","frente":"Preciso mover 500 TB e a rede levaria meses. O que uso?","verso":"AWS Snow Family (Snowball Edge): dispositivo físico enviado pela AWS, você copia os dados e devolve para importação no S3. Snowcone é a versão pequena; Snowmobile, o caminhão para exabytes."},{"id":"C116","dominio":2,"tema":"Responsabilidade: Fargate","frente":"O que muda no modelo de responsabilidade ao usar Fargate em vez de ECS sobre EC2?","verso":"A AWS assume o gerenciamento e o patching das instâncias subjacentes. Continuam com você: a IMAGEM do contêiner (e as vulnerabilidades dentro dela), a aplicação, os dados e as permissões."},{"id":"C117","dominio":3,"tema":"Modelos de implantação","frente":"Nuvem pública × híbrida × on-premises","verso":"Pública = tudo na nuvem. Híbrida = parte on-premises integrada à nuvem (VPN/Direct Connect). On-premises/privada = tudo no datacenter próprio. Multi-cloud = vários provedores públicos."},{"id":"C118","dominio":1,"tema":"Design for failure","frente":"O que significa 'design for failure' e 'loose coupling'?","verso":"Design for failure: assuma que tudo falha e projete para continuar operando (multi-AZ, recuperação automática). Loose coupling: componentes desacoplados (ex.: por fila SQS) para que a falha de um não derrube os outros."},{"id":"C119","dominio":2,"tema":"S3 exposto","frente":"Um bucket S3 vazou dados por política mal configurada. De quem é a culpa?","verso":"Do cliente. Mesmo em serviço totalmente gerenciado, a CONFIGURAÇÃO de acesso aos dados (bucket policies, ACLs, Block Public Access) é responsabilidade dele."},{"id":"C120","dominio":4,"tema":"Serviços gratuitos","frente":"Quais recursos da AWS não têm custo próprio?","verso":"IAM, VPC (a rede em si), security groups e NACLs, Auto Scaling (paga-se pelos recursos criados), CloudFormation (paga-se pelos recursos), consolidated billing, Well-Architected Tool e o console."}];
+
+const DOM = {
+ 1:{nome:"Cloud Concepts", peso:24},
+ 2:{nome:"Security and Compliance", peso:30},
+ 3:{nome:"Cloud Technology and Services", peso:34},
+ 4:{nome:"Billing, Pricing and Support", peso:12}
+};
+const INTERVALO = {1:0, 2:2, 3:5, 4:10};   // dias até a próxima revisão
+const $ = s => document.querySelector(s);
+const esc = t => String(t).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const shuffle = a => { a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+
+/* ---------- persistência tolerante a storage bloqueado ---------- */
+const MEM = {};
+function ler(k, padrao){
+  try{ const v=localStorage.getItem(k); return v===null ? (k in MEM?MEM[k]:padrao) : JSON.parse(v); }
+  catch(e){ return k in MEM ? MEM[k] : padrao; }
+}
+function salvar(k, v){ MEM[k]=v; try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+
+const hojeStr = () => new Date().toISOString().slice(0,10);
+const emDias = n => { const d=new Date(); d.setDate(d.getDate()+n); return d.toISOString().slice(0,10); };
+
+/* estado: {cardId: {box:1..4, due:"YYYY-MM-DD"}} — card sem estado nasce na caixa 1 */
+const getEstado = () => ler("clf.cards", {});
+const estadoDe = (id, st) => st[id] || {box:1, due:hojeStr()};
+
+let filtroDom = 0;     // 0 = todos
+let sessao = null;
+
+const doBaralho = () => filtroDom ? CARDS.filter(c=>c.dominio===filtroDom) : CARDS;
+const vencidos = () => { const st=getEstado(), h=hojeStr(); return doBaralho().filter(c=>estadoDe(c.id,st).due <= h); };
+
+/* ---------- home ---------- */
+function montaHome(){
+  const st = getEstado();
+  const baralho = doBaralho();
+  $("#fTotal").textContent = baralho.length;
+  $("#fHoje").textContent  = vencidos().length;
+  $("#fDominados").textContent = baralho.filter(c=>estadoDe(c.id,st).box===4).length;
+
+  $("#filtros").innerHTML = [{d:0,n:"Todos os domínios"}].concat([1,2,3,4].map(d=>({d,n:"D"+d+" · "+DOM[d].nome})))
+    .map(o=>`<button class="fbtn ${filtroDom===o.d?'on':''}" data-d="${o.d}">${esc(o.n)}</button>`).join("");
+  $("#filtros").querySelectorAll(".fbtn").forEach(b=>b.onclick=()=>{ filtroDom=+b.dataset.d; montaHome(); });
+
+  $("#boxes").innerHTML = [1,2,3,4].map(b=>{
+    const n = baralho.filter(c=>estadoDe(c.id,st).box===b).length;
+    const rot = {1:"volta hoje",2:"volta em 2 dias",3:"volta em 5 dias",4:"volta em 10 dias"}[b];
+    return `<div class="box"><b>${n}</b><span>caixa ${b}</span><small>${rot}</small></div>`;
+  }).join("");
+
+  const nHoje = vencidos().length;
+  $("#btnEstudar").disabled = nHoje===0;
+  $("#btnEstudar").textContent = nHoje ? `Estudar os ${nHoje} de hoje` : "Nada vencido por hoje";
+}
+
+$("#btnEstudar").onclick = ()=>iniciar(vencidos());
+$("#btnTudo").onclick    = ()=>iniciar(doBaralho());
+$("#btnReset").onclick   = ()=>{
+  if(!confirm("Zerar o progresso dos flashcards neste navegador?")) return;
+  salvar("clf.cards", {}); try{ localStorage.removeItem("clf.cards"); }catch(e){}
+  delete MEM["clf.cards"]; montaHome();
+};
+
+/* ---------- sessão de estudo ---------- */
+function iniciar(lista){
+  if(!lista.length) return;
+  sessao = { fila: shuffle(lista), i:0, revelado:false, acertos:0, erros:0,
+             total: lista.length, errados:[] };
+  $("#viewHome").classList.add("hidden");
+  $("#viewFim").classList.add("hidden");
+  $("#viewEstudo").classList.remove("hidden");
+  window.scrollTo(0,0);
+  render();
+}
+
+function render(){
+  const c = sessao.fila[sessao.i];
+  $("#eCount").textContent = (sessao.i+1)+" / "+sessao.fila.length;
+  $("#eDom").textContent = "D"+c.dominio;
+  $("#eTema").textContent = c.tema;
+  $("#eProg").style.width = (sessao.i/sessao.fila.length*100)+"%";
+  $("#eFrente").textContent = c.frente;
+  $("#eVerso").textContent = c.verso;
+  $("#eVerso").classList.toggle("hidden", !sessao.revelado);
+  $("#eDica").textContent = sessao.revelado
+    ? "Você lembrava disso? Responda com sinceridade."
+    : "Clique no card ou aperte espaço para ver a resposta";
+  $("#eAcoes").style.visibility = sessao.revelado ? "visible" : "hidden";
+}
+
+function revelar(){ if(!sessao.revelado){ sessao.revelado=true; render(); } }
+$("#fcard").onclick = revelar;
+
+function responder(acertou){
+  if(!sessao.revelado) return;
+  const c = sessao.fila[sessao.i];
+  const st = getEstado();
+  const at = estadoDe(c.id, st);
+  if(acertou){
+    const box = Math.min(4, at.box+1);
+    st[c.id] = {box, due: emDias(INTERVALO[box])};
+    sessao.acertos++;
+  }else{
+    st[c.id] = {box:1, due: hojeStr()};
+    sessao.erros++;
+    sessao.errados.push(c);
+  }
+  salvar("clf.cards", st);
+  sessao.i++;
+  sessao.revelado = false;
+  if(sessao.i >= sessao.fila.length) fim();
+  else render();
+}
+$("#btnAcertei").onclick = ()=>responder(true);
+$("#btnErrei").onclick   = ()=>responder(false);
+$("#btnSair").onclick    = voltarHome;
+
+document.addEventListener("keydown", e=>{
+  if($("#viewEstudo").classList.contains("hidden")) return;
+  if(e.ctrlKey||e.altKey||e.metaKey) return;
+  if(e.key===" "||e.key==="Enter"){ e.preventDefault(); revelar(); return; }
+  if(!sessao.revelado) return;
+  if(e.key==="1"){ e.preventDefault(); responder(false); }
+  if(e.key==="2"){ e.preventDefault(); responder(true); }
+});
+
+function fim(){
+  const pct = sessao.total ? Math.round(sessao.acertos/sessao.total*100) : 0;
+  const st = getEstado();
+  $("#fimWrap").innerHTML = `
+    <div class="hero">
+      <h1>Sessão concluída</h1>
+      <p>${sessao.acertos} de ${sessao.total} cards você lembrava. Os ${sessao.erros} que escaparam voltaram para a caixa 1 e reaparecem na próxima sessão.</p>
+      <div class="facts">
+        <div class="fact"><b>${pct}%</b><span>de retenção nesta sessão</span></div>
+        <div class="fact"><b>${doBaralho().filter(c=>estadoDe(c.id,st).box===4).length}</b><span>cards dominados</span></div>
+        <div class="fact"><b>${vencidos().length}</b><span>ainda vencidos hoje</span></div>
+      </div>
+    </div>
+    ${sessao.errados.length?`<div class="secttl">O que escapou desta vez</div>
+    <div class="card"><div style="display:flex;flex-wrap:wrap;gap:8px">
+      ${[...new Set(sessao.errados.map(c=>c.tema))].map(t=>`<span class="chip on">${esc(t)}</span>`).join("")}
+    </div></div>`:""}
+    <div class="acoes" style="margin-top:22px">
+      ${sessao.errados.length?`<button class="btn amber" id="btnRefazer">Repetir só os ${sessao.errados.length} que errei</button>`:""}
+      <button class="btn ghost" id="btnVoltar">Voltar ao início</button>
+      <a class="btn ghost" href="index.html" style="text-decoration:none;display:inline-block">Ir para o simulado</a>
+    </div>`;
+  $("#viewEstudo").classList.add("hidden");
+  $("#viewFim").classList.remove("hidden");
+  const br = $("#btnRefazer");
+  if(br) br.onclick = ()=>iniciar(sessao.errados);
+  $("#btnVoltar").onclick = voltarHome;
+  window.scrollTo(0,0);
+}
+
+function voltarHome(){
+  $("#viewEstudo").classList.add("hidden");
+  $("#viewFim").classList.add("hidden");
+  $("#viewHome").classList.remove("hidden");
+  montaHome();
+  window.scrollTo(0,0);
+}
+
+montaHome();
+</script>
+</body>
+</html>
