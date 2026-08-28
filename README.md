@@ -2,7 +2,7 @@
 
 Este repositório segue o mesmo formato do meu preparo para a [AWS Certified AI Practitioner](https://github.com/DioAugust/aws-ai-practitioner-aif-c01), agora com mais ferramentas: simulado, flashcards com repetição espaçada, revisão de véspera, glossário pesquisável, labs práticos e um plano de 3 semanas. **Tudo gratuito, tudo em português, nada para instalar.**
 
-### 👉 [Abrir o simulado agora](https://dioaugust.github.io/aws-cloud-foundations/)
+### 👉 [Abrir o simulado agora](https://dioaugust.github.io/aws-cloud-practitioner/)
 
 > **Passou no AIF-C01 pela promoção `AIF2CLOUD`?** Você tem um **voucher grátis** para esta prova — use até **30/11/2026**. [Detalhes ↓](#promo)
 
@@ -12,10 +12,10 @@ Este repositório segue o mesmo formato do meu preparo para a [AWS Certified AI 
 
 | Ferramenta | O que faz | Quando usar |
 |---|---|---|
-| [**Simulado**](https://dioaugust.github.io/aws-cloud-foundations/) | **150 questões inéditas** na proporção oficial dos domínios, com prova completa cronometrada, treino por domínio e **caderno de erros que persiste entre sessões** | O tempo todo — é o que mais rende nota |
-| [**Flashcards**](https://dioaugust.github.io/aws-cloud-foundations/flashcards.html) | **120 cards** com repetição espaçada (método de Leitner): o que você erra volta hoje, o que acerta volta cada vez mais tarde | 5–10 min por dia, todos os dias |
-| [**Véspera**](https://dioaugust.github.io/aws-cloud-foundations/vespera.html) | 15 tabelas de decisão dos serviços que a prova confunde, checklist auto-avaliável e os 20 fatos que caem quase sempre | Na semana final e no dia anterior |
-| [**Glossário**](https://dioaugust.github.io/aws-cloud-foundations/glossario.html) | **100 serviços** com busca instantânea: o que é, quando é a resposta e com o que a prova o confunde | Sempre que travar num serviço |
+| [**Simulado**](https://dioaugust.github.io/aws-cloud-practitioner/) | **150 questões inéditas** na proporção oficial dos domínios, com prova completa cronometrada, treino por domínio e **caderno de erros que persiste entre sessões** | O tempo todo — é o que mais rende nota |
+| [**Flashcards**](https://dioaugust.github.io/aws-cloud-practitioner/flashcards.html) | **120 cards** com repetição espaçada (método de Leitner): o que você erra volta hoje, o que acerta volta cada vez mais tarde | 5–10 min por dia, todos os dias |
+| [**Véspera**](https://dioaugust.github.io/aws-cloud-practitioner/vespera.html) | 15 tabelas de decisão dos serviços que a prova confunde, checklist auto-avaliável e os 20 fatos que caem quase sempre | Na semana final e no dia anterior |
+| [**Glossário**](https://dioaugust.github.io/aws-cloud-practitioner/glossario.html) | **100 serviços** com busca instantânea: o que é, quando é a resposta e com o que a prova o confunde | Sempre que travar num serviço |
 | [**Labs**](labs/) | 4 roteiros práticos no Free Tier (conta segura, S3, EC2 com IAM role, custos) | Uma vez cada, para fixar conceito |
 | [**Plano de estudo**](plano-de-estudo.md) | Cronograma dia a dia de 3 semanas, com versões para 10 dias, 1 semana e 1 dia | No começo, para se organizar |
 | [**Edital**](edital.md) | O exam guide oficial destrinchado: pesos, task statements e lista de serviços | Antes de estudar e na véspera |
@@ -81,11 +81,11 @@ O plano oficial de preparação em 4 passos inclui o curso **AWS Cloud Practitio
 O [`edital.md`](edital.md) deste repositório é o exam guide oficial mastigado. Leia antes de estudar e releia na véspera:
 
 - **Peso importa.** D3 (34%) e D2 (30%) juntos são quase dois terços da prova. Uma hora estudando D3 rende quase o triplo de uma hora estudando D4.
-- **A prova vive de pares confundíveis.** CloudTrail × Config × CloudWatch, Inspector × Macie × GuardDuty, Multi-AZ × read replica, security group × NACL, SQS × SNS, Cost Explorer × Budgets × Pricing Calculator, CloudFront × Global Accelerator. Todos estão nas tabelas de decisão da [página de véspera](https://dioaugust.github.io/aws-cloud-foundations/vespera.html).
+- **A prova vive de pares confundíveis.** CloudTrail × Config × CloudWatch, Inspector × Macie × GuardDuty, Multi-AZ × read replica, security group × NACL, SQS × SNS, Cost Explorer × Budgets × Pricing Calculator, CloudFront × Global Accelerator. Todos estão nas tabelas de decisão da [página de véspera](https://dioaugust.github.io/aws-cloud-practitioner/vespera.html).
 
 ### 3. Prática diária: flashcards + questões
 
-Flashcards de manhã (5–10 min, só o que está vencido) e questões à noite. O [caderno de erros](https://dioaugust.github.io/aws-cloud-foundations/) do simulado acumula tudo que você errou entre sessões e só solta a questão quando você acerta de novo.
+Flashcards de manhã (5–10 min, só o que está vencido) e questões à noite. O [caderno de erros](https://dioaugust.github.io/aws-cloud-practitioner/) do simulado acumula tudo que você errou entre sessões e só solta a questão quando você acerta de novo.
 
 > **Sobre o idioma:** a prova pode ser feita em português, mas os **nomes dos serviços e a documentação vivem em inglês**. Vale se acostumar com os termos originais (`shared responsibility model`, `least privilege`, `read replica`, `lifecycle policy`) mesmo estudando em PT-BR — é assim que a prova traduzida se comporta, e é assim que o material deste repo foi escrito.
 
@@ -119,7 +119,7 @@ A home guarda o histórico das suas tentativas com um gráfico de evolução da 
 ## Recomendações (vindas de quem fez o AIF-C01 antes)
 
 - **Comece pelo D2.** Se você fez o AIF, responsabilidade compartilhada, IAM, KMS, CloudTrail e Artifact já são conhecidos — o D2 (30%) é em boa parte revisão. É a nota mais barata de consolidar primeiro.
-- **Decore os pares confundíveis.** A prova inteira é "qual serviço faz X". As tabelas da [véspera](https://dioaugust.github.io/aws-cloud-foundations/vespera.html) existem só para isso.
+- **Decore os pares confundíveis.** A prova inteira é "qual serviço faz X". As tabelas da [véspera](https://dioaugust.github.io/aws-cloud-practitioner/vespera.html) existem só para isso.
 - **Não subestime o D4.** São só 12%, mas é o domínio mais previsível da prova: planos de suporte, modelos de compra do EC2 e as três ferramentas de custo. Meia tarde compra esses pontos inteiros — o [Lab 04](labs/lab-04-cloudwatch-custos.md) faz esse passeio.
 - **Faça o [Lab 03](labs/lab-03-ec2-role-s3.md).** É o que mais fixa conceito: você vê com os próprios olhos por que IAM role é melhor que access key (a palavra-chave é `Expiration`).
 - **Faça o Official Practice Question Set.** É grátis no Skill Builder e calibra o estilo oficial de enunciado.

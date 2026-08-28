@@ -8,10 +8,10 @@ Um cronograma dia a dia, montado na ordem do **peso dos domínios**, não na ord
 |---|---|---|
 | **SB** | Curso oficial *AWS Cloud Practitioner Essentials* (tem PT-BR) | [Skill Builder](https://skillbuilder.aws/category/exam-prep/cloud-practitioner-foundational-CLF-C02) |
 | **ED** | Edital destrinchado deste repo | [`edital.md`](edital.md) |
-| **SIM** | Simulado, 150 questões | [index.html](https://dioaugust.github.io/aws-cloud-foundations/) |
-| **FC** | Flashcards com repetição espaçada | [flashcards.html](https://dioaugust.github.io/aws-cloud-foundations/flashcards.html) |
-| **GL** | Glossário pesquisável de serviços | [glossario.html](https://dioaugust.github.io/aws-cloud-foundations/glossario.html) |
-| **VE** | Revisão de véspera | [vespera.html](https://dioaugust.github.io/aws-cloud-foundations/vespera.html) |
+| **SIM** | Simulado, 150 questões | [index.html](https://dioaugust.github.io/aws-cloud-practitioner/) |
+| **FC** | Flashcards com repetição espaçada | [flashcards.html](https://dioaugust.github.io/aws-cloud-practitioner/flashcards.html) |
+| **GL** | Glossário pesquisável de serviços | [glossario.html](https://dioaugust.github.io/aws-cloud-practitioner/glossario.html) |
+| **VE** | Revisão de véspera | [vespera.html](https://dioaugust.github.io/aws-cloud-practitioner/vespera.html) |
 | **LAB** | Labs práticos no Free Tier | [`labs/`](labs/) |
 
 > **Regra de ouro dos flashcards:** faça a sessão "de hoje" **todos os dias**, inclusive nos dias de descanso. São 5–10 minutos e é o que segura o conteúdo das semanas anteriores.
@@ -28,7 +28,7 @@ Um cronograma dia a dia, montado na ordem do **peso dos domínios**, não na ord
 | **4** | ED: 7 Rs da migração + TCO e rightsizing (tasks 1.3 e 1.4). GL: leia as entradas de migração (DMS, Snow Family, Migration Hub). | FC: sessão de hoje. SIM: treino do **D1** completo, agora **sem** modo estudo. |
 | **5** | SB: módulo de segurança. ED: D2, tasks 2.1 e 2.2 (responsabilidade compartilhada, Artifact, CloudTrail × Config × CloudWatch). | FC: sessão de hoje. SIM: treino do **D2**, 15 questões em modo estudo. |
 | **6** | ED: D2, tasks 2.3 e 2.4 (IAM, root, MFA, SCPs, WAF/Shield, GuardDuty/Inspector/Macie). GL: leia todas as entradas da categoria **Segurança**. | [LAB 04](labs/lab-04-cloudwatch-custos.md) — passeio pelas telas de custo e suporte. |
-| **7** | **Descanso ativo.** Só releia os 20 fatos da [VE](https://dioaugust.github.io/aws-cloud-foundations/vespera.html). | FC: sessão de hoje. SIM: **prova rápida (30q)** — seu primeiro diagnóstico. |
+| **7** | **Descanso ativo.** Só releia os 20 fatos da [VE](https://dioaugust.github.io/aws-cloud-practitioner/vespera.html). | FC: sessão de hoje. SIM: **prova rápida (30q)** — seu primeiro diagnóstico. |
 
 **Meta da semana 1:** acertar ≥ 60% na prova rápida do dia 7. Se ficou abaixo, repita o treino dos domínios fracos antes de seguir.
 
@@ -44,7 +44,7 @@ Um cronograma dia a dia, montado na ordem do **peso dos domínios**, não na ord
 | **11** | ED: D3, task 3.6 (VPC, subnets, NAT, endpoints, VPN × Direct Connect, CloudFront × Global Accelerator). GL: categoria **Rede**. | FC: sessão de hoje. SIM: treino do **D3**, mais 15 questões. |
 | **12** | ED: D3, tasks 3.7 e 3.8 (IA/ML, analytics, SQS/SNS/EventBridge/Step Functions). GL: categorias **IA e ML**, **Analytics** e **Integração**. | FC: sessão de hoje. SIM: treino do **D3** completo, sem modo estudo. |
 | **13** | ED: D4 inteiro (modelos de compra, ferramentas de custo, planos de suporte). É curto e decoreba — leia duas vezes. | FC: sessão de hoje. SIM: treino do **D4** completo. |
-| **14** | **Descanso ativo.** Releia as tabelas de decisão da [VE](https://dioaugust.github.io/aws-cloud-foundations/vespera.html), parte 1. | SIM: **simulado completo (65q, 90 min)**, cronometrado, sem modo estudo. |
+| **14** | **Descanso ativo.** Releia as tabelas de decisão da [VE](https://dioaugust.github.io/aws-cloud-practitioner/vespera.html), parte 1. | SIM: **simulado completo (65q, 90 min)**, cronometrado, sem modo estudo. |
 
 **Meta da semana 2:** ≥ 70% no simulado completo do dia 14. O painel de perda ponderada dá a fila de prioridade da semana 3.
 
@@ -60,7 +60,7 @@ Um cronograma dia a dia, montado na ordem do **peso dos domínios**, não na ord
 | **18** | VE: checklist da parte 2 — marque só o que você explicaria em voz alta. Estude o que sobrou desmarcado. | SIM: caderno de erros de novo. |
 | **19** | Revisão dos pares confundíveis (VE parte 1), em voz alta, sem olhar. | SIM: **simulado completo (65q)** cronometrado. |
 | **20** | Leve: releia os 20 fatos e o checklist. Nada novo a partir daqui. | FC: sessão de hoje + **banco inteiro** no SIM se ainda tiver energia. |
-| **21** | **Véspera.** Leia a [VE](https://dioaugust.github.io/aws-cloud-foundations/vespera.html) inteira, do início ao fim, uma única vez. Durma cedo. | Nada. Sério. |
+| **21** | **Véspera.** Leia a [VE](https://dioaugust.github.io/aws-cloud-practitioner/vespera.html) inteira, do início ao fim, uma única vez. Durma cedo. | Nada. Sério. |
 
 **Meta da semana 3:** ≥ 80% em dois simulados completos seguidos.
 
@@ -78,7 +78,7 @@ Agendamento: **https://aws.amazon.com/pt/certification/**
 
 - **10 dias:** faça a semana 1 em 4 dias (só D1 e D2), a semana 2 em 4 dias (D3 e D4) e reserve 2 dias para simulado + caderno de erros. Corte os labs 02 e 04.
 - **1 semana:** leia o `edital.md` inteiro no dia 1, faça o baralho completo de flashcards nos dias 2 e 3, e do dia 4 em diante só simulado + caderno de erros. Leia a véspera no último dia.
-- **1 dia (não recomendado):** [VE](https://dioaugust.github.io/aws-cloud-foundations/vespera.html) inteira + uma prova rápida de 30 questões + o caderno de erros. É o máximo que dá para fazer sem se enganar.
+- **1 dia (não recomendado):** [VE](https://dioaugust.github.io/aws-cloud-practitioner/vespera.html) inteira + uma prova rápida de 30 questões + o caderno de erros. É o máximo que dá para fazer sem se enganar.
 
 ## No dia da prova
 
