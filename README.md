@@ -93,6 +93,17 @@ Flashcards de manhã (5–10 min, só o que está vencido) e questões à noite.
 
 ## O simulado em detalhe
 
+### Calibrado para não entregar a resposta
+
+As questões seguem o estilo da prova real: cenário curto, requisito com qualificador (**MAIS** econômica, **MENOR** esforço operacional) e alternativas que são serviços ou conceitos que de fato se confundem. O banco é verificado contra os vícios que inflam nota de simulado:
+
+- a alternativa correta **não** é a mais longa (acontece em só 18% das questões, contra ~25% no acaso);
+- nenhum distrator absurdo, nenhuma palavra absoluta ou rótulo entre parênteses só de um lado;
+- ~47% das questões são difíceis e 23 são de múltipla resposta;
+- a posição da correta é equilibrada entre as alternativas.
+
+Se a sua nota aqui for menor do que em outros simulados gratuitos, é esperado — é a nota que mais se parece com a da prova.
+
 ### Modos
 
 | Modo | Para quê |
@@ -121,6 +132,7 @@ A home guarda o histórico das suas tentativas com um gráfico de evolução da 
 - **Comece pelo D2.** Se você fez o AIF, responsabilidade compartilhada, IAM, KMS, CloudTrail e Artifact já são conhecidos — o D2 (30%) é em boa parte revisão. É a nota mais barata de consolidar primeiro.
 - **Decore os pares confundíveis.** A prova inteira é "qual serviço faz X". As tabelas da [véspera](https://dioaugust.github.io/aws-cloud-practitioner/vespera.html) existem só para isso.
 - **Não subestime o D4.** São só 12%, mas é o domínio mais previsível da prova: planos de suporte, modelos de compra do EC2 e as três ferramentas de custo. Meia tarde compra esses pontos inteiros — o [Lab 04](labs/lab-04-cloudwatch-custos.md) faz esse passeio.
+- **Cuidado com material antigo sobre suporte.** Os planos agora são **Basic → Business Support+ → Enterprise Support → Unified Operations**, e o exam guide já cobra essa estrutura. Developer, Business e Enterprise On-Ramp, que ainda aparecem em muito curso e simulado, são descontinuados em 1/1/2027.
 - **Faça o [Lab 03](labs/lab-03-ec2-role-s3.md).** É o que mais fixa conceito: você vê com os próprios olhos por que IAM role é melhor que access key (a palavra-chave é `Expiration`).
 - **Faça o Official Practice Question Set.** É grátis no Skill Builder e calibra o estilo oficial de enunciado.
 - **Saia do modo estudo cedo.** Ele vicia: você acerta lendo o gabarito, não raciocinando. Na última semana, só simulado cronometrado.
