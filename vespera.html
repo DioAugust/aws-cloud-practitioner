@@ -290,14 +290,14 @@ footer .repo svg{width:15px;height:15px;fill:currentColor;flex:0 0 auto}
 
   <div class="card">
     <h3>Planos de suporte</h3>
+    <p style="font-size:13px;color:var(--aco);margin:0 0 10px">Estrutura atual do exam guide. Developer, Business e Enterprise On-Ramp são descontinuados em 1/1/2027.</p>
     <div class="tw"><table>
       <thead><tr><th>Plano</th><th>Canal e resposta</th><th>Marca registrada</th></tr></thead>
       <tbody>
-        <tr><td><b>Basic</b></td><td>Sem suporte técnico</td><td>Grátis; só conta, billing e checks básicos do Trusted Advisor</td></tr>
-        <tr><td><b>Developer</b></td><td>E-mail, horário comercial</td><td>Ambientes de teste e desenvolvimento</td></tr>
-        <tr><td><b>Business</b></td><td><mark>24/7 telefone e chat</mark>; produção com problema em 1 h</td><td>Primeiro plano com Trusted Advisor completo e API de suporte</td></tr>
-        <tr><td><b>Enterprise On-Ramp</b></td><td>Crítico indisponível em <mark>30 min</mark></td><td>Pool de TAMs</td></tr>
-        <tr><td><b>Enterprise</b></td><td>Crítico indisponível em <mark>15 min</mark></td><td><mark>TAM dedicado</mark> e revisões proativas</td></tr>
+        <tr><td><b>Basic</b></td><td>Sem suporte técnico</td><td>Grátis; conta, billing, service quotas e checks básicos do Trusted Advisor</td></tr>
+        <tr><td><b>Business Support+</b></td><td><mark>24/7 telefone, web e chat</mark>; crítico em <mark>&lt; 30 min</mark></td><td>Primeiro plano pago: assistência com IA, Trusted Advisor completo e Support API</td></tr>
+        <tr><td><b>Enterprise Support</b></td><td>Crítico em até <mark>15 min</mark></td><td><mark>TAM designado</mark>, Security Incident Response e revisões estratégicas</td></tr>
+        <tr><td><b>Unified Operations</b></td><td>Crítico em <mark>&lt; 5 min</mark></td><td>TAM + Domain Specialist Engineers designados, runbooks e revisões de workloads críticas</td></tr>
       </tbody></table></div>
   </div>
 
@@ -342,8 +342,8 @@ footer .repo svg{width:15px;height:15px;fill:currentColor;flex:0 0 auto}
     <li><b>Instance store é efêmero</b>: desligou a instância, os dados foram embora.</li>
     <li><b>Glacier Deep Archive</b> é o menor custo de armazenamento, com recuperação em horas.</li>
     <li><b>Spot</b> pode ser interrompida a qualquer momento — nunca é a resposta para produção crítica.</li>
-    <li><b>Business Support</b> é o primeiro plano com 24/7 por telefone e Trusted Advisor completo; <b>TAM dedicado</b> só no Enterprise.</li>
-    <li><b>Artifact</b> entrega os relatórios de compliance <b>da AWS</b>; <b>Audit Manager</b> coleta evidências <b>do seu</b> ambiente.</li>
+    <li><b>Business Support+</b> é o primeiro plano pago: 24/7 por telefone e Trusted Advisor completo. <b>TAM designado</b> só a partir do <b>Enterprise Support</b>.</li>
+    <li><b>Artifact</b> entrega os relatórios de compliance <b>da AWS</b>; <b>Audit Manager</b> coleta evidências <b>do seu</b> ambiente (em modo de manutenção desde 30/4/2026; para novos clientes a AWS indica <b>Config conformance packs</b>).</li>
     <li>São gratuitos por si só: <b>IAM, VPC, security groups, NACLs, Auto Scaling, CloudFormation e o console</b> — você paga pelos recursos que eles criam ou protegem.</li>
   </ol></div>
 
@@ -403,8 +403,8 @@ const BLOCOS = [
    "Explicar as três dimensões de preço e a regra de entrada grátis / saída paga.",
    "Diferenciar Pricing Calculator, Cost Explorer, Budgets e Cost and Usage Report.",
    "Explicar cost allocation tags e os benefícios do faturamento consolidado.",
-   "Listar os planos de suporte em ordem e dizer o que é exclusivo do Enterprise.",
-   "Dizer o que o Trusted Advisor verifica e o que são Marketplace e re:Post."
+   "Listar os planos de suporte atuais em ordem (Basic, Business Support+, Enterprise, Unified Operations) e dizer o que o Enterprise acrescenta.",
+   "Dizer o que o Trusted Advisor verifica, o que são Health Dashboard, Marketplace, re:Post e para que serve o AWS Trust and Safety."
  ]}
 ];
 

@@ -62,7 +62,7 @@ Três das perguntas mais previsíveis da prova saem daqui: *o que fazer com o us
 1. Em **Billing and Cost Management** → **Free tier**.
 2. Veja a tabela de uso atual contra os limites do nível gratuito.
 
-**Observe:** as três categorias de oferta (12 meses, sempre gratuito e trials) aparecem misturadas aqui, com o percentual já consumido de cada uma.
+**Observe:** contas criadas desde julho/2025 veem aqui o saldo de créditos e o prazo do plano gratuito (até 6 meses), além das ofertas always free com o percentual já consumido. Contas mais antigas ainda mostram o modelo anterior (12 meses, always free e trials).
 
 ## O que você deve conseguir explicar depois deste lab
 

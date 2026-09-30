@@ -113,4 +113,4 @@ sudo dnf check-update | head -20
 4. **IAM → Roles** → exclua `ec2-le-s3` se não for usar mais.
 5. Confira o **Billing Dashboard** no dia seguinte.
 
-> A instância é gratuita dentro das 750 h/mês do Free Tier no primeiro ano, mas o **IP público e o volume EBS** podem gerar centavos se ficarem esquecidos. Termine a instância.
+> A instância cabe no Free Tier (créditos nas contas novas, 750 h/mês nas contas do modelo antigo), mas o **IP público e o volume EBS** podem gerar centavos se ficarem esquecidos. Termine a instância.

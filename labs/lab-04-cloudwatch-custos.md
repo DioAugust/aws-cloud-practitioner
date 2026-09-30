@@ -49,10 +49,10 @@ O D4 vale só 12% da prova, mas é o domínio mais previsível: quase todas as q
 ### 4. Passe pelo Trusted Advisor
 
 1. Console → **Trusted Advisor**.
-2. Leia as cinco categorias: **Cost optimization, Security, Fault tolerance, Performance, Service limits**.
+2. Leia as seis categorias: **Cost optimization, Security, Fault tolerance, Performance, Service limits, Operational excellence**.
 3. Veja os checks disponíveis na sua conta e os que aparecem bloqueados.
 
-**Observe:** com o plano **Basic** só há um subconjunto de checks (principalmente de segurança e limites). O conjunto completo exige **Business** ou superior — resposta direta de prova. Repare também se ele acusa "MFA on Root Account" como resolvido: se você fez o Lab 01, deve estar verde.
+**Observe:** com o plano **Basic** só há um subconjunto de checks (todos os de limites e alguns de segurança e tolerância a falhas). O conjunto completo exige **Business Support+** ou superior — resposta direta de prova. Repare também se ele acusa "MFA on Root Account" como resolvido: se você fez o Lab 01, deve estar verde.
 
 ### 5. Veja os planos de suporte e o Health Dashboard
 
@@ -60,7 +60,7 @@ O D4 vale só 12% da prova, mas é o domínio mais previsível: quase todas as q
 2. Compare as colunas: canais de atendimento, tempos de resposta, TAM, acesso ao Trusted Advisor completo.
 3. Depois abra o **AWS Health Dashboard** (menu do sino/Health): veja a aba de status geral dos serviços e a de eventos da **sua conta**.
 
-**Observe:** a tabela de comparação de planos é literalmente o conteúdo da task 4.3. Fixe: **Business = primeiro com 24/7 por telefone**; **Enterprise = TAM dedicado e 15 minutos para caso crítico**.
+**Observe:** a tabela de comparação de planos é literalmente o conteúdo da task 4.3. Fixe: **Business Support+ = primeiro com 24/7 por telefone e Trusted Advisor completo**; **Enterprise Support = TAM designado e 15 minutos para caso crítico**. Se a sua tela ainda mostrar Developer, Business ou Enterprise On-Ramp, são os planos antigos, descontinuados em 1/1/2027.
 
 ### 6. Crie um dashboard no CloudWatch (opcional)
 
@@ -73,8 +73,8 @@ O D4 vale só 12% da prova, mas é o domínio mais previsível: quase todas as q
 
 - Quando usar Pricing Calculator, Cost Explorer e Budgets (antes, depois, durante).
 - Que a métrica de billing vive em us-east-1.
-- As cinco categorias do Trusted Advisor e o que o plano Basic limita.
-- A diferença entre Business e Enterprise Support.
+- As seis categorias do Trusted Advisor e o que o plano Basic limita.
+- A diferença entre Business Support+ e Enterprise Support.
 - CloudWatch (infraestrutura) × QuickSight (negócio).
 
 ## Limpeza
